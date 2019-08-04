@@ -1,6 +1,8 @@
 package com.ale.rest.service;
 
 import com.ale.domain.Person;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -14,6 +16,7 @@ import javax.ws.rs.core.MediaType;
   * @date 2019-08-02
   */
 @Path("/sayHello")
+@Api(value = "/sayHello")
 public interface HelloService {
     /**
      * 测试方法，返回媒体类型 TEXT_PLAIN
@@ -23,6 +26,10 @@ public interface HelloService {
     @GET
     @Path("/{a}")
     @Produces(MediaType.TEXT_PLAIN)
+    @ApiOperation(
+            value = "/getPerson",
+            notes = "获取当前用户"
+    )
     String sayHello(@PathParam("a") String a);
 
     /**
