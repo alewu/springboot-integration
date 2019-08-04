@@ -10,6 +10,7 @@
 
     <modules>
         <module>cxf</module>
+        <module>log</module>
     </modules>
     <packaging>pom</packaging>
 

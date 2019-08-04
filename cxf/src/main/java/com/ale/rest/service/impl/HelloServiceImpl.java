@@ -2,6 +2,8 @@ package com.ale.rest.service.impl;
 
 import com.ale.domain.Person;
 import com.ale.rest.service.HelloService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
