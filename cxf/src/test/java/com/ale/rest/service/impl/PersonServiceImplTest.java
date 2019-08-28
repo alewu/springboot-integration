@@ -8,18 +8,18 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 
 @SpringBootTest(classes = MySpringBootApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class HelloServiceImplTest {
+class PersonServiceImplTest {
 
     @LocalServerPort
     private int port;
 
     @Test
     void sayHello() {
-        WebClient wc = WebClient.create("http://localhost:" + port + "/services/helloService");
+        WebClient wc = WebClient.create("http://localhost:" + port + "/services/testService");
 
         wc.accept("text/plain");
 
-        // HelloServiceImpl
+        // personServiceImpl
         wc.path("sayHello").path("ApacheCxfUser");
 
         String greeting = wc.get(String.class);

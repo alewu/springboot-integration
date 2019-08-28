@@ -1,9 +1,8 @@
-package com.ale.rest.service.impl;
+package com.ale.rest.service.person;
 
+import com.ale.common.exception.BusinessException;
 import com.ale.domain.Person;
-import com.ale.rest.service.HelloService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -15,11 +14,8 @@ import java.util.Date;
  * @date 2019-08-02
  */
 @Service
-public class HelloServiceImpl implements HelloService {
-    @Override
-    public String sayHello(String a) {
-        return String.format("Hello %s, Welcome to CXF RS Spring Boot World!!!", a);
-    }
+@Slf4j
+public class PersonServiceImpl implements PersonService {
 
     @Override
     public Person getPerson() {
@@ -27,7 +23,13 @@ public class HelloServiceImpl implements HelloService {
         person.setName("jack");
         person.setProfession("java developer");
         person.setBirthday(new Date());
-        System.out.println("ok");
+        log.info("ok");
+        try {
+            int a = 1/0;
+        } catch (Exception e) {
+            throw new BusinessException(2333, "error");
+        }
+
         return person;
     }
 }

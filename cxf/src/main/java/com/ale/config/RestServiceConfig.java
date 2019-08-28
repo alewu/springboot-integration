@@ -1,10 +1,12 @@
 package com.ale.config;
 
-import com.ale.rest.service.HelloService;
+import com.ale.rest.service.person.PersonService;
+import com.ale.rest.service.cache.RedisDemoService;
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import com.google.common.collect.ImmutableList;
 import org.apache.cxf.Bus;
 import org.apache.cxf.endpoint.Server;
+import org.apache.cxf.ext.logging.LoggingFeature;
 import org.apache.cxf.jaxrs.JAXRSServerFactoryBean;
 import org.apache.cxf.jaxrs.swagger.Swagger2Feature;
 import org.apache.cxf.jaxrs.validation.ValidationExceptionMapper;
@@ -16,15 +18,19 @@ import javax.annotation.Resource;
 import java.util.Collections;
 
 /**
-  *  rest service 配置类
-  * @author alewu
-  * @date 2019-08-02
-  */
+ * rest service 配置类
+ *
+ * @author alewu
+ * @date 2019-08-02
+ */
 @Configuration
 public class RestServiceConfig {
 
     @Resource
-    private HelloService helloService;
+    private PersonService personService;
+
+    @Resource
+    private RedisDemoService redisDemoService;
 
     @Resource
     private Bus bus;
@@ -33,7 +39,10 @@ public class RestServiceConfig {
     private JacksonJsonProvider jsonProvider;
 
     @Resource
-    private ValidationExceptionMapper exceptionMapper;
+    private ValidationExceptionMapper validationExceptionMapper;
+
+    @Resource
+    private ServiceExceptionMapper serviceExceptionMapper;
 
     @Resource
     private ApiOriginFilter originFilter;
@@ -45,20 +54,25 @@ public class RestServiceConfig {
     private Swagger2Feature swagger2Feature;
 
     @Resource
+    private LoggingFeature loggingFeature;
+
+    @Resource
+    private ResponseOutInterceptor globalResponseOutInterceptor;
 
 
     @Bean
     public Server server() {
         JAXRSServerFactoryBean jaxrsServerFactoryBean = new JAXRSServerFactoryBean();
-        jaxrsServerFactoryBean.setAddress("/helloService");
-        jaxrsServerFactoryBean.setServiceBeans(Collections.singletonList(helloService));
+        jaxrsServerFactoryBean.setAddress("/testService");
+        jaxrsServerFactoryBean.setServiceBeans(ImmutableList.of(personService, redisDemoService));
         jaxrsServerFactoryBean.setBus(bus);
 
-        jaxrsServerFactoryBean.setFeatures(ImmutableList.of(beanValidationFeature, swagger2Feature));
-        jaxrsServerFactoryBean.setProviders(ImmutableList.of(jsonProvider, exceptionMapper, originFilter));
+        jaxrsServerFactoryBean.setOutInterceptors(Collections.singletonList(globalResponseOutInterceptor));
+        jaxrsServerFactoryBean.setFeatures(ImmutableList.of(beanValidationFeature, swagger2Feature, loggingFeature));
+        jaxrsServerFactoryBean.setProviders(ImmutableList.of(jsonProvider, validationExceptionMapper,
+                                                             serviceExceptionMapper, originFilter));
 
         return jaxrsServerFactoryBean.create();
     }
-
 
 }

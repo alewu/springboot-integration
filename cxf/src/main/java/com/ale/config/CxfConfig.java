@@ -38,9 +38,14 @@ public class CxfConfig {
     }
 
 
-    @Bean("exceptionMapper")
+    @Bean("validationExceptionMapper")
     public ValidationExceptionMapper validationExceptionMapper() {
         return new CustomBeanValidationExceptionMapper();
+    }
+
+    @Bean("serviceExceptionMapper")
+    public ServiceExceptionMapper serviceExceptionMapper() {
+        return new ServiceExceptionMapper();
     }
 
     @Bean("jsonProvider")
@@ -48,6 +53,11 @@ public class CxfConfig {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         return new JacksonJsonProvider(objectMapper);
+    }
+
+    @Bean("responseOutInterceptor")
+    public ResponseOutInterceptor responseOutInterceptor() {
+        return new ResponseOutInterceptor();
     }
 
 }
