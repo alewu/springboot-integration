@@ -1,4 +1,4 @@
-package com.ale.rest.service;
+package com.ale.rest.service.cache;
 
 import com.ale.domain.Person;
 import io.swagger.annotations.Api;
@@ -9,36 +9,25 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-
 /**
-  *  Hello world!
+  *  redis 测试缓存
   * @author alewu
-  * @date 2019-08-02
+  * @date 2019/8/25
   */
-@Path("/sayHello")
-@Api(value = "/sayHello")
-public interface HelloService {
+@Path("/redis")
+@Api(value = "/redis")
+public interface RedisDemoService {
     /**
      * 测试方法，返回媒体类型 TEXT_PLAIN
-     * @param a 参数
+     * @param name 参数
      * @return String
      */
     @GET
-    @Path("/{a}")
+    @Path("/{name}")
     @Produces(MediaType.TEXT_PLAIN)
     @ApiOperation(
             value = "/getPerson",
             notes = "获取当前用户"
     )
-    String sayHello(@PathParam("a") String a);
-
-    /**
-     * 测试方法，返回媒体类型 TEXT_PLAIN
-     * @return String
-     */
-    @GET
-    @Path("/person")
-    @Produces(MediaType.APPLICATION_JSON)
-    Person getPerson();
-
+    Person testCache(@PathParam("name") String name);
 }
