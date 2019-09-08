@@ -11,6 +11,7 @@
     <modules>
         <module>cxf</module>
         <module>log</module>
+        <module>mvc</module>
     </modules>
     <packaging>pom</packaging>
 

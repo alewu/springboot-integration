@@ -23,13 +23,13 @@ public class ResponseOutInterceptor extends AbstractPhaseInterceptor {
 
     @Override
     public void handleMessage(Message message) throws Fault {
-        final List<Object> objs = MessageContentsList.getContentsList(message);
-        if (objs == null || objs.isEmpty()) {
-            return;
-        }
-        Object responseObj = objs.get(0);
-        GlobalResponse<Object> globalResponse = new GlobalResponse<>();
-        globalResponse.setData(responseObj);
-        objs.set(0, globalResponse);
+//        final List<Object> objs = MessageContentsList.getContentsList(message);
+//        if (objs == null || objs.isEmpty()) {
+//            return;
+//        }
+//        Object responseObj = objs.get(0);
+//        GlobalResponse<Object> globalResponse = new GlobalResponse<>();
+//        globalResponse.setData(responseObj);
+//        objs.set(0, globalResponse);
     }
 }

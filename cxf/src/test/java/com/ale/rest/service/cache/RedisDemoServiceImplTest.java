@@ -1,12 +1,10 @@
 package com.ale.rest.service.cache;
 
-import com.ale.domain.Person;
+import com.ale.domain.Student;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import javax.xml.ws.soap.Addressing;
 
 @SpringBootTest
 class RedisDemoServiceImplTest {
@@ -15,8 +13,8 @@ class RedisDemoServiceImplTest {
 
     @Test
     void testTestCache() {
-        Person result = redisDemoService.testCache("name");
-        Assertions.assertEquals(new Person(), result);
+        Student result = redisDemoService.testCache("name");
+        Assertions.assertEquals(new Student(), result);
     }
 }
 
