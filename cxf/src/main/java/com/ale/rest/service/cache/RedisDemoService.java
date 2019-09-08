@@ -1,6 +1,6 @@
 package com.ale.rest.service.cache;
 
-import com.ale.domain.Person;
+import com.ale.domain.Student;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -15,7 +15,7 @@ import javax.ws.rs.core.MediaType;
   * @date 2019/8/25
   */
 @Path("/redis")
-@Api(value = "/redis")
+@Api(value = "缓存测试")
 public interface RedisDemoService {
     /**
      * 测试方法，返回媒体类型 TEXT_PLAIN
@@ -26,8 +26,8 @@ public interface RedisDemoService {
     @Path("/{name}")
     @Produces(MediaType.TEXT_PLAIN)
     @ApiOperation(
-            value = "/getPerson",
-            notes = "获取当前用户"
+            value = "测试缓存",
+            notes = "测试缓存-设置缓存"
     )
-    Person testCache(@PathParam("name") String name);
+    Student testCache(@PathParam("name") String name);
 }

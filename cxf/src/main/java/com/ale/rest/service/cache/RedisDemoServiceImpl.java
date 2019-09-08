@@ -1,6 +1,6 @@
 package com.ale.rest.service.cache;
 
-import com.ale.domain.Person;
+import com.ale.domain.Student;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -17,11 +17,11 @@ public class RedisDemoServiceImpl implements RedisDemoService {
 
     @Override
     @Cacheable(value = "redisCache", key = "#name")
-    public Person testCache(String name) {
-        Person person = new Person();
-        person.setName("jack");
-        person.setProfession("java developer");
-        person.setBirthday(new Date());
-        return person;
+    public Student testCache(String name) {
+        Student student = new Student();
+        student.setName("jack");
+        student.setProfession("java developer");
+        student.setBirthday(new Date());
+        return student;
     }
 }

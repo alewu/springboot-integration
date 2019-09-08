@@ -1,6 +1,6 @@
 package com.ale.config;
 
-import com.ale.rest.service.person.PersonService;
+import com.ale.rest.service.validation.StudentService;
 import com.ale.rest.service.cache.RedisDemoService;
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import com.google.common.collect.ImmutableList;
@@ -27,7 +27,7 @@ import java.util.Collections;
 public class RestServiceConfig {
 
     @Resource
-    private PersonService personService;
+    private StudentService studentService;
 
     @Resource
     private RedisDemoService redisDemoService;
@@ -41,8 +41,8 @@ public class RestServiceConfig {
     @Resource
     private ValidationExceptionMapper validationExceptionMapper;
 
-    @Resource
-    private ServiceExceptionMapper serviceExceptionMapper;
+//    @Resource
+//    private ServiceExceptionMapper serviceExceptionMapper;
 
     @Resource
     private ApiOriginFilter originFilter;
@@ -64,13 +64,12 @@ public class RestServiceConfig {
     public Server server() {
         JAXRSServerFactoryBean jaxrsServerFactoryBean = new JAXRSServerFactoryBean();
         jaxrsServerFactoryBean.setAddress("/testService");
-        jaxrsServerFactoryBean.setServiceBeans(ImmutableList.of(personService, redisDemoService));
+        jaxrsServerFactoryBean.setServiceBeans(ImmutableList.of(studentService, redisDemoService));
         jaxrsServerFactoryBean.setBus(bus);
 
         jaxrsServerFactoryBean.setOutInterceptors(Collections.singletonList(globalResponseOutInterceptor));
         jaxrsServerFactoryBean.setFeatures(ImmutableList.of(beanValidationFeature, swagger2Feature, loggingFeature));
-        jaxrsServerFactoryBean.setProviders(ImmutableList.of(jsonProvider, validationExceptionMapper,
-                                                             serviceExceptionMapper, originFilter));
+        jaxrsServerFactoryBean.setProviders(ImmutableList.of(jsonProvider, validationExceptionMapper, originFilter));
 
         return jaxrsServerFactoryBean.create();
     }
