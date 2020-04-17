@@ -10,9 +10,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.io.Serializable;
 
-
 @SpringBootTest
-@ExtendWith(SpringExtension.class)
 public class MySpringBootRedisApplicationTest {
     @Autowired
     private RedisTemplate<String, String> strRedisTemplate;
