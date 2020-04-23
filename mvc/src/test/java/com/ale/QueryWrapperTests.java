@@ -1,6 +1,7 @@
 package com.ale;
 
 import com.ale.entity.User;
+import com.ale.mapper.DeptMapper;
 import com.ale.mapper.UserMapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -11,12 +12,34 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @SpringBootTest
 public class QueryWrapperTests {
     @Autowired
-    private UserMapper mapper;
+    private UserMapper userMapper;
+
+    @Autowired
+    private DeptMapper deptMapper;
+
+    @Test
+    public void testInsert(){
+        User user = new User();
+        user.setId(55);
+        user.setAge(12);
+        user.setEmail("123@gmail");
+        user.setName("test");
+        userMapper.insert(user);
+    }
+
+    @Test
+    public void testDeleteByMap(){
+        Map<String, Object> map = new HashMap<>();
+        map.put("dept_name", "it");
+        deptMapper.deleteByMap(map);
+    }
 
     /**
      * <p>
@@ -29,7 +52,7 @@ public class QueryWrapperTests {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq(true,"name", "keep");
 
-        List<User> user = mapper.selectList(queryWrapper);
+        List<User> user = userMapper.selectList(queryWrapper);
 
         System.out.println(user);
     }
@@ -49,7 +72,7 @@ public class QueryWrapperTests {
         LambdaQueryWrapper<User> lambdaQuery = Wrappers.lambdaQuery();
         lambdaQuery.eq(true, User::getName, "it");
 //        mapper.selectPage(page, lambdaQuery);
-        IPage<User> userList = mapper.selectPage(page, lambdaQuery);
+        IPage<User> userList = userMapper.selectPage(page, lambdaQuery);
 //        userList.getRecords().forEach(System.out::println);
         System.out.println(userList);
 
@@ -66,7 +89,7 @@ public class QueryWrapperTests {
         Page<User> page = new Page<>(1, 5);
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("name", "java");
-        IPage<User> userIPage = mapper.selectPage(page, queryWrapper);
+        IPage<User> userIPage = userMapper.selectPage(page, queryWrapper);
         System.out.println(userIPage);
     }
 
