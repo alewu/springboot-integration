@@ -6,3 +6,9 @@ INSERT INTO user (id, name, age, email) VALUES
 (3, 'pure', 28, 'smile@ityouknow.com'),
 (4, 'smile', 21, 'smile@ityouknow.com'),
 (5, 'it', 24, 'smile@ityouknow.com');
+
+DELETE FROM dept;
+
+INSERT INTO dept (id, dept_name) VALUES
+(1, 'it'),
+(2, 'hr');
