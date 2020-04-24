@@ -1,7 +1,5 @@
 package com.ale.service.impl;
 
-import com.ale.entity.User;
-import com.ale.mapper.UserMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
