@@ -1,6 +1,6 @@
 package com.ale.exception;
 
-public enum ResponseCode {
+public enum ResponseCodeEnum {
     /**
      * 成功返回的状态码
      */
@@ -16,13 +16,13 @@ public enum ResponseCode {
     /**
      * 状态码
      */
-    private int code;
+    private final int code;
     /**
      * 返回信息
      */
-    private String msg;
+    private final String msg;
 
-    ResponseCode(int code, String msg) {
+    ResponseCodeEnum(int code, String msg) {
         this.code = code;
         this.msg = msg;
     }
