@@ -2,7 +2,7 @@ package com.ale.aspect;
 
 import com.ale.common.BaseResponse;
 import com.ale.common.ResponseResult;
-import com.ale.exception.ResponseCode;
+import com.ale.exception.ResponseCodeEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
@@ -41,7 +41,7 @@ public class ResponseResultHandlerAdvice implements ResponseBodyAdvice {
                 return body;
             }else{
                 // 只有正常返回的结果才会进入这个判断流程，返回正常成功的状态码+信息+数据。
-                return new ResponseResult(ResponseCode.SUCCESS.getCode(), ResponseCode.SUCCESS.getMsg(), body);
+                return new ResponseResult(ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getMsg(), body);
             }
         }
         // 非JSON格式body直接返回即可
