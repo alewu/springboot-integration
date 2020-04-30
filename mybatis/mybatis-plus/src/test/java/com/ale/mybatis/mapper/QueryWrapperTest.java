@@ -4,15 +4,17 @@ package com.ale.mybatis.mapper;
 import com.ale.mybatis.entity.User;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.List;
+import javax.annotation.Resource;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 @SpringBootTest
@@ -24,11 +26,9 @@ public class QueryWrapperTest {
     @Test
     public void selectOne() {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq(true,"name", "keep");
-
-        List<User> user = userMapper.selectList(queryWrapper);
-
-        System.out.println(user);
+        queryWrapper.eq("name", "Jack");
+        User user = userMapper.selectOne(queryWrapper);
+        assertEquals("Jack", user.getName());
     }
 
     /**
