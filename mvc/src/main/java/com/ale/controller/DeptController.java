@@ -26,7 +26,7 @@ public class DeptController {
     public Dept get(Integer id) {
         Dept dept = new Dept();
         dept.setDeptId(id);
-        dept.setName("java");
+        dept.setDeptName("java");
         return dept;
     }
 
@@ -34,7 +34,7 @@ public class DeptController {
     public Dept page(PageInfo pageInfo, @RequestBody DeptDTO deptDTO) {
         Dept dept = new Dept();
         dept.setDeptId(deptDTO.getDeptId());
-        dept.setName(deptDTO.getName());
+        dept.setDeptName(deptDTO.getName());
         log.info("pageInfo:{}", pageInfo);
         return dept;
     }
