@@ -15,11 +15,11 @@ public class User {
 
     @ApiModelProperty(value = "主键ID")
     @NotNull(message = " cannot be null!")
-    private Long id;
+    private Long userId;
 
     @ApiModelProperty(value = "姓名")
     @NotBlank(message = "name cannot be null!")
-    private String name;
+    private String userName;
 
     @ApiModelProperty(value = "年龄")
     @Min(value = 0, message = "Age should not be less than 0")
