@@ -1,6 +1,13 @@
+#spring:
+#  redis:
+#    host: 106.54.243.76
+#    port: 6479
+#    timeout: 5000
+#    password: abc123
+
 spring:
   redis:
-    host: 106.54.243.76
-    port: 6479
-    timeout: 5000
-    password: abc123
+    host: 134.175.245.21
+    port: 6379
+    timeout: 100
+    password: BPepAFYfoUhTgTVh
