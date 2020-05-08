@@ -28,15 +28,15 @@ public class MySpringBootRedisApplicationTest {
     public void testSerializable() {
         UserEntity user=new UserEntity();
         user.setId(1L);
-        user.setUserName("朝雾轻寒");
-        user.setUserSex("男");
+        user.setUserName("jack");
+        user.setUserSex("man");
         serializableRedisTemplate.opsForValue().set("user", user);
         UserEntity user2 = (UserEntity) serializableRedisTemplate.opsForValue().get("user");
         System.out.println("user:"+user2.getId()+","+user2.getUserName()+","+user2.getUserSex());
     }
 
     @Test
-    public void test11(){
+    public void testIncr(){
         String key = "anonymous_user_id:a48b313f8f5911eaa342-525400236ced:qr_code_switch_count";
         System.out.println(strRedisTemplate.opsForValue().increment(key));
         System.out.println(strRedisTemplate.opsForValue().get(key));
@@ -47,7 +47,7 @@ public class MySpringBootRedisApplicationTest {
 
 
     @Test
-    public void test12(){
+    public void testSet(){
         String key = "link_relation_id:1:user_switch_list";
         System.out.println(strRedisTemplate.opsForSet().members(key));
         System.out.println(strRedisTemplate.getExpire(key));
@@ -55,7 +55,7 @@ public class MySpringBootRedisApplicationTest {
     }
 
     @Test
-    public void test13(){
+    public void testHash(){
         String key = "anonymous_user_id:a48b313f8f5911eaa342-525400236ced:qr_code_switch_count";
         strRedisTemplate.opsForHash().put("hidden_qr_code", "a48b313f8f5911eaa342-525400236ced", "1111111111111111");
         System.out.println(strRedisTemplate.opsForHash().get("hidden_qr_code", "a48b313f8f5911eaa342-525400236ced"));
