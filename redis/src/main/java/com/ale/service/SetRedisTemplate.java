@@ -6,6 +6,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.Set;
 
+/**
+ * The type Set redis template.
+ */
 @Component
 public class SetRedisTemplate {
     @Autowired
@@ -16,7 +19,7 @@ public class SetRedisTemplate {
      * 根据key获取Set中的所有值
      *
      * @param key 键
-     * @return 所有值
+     * @return 所有值 set
      */
     public Set<Object> sGet(String key) {
         try {
@@ -48,7 +51,7 @@ public class SetRedisTemplate {
      *
      * @param key    键
      * @param values 值 可以是多个
-     * @return 成功个数
+     * @return 成功个数 long
      */
     public long sSet(String key, Object... values) {
         try {
@@ -63,7 +66,7 @@ public class SetRedisTemplate {
      * 获取set缓存的长度
      *
      * @param key 键
-     * @return
+     * @return long
      */
     public long sGetSetSize(String key) {
         try {
@@ -79,7 +82,7 @@ public class SetRedisTemplate {
      *
      * @param key    键
      * @param values 值 可以是多个
-     * @return 移除的个数
+     * @return 移除的个数 remove
      */
     public long setRemove(String key, Object... values) {
         try {

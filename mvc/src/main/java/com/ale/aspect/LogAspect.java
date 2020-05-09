@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * The type Log aspect.
  *
- * @author win10
+ * @author alewu
  */
 @Slf4j
 @Aspect
@@ -54,7 +54,7 @@ public class LogAspect {
     }
 
     private void printRequestArgs(JoinPoint joinPoint) {
-        log.info("请求方法: {}", joinPoint.getSignature());
+        log.info("request method: {}", joinPoint.getSignature());
 
 
         Object[] reqArgs = joinPoint.getArgs();
