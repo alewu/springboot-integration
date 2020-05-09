@@ -1,6 +1,5 @@
 package com.ale.controller;
 
-import com.ale.common.BaseResponse;
 import com.ale.common.RPage;
 import com.ale.common.RequestPageData;
 import com.ale.dto.UserDTO;

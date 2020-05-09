@@ -1,5 +1,8 @@
 package com.ale.exception;
 
+/**
+ * The enum Response code enum.
+ */
 public enum ResponseCodeEnum {
     /**
      * 成功返回的状态码
@@ -27,10 +30,20 @@ public enum ResponseCodeEnum {
         this.msg = msg;
     }
 
+    /**
+     * Gets code.
+     *
+     * @return the code
+     */
     public int getCode() {
         return code;
     }
 
+    /**
+     * Gets msg.
+     *
+     * @return the msg
+     */
     public String getMsg() {
         return msg;
     }

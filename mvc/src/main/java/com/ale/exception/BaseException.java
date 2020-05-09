@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 
 /**
  * The type Base exception.
- * @author win10
+ * @author alewu
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

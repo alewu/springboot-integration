@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * The interface Student mapper.
- * @author win10
+ * @author alewu
  */
 public interface StudentMapper  {
 

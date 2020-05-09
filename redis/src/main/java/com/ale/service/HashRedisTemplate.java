@@ -6,6 +6,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
+/**
+ * The type Hash redis template.
+ */
 @Component
 public class HashRedisTemplate {
     @SuppressWarnings("rawtypes")
@@ -18,7 +21,7 @@ public class HashRedisTemplate {
      *
      * @param key  键 不能为null
      * @param item 项 不能为null
-     * @return 值
+     * @return 值 object
      */
     public Object hGet(String key, String item) {
         return redisTemplate.opsForHash().get(key, item);
@@ -28,7 +31,7 @@ public class HashRedisTemplate {
      * 获取hashKey对应的所有键值
      *
      * @param key 键
-     * @return 对应的多个键值
+     * @return 对应的多个键值 map
      */
     public Map<Object, Object> hmget(String key) {
         return redisTemplate.opsForHash().entries(key);
@@ -68,6 +71,7 @@ public class HashRedisTemplate {
             return false;
         }
     }
+
     /**
      * 删除hash表中的值
      *
@@ -95,7 +99,7 @@ public class HashRedisTemplate {
      * @param key  键
      * @param item 项
      * @param by   要增加几(大于0)
-     * @return
+     * @return double
      */
     public double hincr(String key, String item, double by) {
         return redisTemplate.opsForHash().increment(key, item, by);
@@ -107,7 +111,7 @@ public class HashRedisTemplate {
      * @param key  键
      * @param item 项
      * @param by   要减少记(小于0)
-     * @return
+     * @return double
      */
     public double hdecr(String key, String item, double by) {
         return redisTemplate.opsForHash().increment(key, item, -by);
