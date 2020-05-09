@@ -3,6 +3,9 @@ package com.ale.entity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
+/**
+ * @author alewu
+ */
 @Data
 @TableName("tb_order")
 public class Order {
