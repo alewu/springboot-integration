@@ -6,13 +6,10 @@ import com.ale.dto.DeptDTO;
 import com.ale.entity.Dept;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
- * @author win10
+ * @author alewu
  * @date 2020-04-27 15:36
  */
 @Slf4j
@@ -22,11 +19,11 @@ import org.springframework.web.bind.annotation.RestController;
 @BaseResponse
 public class DeptController {
 
-    @PostMapping("/get")
-    public Dept get(Integer id) {
+    @GetMapping("/{id}")
+    public Dept get(@PathVariable Integer id) {
         Dept dept = new Dept();
         dept.setDeptId(id);
-        dept.setDeptName("java");
+        dept.setDeptName("it");
         return dept;
     }
 
