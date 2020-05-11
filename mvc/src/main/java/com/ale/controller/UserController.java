@@ -1,7 +1,7 @@
 package com.ale.controller;
 
-import com.ale.common.RPage;
-import com.ale.common.RequestPageData;
+import com.ale.common.RequestParam;
+import com.ale.common.ResponseResult;
 import com.ale.dto.UserDTO;
 import com.ale.entity.User;
 import com.baomidou.mybatisplus.extension.api.R;
@@ -35,7 +35,7 @@ public class UserController {
 
     @PostMapping("/page")
     @ApiOperation(value = "page",notes = "")
-    public RPage<UserDTO> page(@RequestBody RequestPageData<UserDTO> requestPageData) {
+    public ResponseResult<UserDTO> page(@RequestBody RequestParam<UserDTO> requestPageData) {
 
         return null;
     }
