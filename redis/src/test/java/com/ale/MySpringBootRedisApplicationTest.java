@@ -45,6 +45,15 @@ public class MySpringBootRedisApplicationTest {
         System.out.println(strRedisTemplate.expire(key, 10, TimeUnit.MILLISECONDS));
     }
 
+    @Test
+    public void testDel(){
+        String key = "qr_code*";
+        Set<String> keys = strRedisTemplate.keys(key);
+        if (keys != null) {
+            strRedisTemplate.delete(keys);
+        }
+    }
+
 
 
     @Test

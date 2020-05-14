@@ -2,20 +2,26 @@ package com.ale.mybatis.mapper;
 
 
 import com.ale.mybatis.entity.User;
+import com.ale.mybatis.service.UserService;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import lombok.AllArgsConstructor;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 public class InsertTest {
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private UserService userService;
 
     @Test
-    public void testInsert(){
+    public void testInsert() {
         User user = new User();
         user.setId(55);
         user.setAge(12);
@@ -26,12 +32,14 @@ public class InsertTest {
     }
 
     @Test
-    public void testSaveOrInsert(){
+    public void testSaveOrInsert() {
         User user = new User();
-        user.setId(55);
+        user.setId(6);
         user.setAge(12);
         user.setEmail("123@gmail");
-        user.setName("test");
+        user.setName("Jack");
+        boolean saveOrUpdate = userService.saveOrUpdate(user, Wrappers.<User>lambdaUpdate().eq(User::getName, "Jack1"));
+        assertTrue(saveOrUpdate);
 
     }
 }

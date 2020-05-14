@@ -26,11 +26,10 @@ import javax.servlet.http.HttpServletRequest;
 @Slf4j
 @Aspect
 @Component
-public class LogAspect {
+public class RequestLogAspect {
 
     @Pointcut("execution(public * com.ale.controller.*.*(..))")
     private void parameterPointCut() {
-        log.info("切入点:{}", "com.ale.controller");
     }
 
     /**
