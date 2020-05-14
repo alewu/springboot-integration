@@ -1,8 +1,5 @@
 package com.ale.controller;
 
-import com.ale.common.RequestParam;
-import com.ale.common.ResponseResult;
-import com.ale.dto.UserDTO;
 import com.ale.entity.User;
 import com.baomidou.mybatisplus.extension.api.R;
 import io.swagger.annotations.Api;
@@ -28,14 +25,6 @@ public class UserController {
     @PostMapping("/add")
     @ApiOperation(value = "添加用户",notes = "")
     public R add(@RequestBody User user) {
-
-        return null;
-    }
-
-
-    @PostMapping("/page")
-    @ApiOperation(value = "page",notes = "")
-    public ResponseResult<UserDTO> page(@RequestBody RequestParam<UserDTO> requestPageData) {
 
         return null;
     }

@@ -1,6 +1,5 @@
-package com.ale.service.impl;
+package com.ale.event;
 
-import com.ale.entity.Order;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +16,7 @@ public class EmailServiceImpl {
      *
      * @param order the order
      */
-    public void sendEmail(Order order) {
+    public void sendEmail(OrderCreatedEvent order) {
         System.out.println("发送邮件到: " + order.getUserName().toLowerCase());
     }
 
@@ -27,7 +26,7 @@ public class EmailServiceImpl {
      * @param order the order
      */
     @EventListener
-    public void placeOrderNotice(Order order) {
+    public void placeOrderNotice(OrderCreatedEvent order) {
         sendEmail(order);
     }
 

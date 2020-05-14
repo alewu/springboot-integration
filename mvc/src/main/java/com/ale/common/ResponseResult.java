@@ -26,9 +26,6 @@ public class ResponseResult<T> implements Serializable {
      */
     private T data;
 
-    @JsonIgnore
-    private PageInfo pageInfo;
-
     public <T> ResponseResult(int i, String ok, T data) {}
 
 

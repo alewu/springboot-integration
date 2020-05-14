@@ -1,7 +1,7 @@
 package com.ale;
 
 import com.ale.entity.Order;
-import com.ale.service.impl.OrderServiceImpl;
+import com.ale.event.OrderServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

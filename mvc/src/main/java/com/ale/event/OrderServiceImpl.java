@@ -1,9 +1,9 @@
-package com.ale.service.impl;
+package com.ale.event;
 
 import com.ale.entity.Order;
 import com.ale.mapper.OrderMapper;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.BeanUtils;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +24,8 @@ public class OrderServiceImpl {
         orderMapper.insert(order);
 
         // 发布下单事件
-        publisher.publishEvent(order);
+        OrderCreatedEvent orderCreatedEvent = new OrderCreatedEvent();
+        BeanUtils.copyProperties(order, orderCreatedEvent);
+        publisher.publishEvent(orderCreatedEvent);
     }
 }
