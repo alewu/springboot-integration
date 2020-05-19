@@ -1,4 +1,4 @@
-package com.ale.entity;
+package com.ale.event;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;

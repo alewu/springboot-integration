@@ -1,0 +1,7 @@
+spring:
+    rabbitmq:
+        addresses: localhost:5672
+        password: admin
+        username: admin
+        virtual-host: /rabbitmq
+        publisher-confirm-type: simple

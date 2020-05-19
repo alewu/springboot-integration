@@ -1,14 +1,13 @@
 package com.ale.controller;
 
 import com.ale.common.BaseResponse;
-import com.ale.common.Page;
-import com.ale.dto.DeptDTO;
 import com.ale.entity.Dept;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.Collections;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author alewu

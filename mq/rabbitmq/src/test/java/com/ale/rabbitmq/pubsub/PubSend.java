@@ -1,6 +1,6 @@
 package com.ale.rabbitmq.pubsub;
 
-import com.alewu.util.ConnectionUtil;
+import com.ale.rabbitmq.util.ConnectionUtil;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 

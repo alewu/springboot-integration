@@ -1,6 +1,5 @@
 package com.ale.event;
 
-import com.ale.entity.Order;
 import com.ale.mapper.OrderMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;

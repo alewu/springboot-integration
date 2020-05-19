@@ -1,4 +1,4 @@
-package com.ale.controller;
+package com.ale.swagger;
 
 import com.ale.entity.User;
 import com.baomidou.mybatisplus.extension.api.R;
