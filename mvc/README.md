@@ -8,7 +8,9 @@
 
 ---
 ####spring boot event
-
+- 定义事件
+- 发布事件
+- 监听事件并处理
 
 ---
 ####cross origin

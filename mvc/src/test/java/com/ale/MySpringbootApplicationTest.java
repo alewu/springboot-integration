@@ -1,6 +1,6 @@
 package com.ale;
 
-import com.ale.entity.Order;
+import com.ale.event.Order;
 import com.ale.event.OrderServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
