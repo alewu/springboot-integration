@@ -13,6 +13,10 @@
 
     <packaging>pom</packaging>
 
+    <modules>
+        <module>rabbitmq</module>
+    </modules>
+
     <name>mq</name>
     <!-- FIXME change it to the project's website -->
     <url>http://www.example.com</url>
