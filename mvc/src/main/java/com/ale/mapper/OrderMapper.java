@@ -1,6 +1,6 @@
 package com.ale.mapper;
 
-import com.ale.entity.Order;
+import com.ale.event.Order;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

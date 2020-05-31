@@ -1,0 +1,11 @@
+spring:
+    rabbitmq:
+        host: 106.54.243.76
+        password: guest
+        username: guest
+        virtual-host: /
+        publisher-confirm-type: simple
+        publisher-returns: true
+        template:
+            mandatory: true
+
