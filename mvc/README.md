@@ -8,7 +8,9 @@
 
 ---
 ####spring boot event
-
+- 定义事件
+- 发布事件
+- 监听事件并处理
 
 ---
 ####cross origin
@@ -21,3 +23,6 @@ SpringBoot 2.x主要提供了两种方式来支持Cors，如下：
 | ------ | ------ | ------|
 |@CrossOrigin|	一个Controller中全部接口或其中一个特定的接口|	配置、定制特定的请求接口
 |实现WebMvcConfigurer接口|	全部接口	|适用于全局配置
+
+---
+####common file 
