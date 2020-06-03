@@ -1,9 +1,8 @@
-package com.ale.controller;
+package com.ale.page;
 
 import com.ale.common.Page;
 import com.ale.dto.UserQuery;
 import com.ale.entity.User;
-import com.ale.service.impl.PageService;
 import com.baomidou.mybatisplus.extension.api.R;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

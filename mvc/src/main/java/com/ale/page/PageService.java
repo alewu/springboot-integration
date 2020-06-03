@@ -1,4 +1,4 @@
-package com.ale.service.impl;
+package com.ale.page;
 
 import com.ale.common.Page;
 import com.ale.dto.UserQuery;

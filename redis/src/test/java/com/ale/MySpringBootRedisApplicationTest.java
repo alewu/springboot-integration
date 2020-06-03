@@ -2,13 +2,14 @@ package com.ale;
 
 import com.ale.entity.UserEntity;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.BoundZSetOperations;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.data.redis.core.ZSetOperations;
 
-import java.io.Serializable;
+import java.util.Collections;
+import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -27,17 +28,17 @@ public class MySpringBootRedisApplicationTest {
 
     @Test
     public void testSerializable() {
-        UserEntity user=new UserEntity();
+        UserEntity user = new UserEntity();
         user.setId(1L);
         user.setUserName("jack");
         user.setUserSex("man");
         serializableRedisTemplate.opsForValue().set("user", user);
         UserEntity user2 = (UserEntity) serializableRedisTemplate.opsForValue().get("user");
-        System.out.println("user:"+user2.getId()+","+user2.getUserName()+","+user2.getUserSex());
+        System.out.println("user:" + user2.getId() + "," + user2.getUserName() + "," + user2.getUserSex());
     }
 
     @Test
-    public void testIncr(){
+    public void testIncr() {
         String key = "anonymous_user_id:a48b313f8f5911eaa342-525400236ced:qr_code_switch_count";
         System.out.println(strRedisTemplate.opsForValue().increment(key));
         System.out.println(strRedisTemplate.opsForValue().get(key));
@@ -46,7 +47,7 @@ public class MySpringBootRedisApplicationTest {
     }
 
     @Test
-    public void testDel(){
+    public void testDel() {
         String key = "qr_code*";
         Set<String> keys = strRedisTemplate.keys(key);
         if (keys != null) {
@@ -55,9 +56,8 @@ public class MySpringBootRedisApplicationTest {
     }
 
 
-
     @Test
-    public void testSet(){
+    public void testSet() {
         String key = "link_relation_id:1:user_switch_list";
         System.out.println(strRedisTemplate.opsForSet().members(key));
         System.out.println(strRedisTemplate.getExpire(key));
@@ -65,7 +65,7 @@ public class MySpringBootRedisApplicationTest {
     }
 
     @Test
-    public void testSetOperate(){
+    public void testSetOperate() {
         String keyView = "keyView";
         String keyPass = "keyPass";
         strRedisTemplate.opsForSet().add(keyView, "1", "2", "3");
@@ -75,12 +75,57 @@ public class MySpringBootRedisApplicationTest {
     }
 
     @Test
-    public void testHash(){
+    public void testHash() {
         String key = "anonymous_user_id:a48b313f8f5911eaa342-525400236ced:qr_code_switch_count";
         strRedisTemplate.opsForHash().put("hidden_qr_code", "a48b313f8f5911eaa342-525400236ced", "1111111111111111");
         System.out.println(strRedisTemplate.opsForHash().get("hidden_qr_code", "a48b313f8f5911eaa342-525400236ced"));
         System.out.println(strRedisTemplate.getExpire(key));
         System.out.println(strRedisTemplate.expire(key, 10, TimeUnit.MILLISECONDS));
+    }
+
+    @Test
+    public void testSetW() {
+        String key = "test";
+        //        add(key);
+        Set<ZSetOperations.TypedTuple<String>> test = strRedisTemplate.opsForZSet().rangeByScoreWithScores(key,
+                                                                                                           0.0, 2.0,
+                                                                                                           0, 1);
+        for (ZSetOperations.TypedTuple<String> stringTypedTuple : test) {
+            System.out.println(stringTypedTuple.getValue());
+            System.out.println(stringTypedTuple.getScore());
+        }
+        System.out.println("------显示第一个元素---------");
+        Set<ZSetOperations.TypedTuple<String>> typedTuples = strRedisTemplate.opsForZSet().rangeWithScores(key, 0, 0);
+        String value = typedTuples.iterator().next().getValue();
+        System.out.println(value + typedTuples.iterator().next().getScore());
+        strRedisTemplate.opsForZSet().incrementScore(key, value, 1.0);
+        System.out.println("------加一后第一个元素---------");
+        Set<ZSetOperations.TypedTuple<String>> typedTuples1 = strRedisTemplate.opsForZSet().rangeWithScores(key, 0, 0);
+        String value1 = typedTuples1.iterator().next().getValue();
+        System.out.println("加一后第一个元素:" + value1);
+
+    }
+
+    @Test
+    public void testGetFirstElement() {
+        BoundZSetOperations<String, String> zSetOperations = strRedisTemplate.boundZSetOps("test1");
+        Set<ZSetOperations.TypedTuple<String>> typedTuples = Optional.ofNullable(zSetOperations.rangeWithScores(0, 0)).orElse(Collections.emptySet());
+        String value = typedTuples.stream().findFirst().map(ZSetOperations.TypedTuple::getValue).orElse("");
+        Double score = typedTuples.stream().findFirst().map(ZSetOperations.TypedTuple::getScore).orElse(0.0);
+        System.out.println(value);
+        zSetOperations.incrementScore(value, 1.0);
+
+    }
+
+    private void add(String key) {
+        ZSetOperations<String, String> zSetOperations = strRedisTemplate.opsForZSet();
+        zSetOperations.add(key, "a", 4);
+        zSetOperations.add(key, "b", 3);
+        zSetOperations.add(key, "c", 2);
+        zSetOperations.add(key, "d", 3);
+        zSetOperations.add(key, "e", 3);
+        zSetOperations.add(key, "f", 3);
+        zSetOperations.add(key, "g", 3);
     }
 
 }
