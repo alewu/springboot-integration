@@ -1,10 +1,9 @@
-package com.ale.service.impl;
+package com.ale.page;
 
 import com.ale.common.Page;
 import com.ale.dto.UserQuery;
 import com.ale.entity.User;
 import com.ale.mapper.UserMapper;
-import com.ale.service.PageService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
