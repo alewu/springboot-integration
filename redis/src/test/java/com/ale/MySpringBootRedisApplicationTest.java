@@ -94,15 +94,6 @@ public class MySpringBootRedisApplicationTest {
             System.out.println(stringTypedTuple.getValue());
             System.out.println(stringTypedTuple.getScore());
         }
-        System.out.println("------显示第一个元素---------");
-        Set<ZSetOperations.TypedTuple<String>> typedTuples = strRedisTemplate.opsForZSet().rangeWithScores(key, 0, 0);
-        String value = typedTuples.iterator().next().getValue();
-        System.out.println(value + typedTuples.iterator().next().getScore());
-        strRedisTemplate.opsForZSet().incrementScore(key, value, 1.0);
-        System.out.println("------加一后第一个元素---------");
-        Set<ZSetOperations.TypedTuple<String>> typedTuples1 = strRedisTemplate.opsForZSet().rangeWithScores(key, 0, 0);
-        String value1 = typedTuples1.iterator().next().getValue();
-        System.out.println("加一后第一个元素:" + value1);
 
     }
 
