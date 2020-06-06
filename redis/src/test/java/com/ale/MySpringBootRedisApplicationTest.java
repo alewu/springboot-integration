@@ -1,13 +1,13 @@
 package com.ale;
 
 import com.ale.entity.UserEntity;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.redis.core.BoundZSetOperations;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.ZSetOperations;
+import org.springframework.data.redis.core.*;
 
+import java.util.BitSet;
 import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
@@ -75,22 +75,14 @@ public class MySpringBootRedisApplicationTest {
     }
 
     @Test
-    public void testHash() {
-        String key = "anonymous_user_id:a48b313f8f5911eaa342-525400236ced:qr_code_switch_count";
-        strRedisTemplate.opsForHash().put("hidden_qr_code", "a48b313f8f5911eaa342-525400236ced", "1111111111111111");
-        System.out.println(strRedisTemplate.opsForHash().get("hidden_qr_code", "a48b313f8f5911eaa342-525400236ced"));
-        System.out.println(strRedisTemplate.getExpire(key));
-        System.out.println(strRedisTemplate.expire(key, 10, TimeUnit.MILLISECONDS));
-    }
-
-    @Test
-    public void testSetW() {
+    public void testSetWithScore() {
         String key = "test";
         //        add(key);
-        Set<ZSetOperations.TypedTuple<String>> test = strRedisTemplate.opsForZSet().rangeByScoreWithScores(key,
-                                                                                                           0.0, 2.0,
-                                                                                                           0, 1);
-        for (ZSetOperations.TypedTuple<String> stringTypedTuple : test) {
+        Set<ZSetOperations.TypedTuple<String>> typedTuples = strRedisTemplate.opsForZSet().rangeByScoreWithScores(key,
+                                                                                                                  0.0
+                , 2.0,
+                                                                                                                  0, 1);
+        for (ZSetOperations.TypedTuple<String> stringTypedTuple : typedTuples) {
             System.out.println(stringTypedTuple.getValue());
             System.out.println(stringTypedTuple.getScore());
         }
@@ -99,13 +91,25 @@ public class MySpringBootRedisApplicationTest {
 
     @Test
     public void testGetFirstElement() {
-        BoundZSetOperations<String, String> zSetOperations = strRedisTemplate.boundZSetOps("test1");
-        Set<ZSetOperations.TypedTuple<String>> typedTuples = Optional.ofNullable(zSetOperations.rangeWithScores(0, 0)).orElse(Collections.emptySet());
+        BoundZSetOperations<String, String> zSetOperations = strRedisTemplate.boundZSetOps("z_set");
+        Set<ZSetOperations.TypedTuple<String>> typedTuples =
+                Optional.ofNullable(zSetOperations.rangeWithScores(0, 0)).orElse(Collections.emptySet());
         String value = typedTuples.stream().findFirst().map(ZSetOperations.TypedTuple::getValue).orElse("");
         Double score = typedTuples.stream().findFirst().map(ZSetOperations.TypedTuple::getScore).orElse(0.0);
         System.out.println(value);
         zSetOperations.incrementScore(value, 1.0);
+        zSetOperations.incrementScore(value, 1.0);
+    }
 
+    @Test
+    public void testListRightPush() {
+        BoundListOperations<String, String> listOperations = strRedisTemplate.boundListOps("test_list");
+        listOperations.rightPush("a");
+        listOperations.rightPush("b");
+        listOperations.rightPush("c");
+        listOperations.rightPush("d");
+        String index = listOperations.index(1);
+        System.out.println("第一个：" + index);
     }
 
     private void add(String key) {
@@ -117,6 +121,85 @@ public class MySpringBootRedisApplicationTest {
         zSetOperations.add(key, "e", 3);
         zSetOperations.add(key, "f", 3);
         zSetOperations.add(key, "g", 3);
+    }
+
+    @Test
+    public void testHashPutGet() throws InterruptedException {
+        String key = "test_hash";
+        BoundHashOperations<String, Object, Object> hashOperations = strRedisTemplate.boundHashOps(key);
+        hashOperations.put("1-1", "1");
+        hashOperations.put("1-2", "1");
+        Assertions.assertEquals("1", hashOperations.get("1-1"));
+        TimeUnit.SECONDS.sleep(10);
+        hashOperations.put("1-1", "0");
+        Assertions.assertEquals("0", hashOperations.get("1-1"));
+        System.out.println(strRedisTemplate.getExpire(key));
+        System.out.println(strRedisTemplate.expire(key, 1000, TimeUnit.SECONDS));
+    }
+
+    @Test
+    public void testHash() {
+        String key = "test_hash";
+        BoundHashOperations<String, Object, Object> hashOperations = strRedisTemplate.boundHashOps(key);
+        Set<Object> keys = hashOperations.keys();
+        System.out.println(keys);
+
+    }
+
+    @Test
+    public void testBitSet() {
+        // Redis Setbit 命令用于对 key 所储存的字符串值，设置或清除指定偏移量上的位(bit)。
+        String key = "test_bit_set";
+        strRedisTemplate.expire(key, 1000, TimeUnit.SECONDS);
+        for (int i = 0; i < 5; i++) {
+            Boolean bit = strRedisTemplate.opsForValue().setBit(key, i, true);
+            System.out.println("result" + i + " : " + bit);
+        }
+        for (int i = 0; i < 5; i++) {
+            System.out.println("get" + i + " : " + strRedisTemplate.opsForValue().getBit(key, i));
+        }
+    }
+
+    @Test
+    public void testBitCount() {
+        String key = "test_bit_set";
+
+    }
+
+    @Test
+    public void testBitSetGetBytes() {
+        String key = "test_bit_set";
+        byte[] bytes = strRedisTemplate.opsForValue().get(key).getBytes();
+        BitSet bitSet = fromByteArrayReverse(bytes);
+        System.out.println(bitSet.isEmpty());
+        strRedisTemplate.opsForValue().setBit(key, 1, false);
+        System.out.println(bitSet.isEmpty());
+    }
+
+    public static BitSet fromByteArrayReverse(final byte[] bytes) {
+        final BitSet bits = new BitSet();
+        for (int i = 0; i < bytes.length * 8; i++) {
+            if ((bytes[i / 8] & (1 << (7 - (i % 8)))) != 0) {
+                bits.set(i);
+            }
+        }
+        return bits;
+    }
+
+    public static byte[] toByteArrayReverse(final BitSet bits) {
+        final byte[] bytes = new byte[bits.length() / 8 + 1];
+        for (int i = 0; i < bits.length(); i++) {
+            if (bits.get(i)) {
+                final int value = bytes[i / 8] | (1 << (7 - (i % 8)));
+                bytes[i / 8] = (byte) value;
+            }
+        }
+        return bytes;
+    }
+
+    @Test
+    public void testHyperLogLog() {
+
     }
 
 }
