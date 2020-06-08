@@ -1,15 +1,19 @@
 package com.ale;
 
 import com.ale.entity.UserEntity;
-import org.junit.jupiter.api.Assertions;
+import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.redis.core.*;
+import org.springframework.dao.DataAccessException;
+import org.springframework.data.redis.connection.RedisConnection;
+import org.springframework.data.redis.core.RedisCallback;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.RedisSerializer;
 
 import java.util.BitSet;
-import java.util.Collections;
-import java.util.Optional;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -20,11 +24,7 @@ public class MySpringBootRedisApplicationTest {
     @Autowired
     private RedisTemplate<String, Object> serializableRedisTemplate;
 
-    @Test
-    public void testString() {
-        strRedisTemplate.opsForValue().set("strKey", "zwqh");
-        System.out.println(strRedisTemplate.opsForValue().get("strKey"));
-    }
+
 
     @Test
     public void testSerializable() {
@@ -37,14 +37,6 @@ public class MySpringBootRedisApplicationTest {
         System.out.println("user:" + user2.getId() + "," + user2.getUserName() + "," + user2.getUserSex());
     }
 
-    @Test
-    public void testIncr() {
-        String key = "anonymous_user_id:a48b313f8f5911eaa342-525400236ced:qr_code_switch_count";
-        System.out.println(strRedisTemplate.opsForValue().increment(key));
-        System.out.println(strRedisTemplate.opsForValue().get(key));
-        System.out.println(strRedisTemplate.getExpire(key));
-        System.out.println(strRedisTemplate.expire(key, 10, TimeUnit.MILLISECONDS));
-    }
 
     @Test
     public void testDel() {
@@ -57,92 +49,19 @@ public class MySpringBootRedisApplicationTest {
 
 
     @Test
-    public void testSet() {
-        String key = "link_relation_id:1:user_switch_list";
-        System.out.println(strRedisTemplate.opsForSet().members(key));
-        System.out.println(strRedisTemplate.getExpire(key));
-        //        System.out.println(strRedisTemplate.expire(key, 1, TimeUnit.MILLISECONDS));
-    }
+    public void testPipelined() {
+        List<String> keys = Lists.list("test_hash", "test_hash2");
+        strRedisTemplate.executePipelined(new RedisCallback<Object>() {
+            RedisSerializer<String> serializer = strRedisTemplate.getStringSerializer();
 
-    @Test
-    public void testSetOperate() {
-        String keyView = "keyView";
-        String keyPass = "keyPass";
-        strRedisTemplate.opsForSet().add(keyView, "1", "2", "3");
-        strRedisTemplate.opsForSet().add(keyPass, "1");
-        Set<String> difference = strRedisTemplate.opsForSet().difference(keyView, keyPass);
-        System.out.println(difference);
-    }
-
-    @Test
-    public void testSetWithScore() {
-        String key = "test";
-        //        add(key);
-        Set<ZSetOperations.TypedTuple<String>> typedTuples = strRedisTemplate.opsForZSet().rangeByScoreWithScores(key,
-                                                                                                                  0.0
-                , 2.0,
-                                                                                                                  0, 1);
-        for (ZSetOperations.TypedTuple<String> stringTypedTuple : typedTuples) {
-            System.out.println(stringTypedTuple.getValue());
-            System.out.println(stringTypedTuple.getScore());
-        }
-
-    }
-
-    @Test
-    public void testGetFirstElement() {
-        BoundZSetOperations<String, String> zSetOperations = strRedisTemplate.boundZSetOps("z_set");
-        Set<ZSetOperations.TypedTuple<String>> typedTuples =
-                Optional.ofNullable(zSetOperations.rangeWithScores(0, 0)).orElse(Collections.emptySet());
-        String value = typedTuples.stream().findFirst().map(ZSetOperations.TypedTuple::getValue).orElse("");
-        Double score = typedTuples.stream().findFirst().map(ZSetOperations.TypedTuple::getScore).orElse(0.0);
-        System.out.println(value);
-        zSetOperations.incrementScore(value, 1.0);
-        zSetOperations.incrementScore(value, 1.0);
-    }
-
-    @Test
-    public void testListRightPush() {
-        BoundListOperations<String, String> listOperations = strRedisTemplate.boundListOps("test_list");
-        listOperations.rightPush("a");
-        listOperations.rightPush("b");
-        listOperations.rightPush("c");
-        listOperations.rightPush("d");
-        String index = listOperations.index(1);
-        System.out.println("第一个：" + index);
-    }
-
-    private void add(String key) {
-        ZSetOperations<String, String> zSetOperations = strRedisTemplate.opsForZSet();
-        zSetOperations.add(key, "a", 4);
-        zSetOperations.add(key, "b", 3);
-        zSetOperations.add(key, "c", 2);
-        zSetOperations.add(key, "d", 3);
-        zSetOperations.add(key, "e", 3);
-        zSetOperations.add(key, "f", 3);
-        zSetOperations.add(key, "g", 3);
-    }
-
-    @Test
-    public void testHashPutGet() throws InterruptedException {
-        String key = "test_hash";
-        BoundHashOperations<String, Object, Object> hashOperations = strRedisTemplate.boundHashOps(key);
-        hashOperations.put("1-1", "1");
-        hashOperations.put("1-2", "1");
-        Assertions.assertEquals("1", hashOperations.get("1-1"));
-        TimeUnit.SECONDS.sleep(10);
-        hashOperations.put("1-1", "0");
-        Assertions.assertEquals("0", hashOperations.get("1-1"));
-        System.out.println(strRedisTemplate.getExpire(key));
-        System.out.println(strRedisTemplate.expire(key, 1000, TimeUnit.SECONDS));
-    }
-
-    @Test
-    public void testHash() {
-        String key = "test_hash";
-        BoundHashOperations<String, Object, Object> hashOperations = strRedisTemplate.boundHashOps(key);
-        Set<Object> keys = hashOperations.keys();
-        System.out.println(keys);
+            @Override
+            public Object doInRedis(RedisConnection connection) throws DataAccessException {
+                for (String key : keys) {
+                    Map<byte[], byte[]> map = connection.hashCommands().hGetAll(serializer.serialize(key));
+                }
+                return null;
+            }
+        });
 
     }
 
