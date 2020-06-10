@@ -7,8 +7,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.DataAccessException;
+import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.BoundHashOperations;
+import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.RedisSerializer;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -38,9 +42,11 @@ public class HashOpsTest {
      */
     @Test
     public void testHset() {
+        hashOperations.put("age", "10");
         hashOperations.put("id", "1");
         hashOperations.put("name", "redis");
-        System.out.println(hashOperations.entries());
+        Set<Map.Entry<Object, Object>> entries = hashOperations.entries().entrySet();
+
     }
 
 
@@ -77,6 +83,39 @@ public class HashOpsTest {
     }
 
     @Test
+    public void testHDel() {
+        // 针对单个key
+        Map<String, Object> map = new HashMap<>();
+        map.put("1", "1");
+        map.put("2", "1");
+        map.put("3", "1");
+        map.put("4", "1");
+        hashOperations.putAll(map);
+        //       Object[] keys = new Object[]{"3-1", "3-2"};
+        //        List<Object> objects = hashOperations.multiGet(keys);
+        //        System.out.println(objects);
+        //        List<Integer> tgLinkRelationIds = new ArrayList<>();
+        //        tgLinkRelationIds.add(1);
+        //        tgLinkRelationIds.add(2);
+        //        Object[] keys = tgLinkRelationIds.stream().map(String::valueOf).toArray(Object[]::new);
+        //        hashOperations.delete(keys);
+        System.out.println(hashOperations.keys().iterator().next());
+    }
+
+    @Test
+    public void testMSetAndGetType() {
+        // 针对单个key 不能存 Integer
+        Map<Integer, Integer> map = new HashMap<>();
+        map.put(1, 0);
+        map.put(2, 0);
+        hashOperations.putAll(map);
+        Collection<Object> keys = Lists.list(1, 2);
+        List<Object> objects = hashOperations.multiGet(keys);
+        System.out.println(objects);
+
+    }
+
+    @Test
     public void testHashMGetAll() {
         Map<Object, Object> entries = hashOperations.entries();
         for (Map.Entry<Object, Object> entry : Objects.requireNonNull(entries).entrySet()) {
@@ -84,6 +123,27 @@ public class HashOpsTest {
             Object v = entry.getValue();
             System.out.println("key:" + k);
             System.out.println("value:" + v);
+        }
+
+    }
+
+    @Test
+    public void testPipelined() {
+        List<String> keys = Lists.list("test_hash", "test_hash2");
+        List<Object> objects = strRedisTemplate.executePipelined(new RedisCallback<Object>() {
+            final RedisSerializer<String> serializer = strRedisTemplate.getStringSerializer();
+
+            @Override
+            public Object doInRedis(RedisConnection connection) throws DataAccessException {
+                for (String key : keys) {
+                    connection.hashCommands().hGetAll(Objects.requireNonNull(serializer.serialize(key)));
+                }
+                return null;
+            }
+        });
+        for (Object object : objects) {
+            Map<String, Object> map = (Map<String, Object>) object;
+            System.out.println(map.keySet());
         }
 
     }

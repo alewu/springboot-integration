@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.BoundListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.ZSetOperations;
 
 /**
  * @author alewu
@@ -35,15 +34,10 @@ public class ListOpsTest {
         System.out.println("第一个：" + index);
     }
 
-    private void add(String key) {
-        ZSetOperations<String, String> zSetOperations = strRedisTemplate.opsForZSet();
-        zSetOperations.add(key, "a", 4);
-        zSetOperations.add(key, "b", 3);
-        zSetOperations.add(key, "c", 2);
-        zSetOperations.add(key, "d", 3);
-        zSetOperations.add(key, "e", 3);
-        zSetOperations.add(key, "f", 3);
-        zSetOperations.add(key, "g", 3);
+    @Test
+    public void testSetObject() {
+        //        listOperations.rightPush();
+
     }
 
 }
