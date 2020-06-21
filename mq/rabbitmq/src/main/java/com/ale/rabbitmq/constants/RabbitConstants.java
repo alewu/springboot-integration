@@ -16,4 +16,9 @@ public final class RabbitConstants {
 
     public static final String BINDING_PATTERN_IMPORTANT = "*.important.*";
     public static final String BINDING_PATTERN_ERROR = "#.error";
+
+    public static String ROUTING_KEY_USER_IMPORTANT_WARN = "user.important.warn";
+    public static String ROUTING_KEY_USER_IMPORTANT_ERROR = "user.important.error";
+
+    public static final String MY_QUEUE = "myQueue";
 }
