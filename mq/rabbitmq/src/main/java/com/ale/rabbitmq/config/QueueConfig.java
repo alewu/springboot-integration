@@ -1,4 +1,4 @@
-package com.ale.rabbitmq.broadcast;
+package com.ale.rabbitmq.config;
 
 import org.springframework.amqp.core.*;
 import org.springframework.context.annotation.Bean;
@@ -13,7 +13,19 @@ import static com.ale.rabbitmq.constants.RabbitConstants.*;
  * @date 2020/5/20
  */
 @Configuration
-public class BroadcastConfig {
+public class QueueConfig {
+
+    @Bean
+    public Declarables directBindings() {
+        Queue directQueue = new Queue(MY_QUEUE, NON_DURABLE);
+        DirectExchange directExchange = new DirectExchange(MY_QUEUE, NON_DURABLE, NON_DURABLE);
+
+        return new Declarables(
+                directQueue,
+                directExchange,
+                BindingBuilder.bind(directQueue).to(directExchange).withQueueName());
+    }
+
 
     @Bean
     public Declarables fanoutBindings() {
