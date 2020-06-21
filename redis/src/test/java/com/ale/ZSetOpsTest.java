@@ -14,6 +14,8 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
+ * redis的有序集合在score相同的情况 下，redis使用字典排序
+ *
  * @author alewu
  * @date 2020/6/8
  */
@@ -49,11 +51,23 @@ public class ZSetOpsTest {
     }
 
     /**
+     * 在zset中添加数据
+     */
+    @Test
+    public void testReZaddsSet() {
+        Set<ZSetOperations.TypedTuple<String>> set = new HashSet<>();
+        DefaultTypedTuple<String> defaultTypedTuple1 = new DefaultTypedTuple<>("b", 4.0);
+        set.add(defaultTypedTuple1);
+        zSetOperations.add(set);
+        System.out.println(zSetOperations.range(0, -1));
+    }
+
+    /**
      * 获取zset中指定score范围值内的元素
      */
     @Test
     public void testZrangeByScoreSet() {
-        System.out.println(zSetOperations.rangeByScore(1.0, 1.0));
+        System.out.println(zSetOperations.rangeByScore(0.0, 2.0));
     }
 
     /**
@@ -71,8 +85,6 @@ public class ZSetOpsTest {
 
     @Test
     public void testZSetWithScore() {
-        String key = "test";
-        //        add(key);
         Set<ZSetOperations.TypedTuple<String>> typedTuples = strRedisTemplate.opsForZSet().rangeByScoreWithScores(key,
                                                                                                                   0.0
                 , 2.0,
