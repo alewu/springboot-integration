@@ -33,9 +33,9 @@ public class RabbitMQConfig {
         factory.setPrefetchCount(100);
         factory.setConnectionFactory(connectionFactory);
         // 设置并发数
-        int concurrency = Runtime.getRuntime().availableProcessors() * 2;
-        factory.setConcurrentConsumers(concurrency);
-        factory.setMaxConcurrentConsumers(concurrency + 10);
+        int concurrency = Runtime.getRuntime().availableProcessors();
+        factory.setConcurrentConsumers(2);
+//        factory.setMaxConcurrentConsumers(concurrency + 10);
         factory.setMessageConverter(messageConverter());
         return factory;
     }
