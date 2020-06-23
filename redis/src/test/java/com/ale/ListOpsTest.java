@@ -7,6 +7,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.BoundListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 
+import java.util.Optional;
+import java.util.concurrent.TimeUnit;
+
 /**
  * @author alewu
  * @date 2020/6/8
@@ -37,6 +40,18 @@ public class ListOpsTest {
     @Test
     public void testSetObject() {
         //        listOperations.rightPush();
+
+    }
+
+    @Test
+    public void testbLPop() {
+        while (true) {
+            Long size = Optional.ofNullable(listOperations.size()).orElse(0L);
+            if (size > 0) {
+                String s = listOperations.leftPop(0, TimeUnit.SECONDS);
+                System.out.println(s);
+            }
+        }
 
     }
 
