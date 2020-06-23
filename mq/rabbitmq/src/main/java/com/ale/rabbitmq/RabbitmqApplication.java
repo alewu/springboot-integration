@@ -34,9 +34,9 @@ public class RabbitmqApplication {
         return args -> {
             long start = Instant.now().toEpochMilli();
             for (int i = 0; i < 100000; i++) {
-//                User user = new User();
-//                user.setUserId(i);
-//                rabbitTemplate.convertAndSend(MY_QUEUE, user);
+                User user = new User();
+                user.setUserId(i);
+                rabbitTemplate.convertAndSend(MY_QUEUE, user);
                 //               rabbitTemplate.convertAndSend(FANOUT_EXCHANGE_NAME, "", "fanout：" + message + i);
                 //                rabbitTemplate.convertAndSend(TOPIC_EXCHANGE_NAME, ROUTING_KEY_USER_IMPORTANT_WARN,
                 //                "topic important warn：" + message + i);
