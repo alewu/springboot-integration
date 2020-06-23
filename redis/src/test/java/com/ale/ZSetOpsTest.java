@@ -56,9 +56,15 @@ public class ZSetOpsTest {
     @Test
     public void testReZaddsSet() {
         Set<ZSetOperations.TypedTuple<String>> set = new HashSet<>();
-        DefaultTypedTuple<String> defaultTypedTuple1 = new DefaultTypedTuple<>("b", 4.0);
+        DefaultTypedTuple<String> defaultTypedTuple1 = new DefaultTypedTuple<>("b", 5.0);
         set.add(defaultTypedTuple1);
         zSetOperations.add(set);
+        System.out.println(zSetOperations.range(0, -1));
+    }
+
+    @Test
+    public void testReZaddsSet1() {
+        strRedisTemplate.opsForZSet().add(key, "b", 12);
         System.out.println(zSetOperations.range(0, -1));
     }
 
