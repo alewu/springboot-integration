@@ -19,7 +19,7 @@ public class ThreadPoolConfig {
     @Bean
     public AsyncTaskExecutor taskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setThreadNamePrefix("Anno-Executor");
+        executor.setThreadNamePrefix("Custom-Executor-");
         executor.setMaxPoolSize(10);
 
         // 设置拒绝策略
