@@ -2,11 +2,13 @@ package com.ale.async;
 
 
 import lombok.AllArgsConstructor;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+/**
+ * @author alewu
+ * @date 2020/6/24
+ */
 @RestController
 @RequestMapping("")
 @AllArgsConstructor
