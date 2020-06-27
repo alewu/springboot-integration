@@ -30,7 +30,7 @@ public class ZSetOpsTest {
 
     @BeforeEach
     public void init() {
-        key = "test_zset";
+        key = "qr_code_average_allot:link_id:1235";
         zSetOperations = strRedisTemplate.boundZSetOps(key);
     }
 
@@ -85,16 +85,26 @@ public class ZSetOpsTest {
     }
 
     @Test
-    public void test() {
+    public void testIncrementScore() {
         zSetOperations.incrementScore("b", -1.0);
+    }
+
+    @Test
+    public void testRangeWithScores() {
+        Set<ZSetOperations.TypedTuple<String>> typedTuples = zSetOperations.rangeWithScores(0, -1);
+        Iterator<ZSetOperations.TypedTuple<String>> iterator = typedTuples.iterator();
+        while (iterator.hasNext()) {
+            ZSetOperations.TypedTuple<String> typedTuple = iterator.next();
+            System.out.println("value:" + typedTuple.getValue() + "score:" + typedTuple.getScore());
+        }
     }
 
     @Test
     public void testZSetWithScore() {
         Set<ZSetOperations.TypedTuple<String>> typedTuples = strRedisTemplate.opsForZSet().rangeByScoreWithScores(key,
                                                                                                                   0.0
-                , 2.0,
-                                                                                                                  0, 1);
+                , 100.0,
+                                                                                                                  0, 5);
         for (ZSetOperations.TypedTuple<String> stringTypedTuple : typedTuples) {
             System.out.println(stringTypedTuple.getValue());
             System.out.println(stringTypedTuple.getScore());
@@ -107,12 +117,13 @@ public class ZSetOpsTest {
      */
     @Test
     public void testGetFirstElement() {
-        BoundZSetOperations<String, String> zSetOperations = strRedisTemplate.boundZSetOps("z_set");
+        BoundZSetOperations<String, String> zSetOperations = strRedisTemplate.boundZSetOps(key);
         Set<ZSetOperations.TypedTuple<String>> typedTuples =
                 Optional.ofNullable(zSetOperations.rangeWithScores(0, 0)).orElse(Collections.emptySet());
         String value = typedTuples.stream().findFirst().map(ZSetOperations.TypedTuple::getValue).orElse("");
         Double score = typedTuples.stream().findFirst().map(ZSetOperations.TypedTuple::getScore).orElse(0.0);
         System.out.println(value);
+        System.out.println(score);
         zSetOperations.incrementScore(value, 1.0);
         zSetOperations.incrementScore(value, 1.0);
     }

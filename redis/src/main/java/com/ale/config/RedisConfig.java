@@ -51,7 +51,7 @@ public class RedisConfig {
         //缓存配置对象
         RedisCacheConfiguration redisCacheConfiguration =
                 RedisCacheConfiguration.defaultCacheConfig()
-                                       .entryTtl(Duration.ofMinutes(30L))         //设置缓存的默认超时时间：30分钟
+                                       .entryTtl(Duration.ofMinutes(1L))         //设置缓存的默认超时时间：30分钟
                                        .disableCachingNullValues()                //如果是空值，不缓存
                                        .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(keySerializer()))       //设置key序列化器
                                        .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer((valueSerializer())));  //设置value序列化器
