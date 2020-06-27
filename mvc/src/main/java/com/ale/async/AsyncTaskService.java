@@ -2,36 +2,60 @@ package com.ale.async;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Future;
+
 /**
-  *
-  * @author alewu
-  * @date 2020/6/21
-  */
+ * The type Async task service.
+ *
+ * @author alewu
+ * @date 2020 /6/21
+ */
 @Service
 @Slf4j
 public class AsyncTaskService {
+    /**
+     * Task 1.没有返回值的异步调用
+     *
+     * @throws InterruptedException the interrupted exception
+     */
     @Async
-    public void task1() throws InterruptedException{
+    public void task1() throws InterruptedException {
         long currentTimeMillis = System.currentTimeMillis();
         Thread.sleep(1000);
         long currentTimeMillis1 = System.currentTimeMillis();
-        log.info("task1任务耗时: {} ms", (currentTimeMillis1-currentTimeMillis));
+        log.info("task with void 任务耗时: {} ms", (currentTimeMillis1 - currentTimeMillis));
     }
 
+    /**
+     * Task 2.带有返回值的异步方法;回调函数
+     *
+     * @throws InterruptedException the interrupted exception
+     */
     @Async
-    public void task2() throws InterruptedException{
+    public Future<String> task2() throws InterruptedException {
         long currentTimeMillis = System.currentTimeMillis();
         Thread.sleep(2000);
+        Future<String> future = new AsyncResult<>("success");
         long currentTimeMillis1 = System.currentTimeMillis();
-        log.info("task2任务耗时: {} ms", (currentTimeMillis1-currentTimeMillis));
+        log.info("task2 with future 任务耗时: {} ms", (currentTimeMillis1 - currentTimeMillis));
+        return future;
     }
+
+    /**
+     * Task 3.
+     *
+     * @throws InterruptedException the interrupted exception
+     */
     @Async
-    public void task3() throws InterruptedException{
+    public CompletableFuture<String> task3() throws InterruptedException {
         long currentTimeMillis = System.currentTimeMillis();
         Thread.sleep(3000);
         long currentTimeMillis1 = System.currentTimeMillis();
-        log.info("task3任务耗时: {} ms", (currentTimeMillis1-currentTimeMillis));
+        log.info("task with completable future 任务耗时: {} ms", (currentTimeMillis1 - currentTimeMillis));
+        return CompletableFuture.completedFuture("success");
     }
 }
