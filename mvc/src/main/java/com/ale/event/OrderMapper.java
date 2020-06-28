@@ -1,6 +1,5 @@
-package com.ale.mapper;
+package com.ale.event;
 
-import com.ale.event.Order;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
