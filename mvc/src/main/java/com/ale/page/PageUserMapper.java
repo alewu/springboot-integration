@@ -1,7 +1,7 @@
-package com.ale.mapper;
+package com.ale.page;
 
 import com.ale.entity.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
-public interface UserMapper extends BaseMapper<User> {
+public interface PageUserMapper extends BaseMapper<User> {
 }
