@@ -6,11 +6,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
-
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -28,7 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 @Component
 public class RequestLogAspect {
 
-    @Pointcut("execution(public * com.ale.controller.*.*(..))")
+    @Pointcut("execution(public * com.ale.*.*Controller.*(..))")
     private void parameterPointCut() {
     }
 
