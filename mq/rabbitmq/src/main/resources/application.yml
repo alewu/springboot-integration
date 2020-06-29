@@ -10,4 +10,8 @@ spring:
             mandatory: true
 
 
+logging:
+    pattern:
+        level: debug
+
 

@@ -16,11 +16,21 @@ public class AsyncTaskService {
 
     @Async(value = "msgTaskExecutor")
     public void sendMsgAsync(String msg) {
-//        try {
-//            TimeUnit.SECONDS.sleep(1);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        log.info("send message: {} ", msg);
+    }
+
+    @Async(value = "msgTaskExecutor1")
+    public void sendMsgAsync1(String msg) {
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         log.info("send message: {} ", msg);
     }
 
