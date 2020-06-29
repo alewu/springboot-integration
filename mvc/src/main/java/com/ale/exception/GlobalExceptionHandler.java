@@ -18,6 +18,8 @@ import java.util.Set;
 
 /**
  * The type Global exception handler.
+ * 1.处理自定义异常
+ * 2.未知异常统一返回服务器错误
  *
  * @author ale 规范：流程跳转尽量避免使用抛 BizException 来做控制。
  */
@@ -31,10 +33,9 @@ public class GlobalExceptionHandler {
      * @return 统一响应体 data:null
      */
     @ExceptionHandler(Exception.class)
-    public ResponseResult handleException(Exception e) {
+    public ResponseResult<String> handleException(Exception e) {
         log.error(e.getMessage(), e);
-        return new ResponseResult(ResponseCodeEnum.SERVICE_ERROR.getCode(), ResponseCodeEnum.SERVICE_ERROR.getMsg(),
-                                  null);
+        return ResponseResult.failed(ResponseCodeEnum.SERVICE_ERROR.getCode(), ResponseCodeEnum.SERVICE_ERROR.getMsg());
     }
 
     /**
@@ -44,10 +45,9 @@ public class GlobalExceptionHandler {
      * @return 统一响应体 data:null
      */
     @ExceptionHandler(RuntimeException.class)
-    public ResponseResult handleRuntimeException(RuntimeException e) {
+    public ResponseResult<String> handleRuntimeException(RuntimeException e) {
         log.error(e.getMessage(), e);
-        return new ResponseResult(ResponseCodeEnum.SERVICE_ERROR.getCode(), ResponseCodeEnum.SERVICE_ERROR.getMsg(),
-                                  null);
+        return ResponseResult.failed(ResponseCodeEnum.SERVICE_ERROR.getCode(), ResponseCodeEnum.SERVICE_ERROR.getMsg());
     }
 
     /**
@@ -57,10 +57,10 @@ public class GlobalExceptionHandler {
      * @return 统一响应体 data:null
      */
     @ExceptionHandler(BaseException.class)
-    public ResponseResult handleBaseException(BaseException e) {
+    public ResponseResult<String> handleBaseException(BaseException e) {
         log.error(e.getMessage(), e);
         ResponseCodeEnum code = e.getCode();
-        return new ResponseResult(code.getCode(), code.getMsg(), null);
+        return ResponseResult.failed(code.getCode(), code.getMsg());
     }
 
     /**
@@ -114,8 +114,8 @@ public class GlobalExceptionHandler {
      * @return response result
      */
     @ExceptionHandler(MissingServletRequestParameterException.class)
-    public ResponseResult handleMissingServletRequestParameterException(MissingServletRequestParameterException ex) {
-        return new ResponseResult(ResponseCodeEnum.SERVICE_ERROR.getCode(), ex.getMessage(), null);
+    public ResponseResult<String> handleMissingServletRequestParameterException(MissingServletRequestParameterException ex) {
+        return ResponseResult.failed(ResponseCodeEnum.SERVICE_ERROR.getCode(), ex.getMessage());
     }
 
     /**
@@ -125,8 +125,8 @@ public class GlobalExceptionHandler {
      * @return response result
      */
     @ExceptionHandler(value = HttpRequestMethodNotSupportedException.class)
-    public ResponseResult handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException ex) {
-        return new ResponseResult(ResponseCodeEnum.SERVICE_ERROR.getCode(), ex.getMessage(), null);
+    public ResponseResult<String> handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException ex) {
+        return ResponseResult.failed(ResponseCodeEnum.SERVICE_ERROR.getCode(), ex.getMessage());
     }
 
 }

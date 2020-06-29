@@ -1,6 +1,5 @@
 package com.ale.common;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -40,6 +39,13 @@ public class ResponseResult<T> implements Serializable {
 
     public static <T> ResponseResult<T> failed(ExceptionEnum exceptionEnum) {
         return restResult(null, exceptionEnum);
+    }
+
+    public static <T> ResponseResult<T> failed(Integer code, String msg) {
+        ResponseResult<T> apiResult = new ResponseResult<>();
+        apiResult.setCode(code);
+        apiResult.setMsg(msg);
+        return apiResult;
     }
 
     private static <T> ResponseResult<T> restResult(T data, ExceptionEnum exceptionEnum) {
