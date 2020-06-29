@@ -8,7 +8,10 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ConcurrentTaskExecutor;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
-import java.util.concurrent.*;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
   *
@@ -25,21 +28,13 @@ public class ThreadPoolConfig {
         // 设置默认线程名称
         executor.setThreadNamePrefix("Msg-Executor-");
         // 设置核心线程数
-        int corePoolSize = Runtime.getRuntime().availableProcessors() * 2;
+        int corePoolSize = Runtime.getRuntime().availableProcessors() * 4;
         executor.setCorePoolSize(corePoolSize);
         // 设置最大线程数
         executor.setMaxPoolSize(corePoolSize + 10);
 
         executor.setQueueCapacity(1000);
 
-        // 设置拒绝策略
-//        executor.setRejectedExecutionHandler(new RejectedExecutionHandler() {
-//            @Override
-//            public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
-//                // .....
-//            }
-//        });
-        // 使用预定义的异常处理类
          executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
 
         return executor;
@@ -49,9 +44,9 @@ public class ThreadPoolConfig {
     public AsyncTaskExecutor taskExecutor1() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         // 设置默认线程名称
-        executor.setThreadNamePrefix("Msg1-Executor-");
+        executor.setThreadNamePrefix("Msg2-Executor-");
         // 设置核心线程数
-        int corePoolSize = Runtime.getRuntime().availableProcessors() * 2;
+        int corePoolSize = Runtime.getRuntime().availableProcessors() * 4;
         executor.setCorePoolSize(corePoolSize);
         // 设置最大线程数
         executor.setMaxPoolSize(corePoolSize + 10);
