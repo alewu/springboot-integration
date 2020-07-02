@@ -41,11 +41,21 @@ public class HashOpsTest {
      * 创建一个hash表，并存入键值对
      */
     @Test
-    public void testHset() {
+    public void testHSet() {
         hashOperations.put("age", "10");
         hashOperations.put("id", "1");
         hashOperations.put("name", "redis");
         Set<Map.Entry<Object, Object>> entries = hashOperations.entries().entrySet();
+
+    }
+
+    /**
+     * 创建一个hash表，并存入键值对
+     */
+    @Test
+    public void testHGet() {
+        String age = (String) hashOperations.get("age1");
+        System.out.println(age);
 
     }
 

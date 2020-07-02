@@ -17,13 +17,18 @@ public class QueueConfig {
 
     @Bean
     public Declarables directBindings() {
-        Queue directQueue = new Queue(MY_QUEUE, NON_DURABLE);
-        DirectExchange directExchange = new DirectExchange(MY_QUEUE, NON_DURABLE, NON_DURABLE);
-
+        Queue slowDirectQueue = QueueBuilder.durable(SLOW_QUEUE).build();
+        Queue middleDirectQueue = QueueBuilder.durable(MIDDLE_QUEUE).build();
+        Queue highDirectQueue = QueueBuilder.durable(HIGH_QUEUE).build();
+        DirectExchange directExchange = ExchangeBuilder.directExchange(DIRECT_EXCHANGE_NAME).durable(true).build();
         return new Declarables(
-                directQueue,
+                slowDirectQueue,
+                middleDirectQueue,
+                highDirectQueue,
                 directExchange,
-                BindingBuilder.bind(directQueue).to(directExchange).withQueueName());
+                BindingBuilder.bind(slowDirectQueue).to(directExchange).withQueueName(),
+                BindingBuilder.bind(middleDirectQueue).to(directExchange).withQueueName(),
+                BindingBuilder.bind(highDirectQueue).to(directExchange).withQueueName());
     }
 
 

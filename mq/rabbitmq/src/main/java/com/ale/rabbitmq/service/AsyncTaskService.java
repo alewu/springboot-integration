@@ -34,6 +34,26 @@ public class AsyncTaskService {
         log.info("send message: {} ", msg);
     }
 
+    @Async(value = "msgTaskExecutor2")
+    public void sendMsgAsync2(String msg) {
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        log.info("send message: {} ", msg);
+    }
+
+    @Async(value = "msgTaskExecutor3")
+    public void sendMsgAsync3(String msg) {
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        log.info("send message: {} ", msg);
+    }
+
     public void sendMsg(String msg) {
         try {
             TimeUnit.SECONDS.sleep(1);

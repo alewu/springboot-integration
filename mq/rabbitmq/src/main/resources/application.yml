@@ -8,6 +8,10 @@ spring:
         publisher-returns: true
         template:
             mandatory: true
+        listener:
+            simple:
+                concurrency: 6
+
 
 
 logging:
