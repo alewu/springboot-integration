@@ -1,10 +1,11 @@
 package com.ale.rabbitmq;
 
-import com.ale.rabbitmq.producer.MessageProducer;
+import com.ale.rabbitmq.producer.DirectQueueProducer;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.annotation.Order;
 
 /**
   *
@@ -19,8 +20,9 @@ public class RabbitmqApplication {
     }
 
     @Bean
-    public ApplicationRunner runner(MessageProducer messageProducer) {
-        return args -> messageProducer.sendMsg();
+    @Order(1)
+    public ApplicationRunner runner(DirectQueueProducer directQueueProducer) {
+        return args -> directQueueProducer.sendMsg();
     }
 
 }
