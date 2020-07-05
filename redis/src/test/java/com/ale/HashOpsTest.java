@@ -2,10 +2,12 @@ package com.ale;
 
 import com.ale.entity.UserEntity;
 import org.assertj.core.util.Lists;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
@@ -14,7 +16,10 @@ import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.RedisSerializer;
 
+import java.time.Instant;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -30,12 +35,26 @@ public class HashOpsTest {
 
     public static BoundHashOperations<String, Object, Object> hashOperations = null;
     public static String key = "";
+    @Autowired
+    @Qualifier("customExecutorPool")
+    private ThreadPoolExecutor customExecutorPool;
+
+    long start = 0;
+    long end = 0;
 
     @BeforeEach
     public void init() {
         key = "test_hash";
         hashOperations = strRedisTemplate.boundHashOps(key);
+        start = Instant.now().toEpochMilli();
     }
+
+    @AfterEach
+    public void after() {
+        end = Instant.now().toEpochMilli();
+        System.out.println(String.format("end - start = %d ms", end - start));
+    }
+
 
     /**
      * 创建一个hash表，并存入键值对
@@ -57,6 +76,21 @@ public class HashOpsTest {
         String age = (String) hashOperations.get("age1");
         System.out.println(age);
 
+    }
+
+    @Test
+    public void testHincr() {
+
+        for (int i = 0; i < 100000; i++) {
+            CompletableFuture.runAsync(() -> hashOperations.increment("id", 1),
+                                       customExecutorPool);
+
+        }
+        try {
+            TimeUnit.SECONDS.sleep(30);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
 
