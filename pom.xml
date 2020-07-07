@@ -19,6 +19,7 @@
         <module>redis</module>
         <module>mybatis</module>
         <module>mq</module>
+        <module>cache</module>
     </modules>
     <packaging>pom</packaging>
 
