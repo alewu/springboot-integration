@@ -10,7 +10,8 @@ spring:
             mandatory: true
         listener:
             simple:
-                concurrency: 6
+                concurrency: 1
+                default-requeue-rejected: false
 
 
 
