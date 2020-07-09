@@ -75,7 +75,7 @@ public class GlobalExceptionHandler {
         Set<ConstraintViolation<?>> constraintViolations = e.getConstraintViolations();
         String messageTemplate = constraintViolations.iterator().next().getMessageTemplate();
         log.warn(messageTemplate);
-        return ResponseResult.failed(BusinessExceptionEnum.FILE_UPLOAD_EXCEPTION);
+        return ResponseResult.failed(400, messageTemplate);
     }
 
     /**

@@ -1,5 +1,6 @@
 package com.ale.event;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
  * @author alewu
  */
 @Service
+@Slf4j
 public class EmailServiceImpl {
 
     /**
@@ -27,6 +29,7 @@ public class EmailServiceImpl {
      */
     @EventListener
     public void placeOrderNotice(OrderCreatedEvent order) {
+        log.info("event listener, {}", order);
         sendEmail(order);
     }
 

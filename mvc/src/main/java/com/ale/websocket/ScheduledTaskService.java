@@ -18,12 +18,8 @@ import java.util.Set;
 @Slf4j
 public class ScheduledTaskService {
 
-
-    /**
-     * 每分钟执行一次
-     */
-    @Scheduled(cron = "0/3 * * * * ?")
-    public void test() throws IOException {
+    @Scheduled(cron = "0/100 * * * * ?")
+    public void test() {
         log.info("timer task start");
         Set<WsServerEndpoint> webSocketSet = WsServerEndpoint.getWebSocketSet();
         webSocketSet.forEach(wsServerEndpoint -> {
