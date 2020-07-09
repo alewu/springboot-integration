@@ -3,6 +3,7 @@ package com.ale.aspect;
 
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -61,7 +63,12 @@ public class RequestLogAspect {
 
         int index = 0;
         ObjectMapper mapper = new ObjectMapper();
+        // 对文件上传做处理
+        mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
         for (Object arg : reqArgs) {
+            if (arg instanceof MultipartFile) {
+                return;
+            }
             try {
                 log.info("请求入参[{}]: {}", index, mapper.writeValueAsString(arg));
             } catch (Exception ex) {
