@@ -2,6 +2,17 @@ server:
   port: 7777
 # DataSource Config
 spring:
+  profiles:
+    active: mysql
+
+# Logger Config
+logging:
+  level:
+    com.ale: debug
+
+---
+spring:
+  profiles: mem
   datasource:
     driver-class-name: org.h2.Driver
     schema: classpath:db/schema-h2.sql
@@ -10,7 +21,11 @@ spring:
     username: sa
     password:
 
-# Logger Config
-logging:
-  level:
-    com.ale: debug
+---
+spring:
+  profiles: mysql
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://txc:3306/mybatis
+    username: root
+    password: root
