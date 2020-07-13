@@ -1,11 +1,9 @@
 package com.ale.rabbitmq.delayqueue;
 
-import com.ale.rabbitmq.producer.DirectQueueProducer;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.core.annotation.Order;
 
 import java.time.LocalDateTime;
 import java.util.concurrent.TimeUnit;
