@@ -16,7 +16,7 @@ import java.time.format.DateTimeFormatter;
 public class XdelayReceiver {
 
     @RabbitListener(queues = XdelayConfig.DELAY_QUEUE)
-    public void cfgUserReceiveDealy(Booking booking, Message message) throws IOException {
+    public void cfgUserReceiveDelay(Booking booking, Message message) throws IOException {
         log.info("===============接收队列接收消息====================");
         log.info("接收时间:{},接受内容:{}", LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), booking.getBookingName());
     }
