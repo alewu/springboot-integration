@@ -6,7 +6,6 @@ import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 /**
  * 自定义自动填充
@@ -29,7 +28,7 @@ public class CustomMetaObjectHandler implements MetaObjectHandler {
         // 先判断是否存在该字段，目的是有些数据库的表没有创建时间和修改时间字段，如果再执行这些操作有点浪费
         boolean gmtCreate = metaObject.hasSetter(GMT_CREATE);
         if (gmtCreate) {
-            setInsertFieldValByName(GMT_CREATE, LocalDateTime.now(), metaObject);
+            strictInsertFill(metaObject, GMT_CREATE, LocalDateTime.class, LocalDateTime.now());
         }
         boolean gmtModified = metaObject.hasSetter(GMT_MODIFIED);
         if (gmtModified) {
