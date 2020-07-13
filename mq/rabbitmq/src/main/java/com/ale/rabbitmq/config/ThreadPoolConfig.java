@@ -29,9 +29,9 @@ public class ThreadPoolConfig {
         executor.setThreadNamePrefix("Msg-Executor-");
         // 设置核心线程数
         int corePoolSize = Runtime.getRuntime().availableProcessors() * 4;
-        executor.setCorePoolSize(corePoolSize);
+        executor.setCorePoolSize(2);
         // 设置最大线程数
-        executor.setMaxPoolSize(corePoolSize + 10);
+        executor.setMaxPoolSize(2);
 
         executor.setQueueCapacity(1000);
 
