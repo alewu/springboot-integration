@@ -18,10 +18,8 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Constraint(validatedBy = {FileValidator.class})
 @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
 @Retention(RUNTIME)
-@Repeatable(File.List.class)
-public @interface File {
-
-    String suffix() default "txt";
+@Repeatable(Image.List.class)
+public @interface Image {
 
     String message() default "{}";
 
@@ -36,7 +34,7 @@ public @interface File {
     @Retention(RUNTIME)
     @Documented
     public @interface List {
-        File[] value();
+        Image[] value();
     }
 }
 
