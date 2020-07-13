@@ -73,7 +73,7 @@ public class HashOpsTest {
      */
     @Test
     public void testHGet() {
-        String age = (String) hashOperations.get("age1");
+        String age = (String) hashOperations.get("ag11e1");
         System.out.println(age);
 
     }

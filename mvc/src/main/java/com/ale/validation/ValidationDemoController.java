@@ -48,7 +48,7 @@ public class ValidationDemoController {
      * @date 2020/6/28 18:41
      */
     @PostMapping(value = "/file", consumes = "multipart/*", headers = "content-type=multipart/form-data")
-    public ResponseEntity<String> validateFile(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<String> validateFile(@RequestParam("file") @Image MultipartFile file) {
         String originalFilename = Optional.ofNullable(file.getOriginalFilename()).orElse("");
         return ResponseEntity.ok(originalFilename);
     }
