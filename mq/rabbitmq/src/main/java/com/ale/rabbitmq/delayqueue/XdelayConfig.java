@@ -24,18 +24,31 @@ public class XdelayConfig {
      */
     public static final String DELAY_KEY = "delay_key";
     /**
-     * The constant DELAY_QUEUE.
+     * The constant DELAY_QUEUE_ONE.
      */
-    public static final String DELAY_QUEUE = "delay_queue";
+    public static final String DELAY_QUEUE_ONE = "delay_queue_one";
+
+    /**
+     * The constant DELAY_QUEUE_TWO.
+     */
+    public static final String DELAY_QUEUE_TWO = "delay_queue_two";
 
 
+    /**
+     * Delay bindings declarables.
+     *
+     * @return the declarables
+     */
     @Bean
     public Declarables delayBindings() {
-        Queue delayQueue = QueueBuilder.durable(DELAY_QUEUE).build();
+        Queue delayQueueOne = QueueBuilder.durable(DELAY_QUEUE_ONE).build();
+        Queue delayQueueTwo = QueueBuilder.durable(DELAY_QUEUE_TWO).build();
         DirectExchange delayExchange = ExchangeBuilder.directExchange(DELAY_EXCHANGE).delayed().durable(true).build();
         return new Declarables(
-                delayQueue,
+                delayQueueOne,
+                delayQueueTwo,
                 delayExchange,
-                BindingBuilder.bind(delayQueue).to(delayExchange).withQueueName());
+                BindingBuilder.bind(delayQueueOne).to(delayExchange).withQueueName(),
+                BindingBuilder.bind(delayQueueTwo).to(delayExchange).withQueueName());
     }
 }

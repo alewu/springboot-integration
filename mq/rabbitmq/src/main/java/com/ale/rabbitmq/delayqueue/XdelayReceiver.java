@@ -17,7 +17,7 @@ import java.time.format.DateTimeFormatter;
 @Slf4j
 public class XdelayReceiver {
 
-    //    @RabbitListener(queues = XdelayConfig.DELAY_QUEUE)
+    @RabbitListener(queues = XdelayConfig.DELAY_QUEUE_ONE)
     public void cfgUserReceiveDelay(Message<Booking> message) throws IOException {
         Booking booking = message.getPayload();
         String appId = String.valueOf(message.getHeaders().get("amqp_appId"));
@@ -27,12 +27,12 @@ public class XdelayReceiver {
         log.info("发送人：{},接收时间:{},接受内容:{}", appId, LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), booking.getBookingName());
     }
 
-    @RabbitListener(queues = XdelayConfig.DELAY_QUEUE)
-    public void userReceiveDelay(@Payload Booking booking, @Header("amqp_correlationId") String correlationId,
+    @RabbitListener(queues = XdelayConfig.DELAY_QUEUE_TWO)
+    public void userReceiveDelay(@Payload Order order, @Header("amqp_correlationId") String correlationId,
                                  @Header("amqp_appId") String appId) throws IOException {
         log.info("===============接收队列接收消息====================");
         log.info("@Header correlationId:{}", correlationId);
-        log.info("发送人：{},接收时间:{},接受内容:{}", appId, LocalDateTime.now().format(DateTimeFormatter.ofPattern(
-                "yyyy-MM-dd HH:mm:ss")), booking.getBookingName());
+        log.info("发送人：{},接收时间:{},接受内容: 第{}个订单", appId, LocalDateTime.now().format(DateTimeFormatter.ofPattern(
+                "yyyy-MM-dd HH:mm:ss")), order.getId());
     }
 }
