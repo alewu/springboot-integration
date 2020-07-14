@@ -1,6 +1,7 @@
 package com.ale.rabbitmq.delayqueue;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,11 @@ public class XdelaySender {
                 booking,
                 message -> {
                     //注意这里时间可以使long，而且是设置header
-                    message.getMessageProperties().setHeader("x-delay", delayTime * 60000);//设置延迟多少分钟
+                    MessageProperties messageProperties = message.getMessageProperties();
+                    messageProperties.setCorrelationId("correlationId-1");
+                    messageProperties.setAppId("123");
+                    messageProperties.setDelay(delayTime * 60000);//设置延迟多少分钟
+                    //                    messageProperties.setHeader("x-delay", delayTime * 60000);
                     return message;
                 }
         );
