@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.UUID;
-import java.util.concurrent.TimeUnit;
 
 import static com.ale.rabbitmq.reliability.TestQueueConfig.TEST_QUEUE;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -97,26 +96,24 @@ class ReliabilityApplicationTest {
 
 
     @Test
-    void testConsumerNAck() throws InterruptedException {
-        rabbitTemplate.convertAndSend(TEST_QUEUE, "nack");
-        TimeUnit.SECONDS.sleep(100);
+    void testConsumerNAck() {
+        rabbitTemplate.setReceiveTimeout(3L);
+        Object nack = rabbitTemplate.convertSendAndReceive(TEST_QUEUE, "nack");
+        assertNull(nack);
     }
 
     @Test
-    void testConsumerAckRequeue() throws InterruptedException {
-        rabbitTemplate.convertAndSend(TEST_QUEUE, "nack-requeue");
-        TimeUnit.SECONDS.sleep(100);
+    void testConsumerAckRequeue() {
+        rabbitTemplate.convertSendAndReceive(TEST_QUEUE, "nack-requeue");
     }
 
     @Test
-    void testConsumerReject() throws InterruptedException {
-        rabbitTemplate.convertAndSend(TEST_QUEUE, "reject");
-        TimeUnit.SECONDS.sleep(100);
+    void testConsumerReject() {
+        rabbitTemplate.convertSendAndReceive(TEST_QUEUE, "reject");
     }
 
     @Test
-    void testConsumerRejectRequeue() throws InterruptedException {
-        rabbitTemplate.convertAndSend(TEST_QUEUE, "reject-requeue");
-        TimeUnit.SECONDS.sleep(100);
+    void testConsumerRejectRequeue() {
+        rabbitTemplate.convertSendAndReceive(TEST_QUEUE, "reject-requeue");
     }
 }
