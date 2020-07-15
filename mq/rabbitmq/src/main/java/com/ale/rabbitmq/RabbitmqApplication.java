@@ -1,6 +1,6 @@
 package com.ale.rabbitmq;
 
-import com.ale.rabbitmq.producer.DirectQueueProducer;
+import com.ale.rabbitmq.other.producer.DirectQueueProducer;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
