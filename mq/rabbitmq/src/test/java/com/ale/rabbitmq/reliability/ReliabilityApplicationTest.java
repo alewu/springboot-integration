@@ -95,6 +95,9 @@ class ReliabilityApplicationTest {
     }
 
 
+    /**
+     * channel.basicNack() 可批量拒绝
+     */
     @Test
     void testConsumerNAck() {
         rabbitTemplate.setReceiveTimeout(3L);
@@ -102,11 +105,16 @@ class ReliabilityApplicationTest {
         assertNull(nack);
     }
 
+
     @Test
     void testConsumerAckRequeue() {
         rabbitTemplate.convertSendAndReceive(TEST_QUEUE, "nack-requeue");
     }
 
+    /**
+     * channel.basicReject()从协议层面上，reject是发送一个Basic.Reject响应，告知RabbitMQ无法对这条消息进行处理，
+     * 当拒绝时，可以指定是否丢弃消息或使用requeue标志重新发送消息。当启用requeue时，RabbitMQ将会把这条消息重新放回到队列中。
+     */
     @Test
     void testConsumerReject() {
         rabbitTemplate.convertSendAndReceive(TEST_QUEUE, "reject");
