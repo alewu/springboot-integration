@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.UUID;
-import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertNull;
 
@@ -20,11 +19,12 @@ class ReliabilityApplicationTest {
     private RabbitTemplate rabbitTemplate;
 
     @Test
-    void testPublisherConfirms() throws InterruptedException {
+    void testPublisherConfirms() {
 
         // 设置消息发布确认功能，需要在yml中配置：publisher-confirms: simple
         rabbitTemplate.setConfirmCallback((correlationData, ack, cause) -> {
             if (ack) {
+                // 在yml中配置：publisher-confirms: none 时，该日志不打印
                 log.info("ConfirmCallback -> 消息发布到交换器成功，id：{}", correlationData);
             } else {
                 log.warn("ConfirmCallback -> 消息发布到交换器失败，错误原因为：{}", cause);
@@ -33,7 +33,6 @@ class ReliabilityApplicationTest {
         CorrelationData correlationData = new CorrelationData(UUID.randomUUID().toString());
         Object response = rabbitTemplate.convertSendAndReceive("EXCHANGE_NOT_EXIST", "ROUTING_KEY_NOT_EXIST", "rabbit"
                 , correlationData);
-        TimeUnit.SECONDS.sleep(10);
         assertNull(response);
     }
 
@@ -60,6 +59,33 @@ class ReliabilityApplicationTest {
                                                                "ROUTING_KEY_NOT_EXIST", "rabbit");
         assertNull(response);
 
+    }
+
+
+    @Test
+    void testPublisherConfirmsNotPublisherReturns() {
+        // 设置消息发布确认功能，需要在yml中配置：publisher-confirms: simple
+        rabbitTemplate.setConfirmCallback((correlationData, ack, cause) -> {
+            if (ack) {
+                log.info("ConfirmCallback -> 消息发布到交换器成功，id：{}", correlationData);
+            } else {
+                log.warn("ConfirmCallback -> 消息发布到交换器失败，错误原因为：{}", cause);
+            }
+        });
+        rabbitTemplate.setReturnCallback((message, replyCode, replyText, exchange, routingKey) -> {
+            String correlationId = message.getMessageProperties().getCorrelationId();
+            log.info("ReturnCallback -> 消息 {} 发送失败，应答码：{}，原因：{}，交换器: {}，路由键：{}",
+                     correlationId,
+                     replyCode,
+                     replyText,
+                     exchange,
+                     routingKey);
+        });
+        CorrelationData correlationData = new CorrelationData(UUID.randomUUID().toString());
+        Object response = rabbitTemplate.convertSendAndReceive(TestQueueConfig.TEST_EXCHANGE_NAME,
+                                                               "ROUTING_KEY_NOT_EXIST", "rabbit"
+                , correlationData);
+        assertNull(response);
     }
 
 
