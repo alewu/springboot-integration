@@ -40,8 +40,7 @@ class ReliabilityApplicationTest {
     }
 
     /**
-     * 发送direct消息。
-     * 交换器存在，但队列不存在，测试Mandatory与ReturnCallback。
+     * 交换器存在，但路由key不存在，无法路由到队列， 测试Mandatory与ReturnCallback。
      */
     @Test
     void testPublisherReturns() {
