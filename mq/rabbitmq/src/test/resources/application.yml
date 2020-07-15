@@ -8,10 +8,11 @@ spring:
         publisher-returns: true
         template:
             mandatory: true
-#        listener:
-#            simple:
-#                concurrency: 1
-#                default-requeue-rejected: false
+        listener:
+            simple:
+                concurrency: 1
+                default-requeue-rejected: false
+                acknowledge-mode: manual
 
 
 

@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
+import static com.ale.rabbitmq.reliability.TestQueueConfig.TEST_QUEUE;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 @SpringBootTest
@@ -94,4 +96,27 @@ class ReliabilityApplicationTest {
     }
 
 
+    @Test
+    void testConsumerNAck() throws InterruptedException {
+        rabbitTemplate.convertAndSend(TEST_QUEUE, "nack");
+        TimeUnit.SECONDS.sleep(100);
+    }
+
+    @Test
+    void testConsumerAckRequeue() throws InterruptedException {
+        rabbitTemplate.convertAndSend(TEST_QUEUE, "nack-requeue");
+        TimeUnit.SECONDS.sleep(100);
+    }
+
+    @Test
+    void testConsumerReject() throws InterruptedException {
+        rabbitTemplate.convertAndSend(TEST_QUEUE, "reject");
+        TimeUnit.SECONDS.sleep(100);
+    }
+
+    @Test
+    void testConsumerRejectRequeue() throws InterruptedException {
+        rabbitTemplate.convertAndSend(TEST_QUEUE, "reject-requeue");
+        TimeUnit.SECONDS.sleep(100);
+    }
 }
