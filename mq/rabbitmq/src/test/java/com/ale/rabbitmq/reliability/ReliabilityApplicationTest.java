@@ -18,6 +18,9 @@ class ReliabilityApplicationTest {
     @Autowired
     private RabbitTemplate rabbitTemplate;
 
+    /**
+     * 交换机不存在
+     */
     @Test
     void testPublisherConfirms() {
 
@@ -62,6 +65,9 @@ class ReliabilityApplicationTest {
     }
 
 
+    /**
+     * 交换机存在，路由key不存在
+     */
     @Test
     void testPublisherConfirmsNotPublisherReturns() {
         // 设置消息发布确认功能，需要在yml中配置：publisher-confirms: simple
