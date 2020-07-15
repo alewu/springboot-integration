@@ -27,4 +27,6 @@ public final class RabbitConstants {
     public static final String SLOW_QUEUE = "slowQueue";
     public static final String MIDDLE_QUEUE = "middleQueue";
     public static final String HIGH_QUEUE = "highQueue";
+
+    public static final String TEST_QUEUE = "testQueue";
 }

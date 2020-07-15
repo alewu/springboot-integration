@@ -1,9 +1,9 @@
-package com.ale.rabbitmq;
+package com.ale.rabbitmq.errorhandling;
+
 
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class RabbitmqApplicationTests {
-
+class ErrorHandlingAppTest {
 
 }

@@ -25,7 +25,7 @@ public class MessagesConsumer {
     @RabbitListener(queues = SimpleDLQAmqpConfig.QUEUE_MESSAGES)
     public void receiveMessage(Message message) throws BusinessException {
         log.info("Received message: {}", message.toString());
-        throw new BusinessException();
+//        throw new BusinessException();
     }
 
     @Bean
