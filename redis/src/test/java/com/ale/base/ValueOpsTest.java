@@ -1,4 +1,4 @@
-package com.ale;
+package com.ale.base;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

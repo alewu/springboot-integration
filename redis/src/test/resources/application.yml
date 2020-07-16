@@ -11,3 +11,7 @@ spring:
     port: 6379
     timeout: 100
     password: BPepAFYfoUhTgTVh
+    lettuce:
+      pool:
+        max-active: 2
+        max-idle: 1

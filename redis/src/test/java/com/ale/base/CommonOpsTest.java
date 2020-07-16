@@ -1,4 +1,4 @@
-package com.ale;
+package com.ale.base;
 
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Assertions;

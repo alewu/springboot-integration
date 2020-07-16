@@ -1,4 +1,4 @@
-package com.ale;
+package com.ale.base;
 
 import com.ale.entity.WxMpKefuMessage;
 import com.fasterxml.jackson.core.JsonProcessingException;
