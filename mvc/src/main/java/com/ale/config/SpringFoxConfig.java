@@ -7,22 +7,26 @@ import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.oas.annotations.EnableOpenApi;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
+ * 访问路径： /swagger-ui/index.html
+ *
  * @author alewu
  */
-@EnableSwagger2
+@EnableOpenApi
 @Configuration
-@Import(BeanValidatorPluginsConfiguration.class)
 public class SpringFoxConfig {
     @Bean
     public Docket api() {
-        return new Docket(DocumentationType.SWAGGER_2)
+        return new Docket(DocumentationType.OAS_30)
+                // 定义是否开启swagger，false为关闭，可以通过变量控制
+                .enable(true)
                 .apiInfo(apiInfo())
+                // 选择哪些接口作为swagger的doc发布
                 .select()
                 // 自行修改为自己的包路径
                 .apis(RequestHandlerSelectors.basePackage("com.ale"))
