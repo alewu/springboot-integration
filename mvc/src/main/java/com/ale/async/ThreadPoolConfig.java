@@ -16,10 +16,13 @@ import java.util.concurrent.ThreadPoolExecutor;
 @Configuration
 @EnableAsync
 public class ThreadPoolConfig {
+
     @Bean
     public AsyncTaskExecutor taskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setThreadNamePrefix("Custom-Executor-");
+        executor.setThreadNamePrefix("Custom-task-");
+        // default 1
+        executor.setCorePoolSize(3);
         executor.setMaxPoolSize(10);
 
         // 设置拒绝策略

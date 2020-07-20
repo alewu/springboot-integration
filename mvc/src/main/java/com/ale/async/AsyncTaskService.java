@@ -23,7 +23,7 @@ public class AsyncTaskService {
      * @throws InterruptedException the interrupted exception
      */
     @Async
-    public void task1() throws InterruptedException {
+    public void taskWithVoid() throws InterruptedException {
         long currentTimeMillis = System.currentTimeMillis();
         Thread.sleep(1000);
         long currentTimeMillis1 = System.currentTimeMillis();
@@ -36,7 +36,7 @@ public class AsyncTaskService {
      * @throws InterruptedException the interrupted exception
      */
     @Async
-    public Future<String> task2() throws InterruptedException {
+    public Future<String> taskWithResult() throws InterruptedException {
         long currentTimeMillis = System.currentTimeMillis();
         Thread.sleep(2000);
         Future<String> future = new AsyncResult<>("success");
@@ -51,7 +51,7 @@ public class AsyncTaskService {
      * @throws InterruptedException the interrupted exception
      */
     @Async
-    public CompletableFuture<String> task3() throws InterruptedException {
+    public CompletableFuture<String> taskWithCompletableFuture() throws InterruptedException {
         long currentTimeMillis = System.currentTimeMillis();
         Thread.sleep(3000);
         long currentTimeMillis1 = System.currentTimeMillis();
