@@ -75,8 +75,10 @@ public class AsyncTaskService {
      */
     @Async
     public CompletableFuture<String> taskEmbedSmallTask() throws InterruptedException {
-        long currentTimeMillis = System.currentTimeMillis();
+
         Thread.sleep(3000);
+
+        long currentTimeMillis = System.currentTimeMillis();
         List<CompletableFuture<String>> futures = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             CompletableFuture<String> completableFuture = asyncSmallTaskService.smallTask(i);
@@ -84,6 +86,8 @@ public class AsyncTaskService {
         }
         List<String> collect = futures.stream().map(CompletableFuture::join).collect(Collectors.toList());
         long currentTimeMillis1 = System.currentTimeMillis();
+
+
         log.info("task with completable future 任务耗时: {} ms, {}", (currentTimeMillis1 - currentTimeMillis), collect);
         return CompletableFuture.completedFuture("success");
     }
