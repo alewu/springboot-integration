@@ -39,5 +39,14 @@ public class AsyncTaskController {
         return "task任务总耗时:" + (currentTimeMillis1 - currentTimeMillis) + "ms " + "结果：" + join;
     }
 
+    @GetMapping("/async/taskEmbedSmallTask")
+    public String task() throws InterruptedException {
+        long currentTimeMillis = System.currentTimeMillis();
+        CompletableFuture<String> completableFuture = asyncTaskService.taskEmbedSmallTask();
+        String join = completableFuture.join();
+        long currentTimeMillis1 = System.currentTimeMillis();
+        return "task任务总耗时:" + (currentTimeMillis1 - currentTimeMillis) + "ms " + "结果：" + join;
+    }
+
 
 }

@@ -38,4 +38,23 @@ public class ThreadPoolConfig {
         return executor;
     }
 
+    @Bean("smallTaskExecutor")
+    public AsyncTaskExecutor smallTaskExecutor() {
+        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+        executor.setThreadNamePrefix("small-task-");
+        // default 1
+        executor.setCorePoolSize(3);
+        executor.setMaxPoolSize(10);
+
+        // 设置拒绝策略
+        executor.setRejectedExecutionHandler(new RejectedExecutionHandler() {
+            @Override
+            public void rejectedExecution(Runnable runnable, ThreadPoolExecutor executor) {
+                // .....
+            }
+        });
+
+        return executor;
+    }
+
 }
