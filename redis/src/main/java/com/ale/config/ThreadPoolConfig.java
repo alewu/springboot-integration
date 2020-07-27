@@ -19,13 +19,13 @@ public class ThreadPoolConfig {
     @Bean("customExecutorPool")
     public ThreadPoolExecutor customExecutorPool() {
         ThreadFactory threadFactory = new ThreadFactoryBuilder()
-                .setNameFormat("thread custom" + "-%d")
+                .setNameFormat("custom-task" + "-%d")
                 .setDaemon(true).build();
 
         int corePoolSize = 2 * Runtime.getRuntime().availableProcessors();
         return new ThreadPoolExecutor(corePoolSize, 200,
                                       1000L, TimeUnit.MILLISECONDS,
-                                      new ArrayBlockingQueue<>(1000), threadFactory,
+                                      new ArrayBlockingQueue<>(10000), threadFactory,
                                       new ThreadPoolExecutor.CallerRunsPolicy());
     }
 }

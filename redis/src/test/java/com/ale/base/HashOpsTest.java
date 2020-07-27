@@ -22,6 +22,8 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 /**
  * @author alewu
  * @date 2020/6/8
@@ -80,17 +82,16 @@ public class HashOpsTest {
 
     @Test
     public void testHincr() {
-
+        Long ok = hashOperations.increment("ok", 0L);
+        assertEquals(ok, 0L);
+        ArrayList<CompletableFuture<Long>> futures = Lists.newArrayList();
         for (int i = 0; i < 100000; i++) {
-            CompletableFuture.runAsync(() -> hashOperations.increment("id", 1),
-                                       customExecutorPool);
+            CompletableFuture<Long> future = CompletableFuture.supplyAsync(() -> hashOperations.increment("id", 1),
+                                                                           customExecutorPool);
+            futures.add(future);
+        }
 
-        }
-        try {
-            TimeUnit.SECONDS.sleep(30);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        CompletableFuture.allOf(futures.toArray(new CompletableFuture[futures.size()])).join();
     }
 
 
