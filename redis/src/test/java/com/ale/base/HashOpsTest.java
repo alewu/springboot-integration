@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.BoundHashOperations;
+import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.RedisSerializer;
@@ -29,14 +30,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @date 2020/6/8
  */
 @SpringBootTest
-public class HashOpsTest {
+class HashOpsTest {
     @Autowired
     private RedisTemplate<String, String> strRedisTemplate;
     @Autowired
     private RedisTemplate<String, Object> serializableRedisTemplate;
 
-    public static BoundHashOperations<String, Object, Object> hashOperations = null;
-    public static String key = "";
+    static BoundHashOperations<String, String, Object> hashOperations = null;
+    static String key = "";
     @Autowired
     @Qualifier("customExecutorPool")
     private ThreadPoolExecutor customExecutorPool;
@@ -45,14 +46,14 @@ public class HashOpsTest {
     long end = 0;
 
     @BeforeEach
-    public void init() {
+    void init() {
         key = "test_hash";
         hashOperations = strRedisTemplate.boundHashOps(key);
         start = Instant.now().toEpochMilli();
     }
 
     @AfterEach
-    public void after() {
+    void after() {
         end = Instant.now().toEpochMilli();
         System.out.println(String.format("end - start = %d ms", end - start));
     }
@@ -62,11 +63,28 @@ public class HashOpsTest {
      * 创建一个hash表，并存入键值对
      */
     @Test
-    public void testHSet() {
+    void testHSet() {
         hashOperations.put("age", "10");
         hashOperations.put("id", "1");
         hashOperations.put("name", "redis");
-        Set<Map.Entry<Object, Object>> entries = hashOperations.entries().entrySet();
+        Set<Map.Entry<String, Object>> entries = hashOperations.entries().entrySet();
+
+
+    }
+
+
+    /**
+     * 创建一个hash表，并存入键值对
+     */
+    @Test
+    void testHSetMap() {
+        Map<String, String> map = new HashMap<>();
+        map.put("ok", "11");
+        String key = "test_hash_test";
+        HashOperations<String, String, String> operations = strRedisTemplate.opsForHash();
+        operations.put(key, "ok", "11");
+        Map<String, String> entries = operations.entries(key);
+        assertEquals(entries, map);
 
     }
 
@@ -74,14 +92,14 @@ public class HashOpsTest {
      * 创建一个hash表，并存入键值对
      */
     @Test
-    public void testHGet() {
+    void testHGet() {
         String age = (String) hashOperations.get("ag11e1");
         System.out.println(age);
 
     }
 
     @Test
-    public void testHincr() {
+    void testHincr() {
         Long ok = hashOperations.increment("ok", 0L);
         assertEquals(ok, 0L);
         ArrayList<CompletableFuture<Long>> futures = Lists.newArrayList();
@@ -96,14 +114,14 @@ public class HashOpsTest {
 
 
     @Test
-    public void testHashKeys() {
-        Set<Object> keys = hashOperations.keys();
+    void testHashKeys() {
+        Set<String> keys = hashOperations.keys();
         System.out.println(keys);
 
     }
 
     @Test
-    public void testHashPutGet() throws InterruptedException {
+    void testHashPutGet() throws InterruptedException {
         hashOperations.put("1-1", "1");
         hashOperations.put("1-2", "1");
         Assertions.assertEquals("1", hashOperations.get("1-1"));
@@ -115,20 +133,20 @@ public class HashOpsTest {
     }
 
     @Test
-    public void testMSetAndGet() {
+    void testMSetAndGet() {
         // 针对单个key
         Map<String, Object> map = new HashMap<>();
         map.put("2-1", "1");
         map.put("2-2", "1");
         hashOperations.putAll(map);
-        Collection<Object> keys = Lists.list("2-1", "2-2");
+        Collection<String> keys = Lists.list("2-1", "2-2");
         List<Object> objects = hashOperations.multiGet(keys);
         System.out.println(objects);
 
     }
 
     @Test
-    public void testHDel() {
+    void testHDel() {
         // 针对单个key
         Map<String, Object> map = new HashMap<>();
         map.put("1", "1");
@@ -148,22 +166,22 @@ public class HashOpsTest {
     }
 
     @Test
-    public void testMSetAndGetType() {
+    void testMSetAndGetType() {
         // 针对单个key 不能存 Integer
-        Map<Integer, Integer> map = new HashMap<>();
-        map.put(1, 0);
-        map.put(2, 0);
-        hashOperations.putAll(map);
-        Collection<Object> keys = Lists.list(1, 2);
-        List<Object> objects = hashOperations.multiGet(keys);
-        System.out.println(objects);
+        //        Map<Integer, Integer> map = new HashMap<>();
+        //        map.put(1, 0);
+        //        map.put(2, 0);
+        //        hashOperations.putAll(map);
+        //        Collection<Object> keys = Lists.list(1, 2);
+        //        List<Object> objects = hashOperations.multiGet(keys);
+        //        System.out.println(objects);
 
     }
 
     @Test
-    public void testHashMGetAll() {
-        Map<Object, Object> entries = hashOperations.entries();
-        for (Map.Entry<Object, Object> entry : Objects.requireNonNull(entries).entrySet()) {
+    void testHashMGetAll() {
+        Map<String, Object> entries = hashOperations.entries();
+        for (Map.Entry<String, Object> entry : Objects.requireNonNull(entries).entrySet()) {
             Object k = entry.getKey();
             Object v = entry.getValue();
             System.out.println("key:" + k);
@@ -173,7 +191,7 @@ public class HashOpsTest {
     }
 
     @Test
-    public void testPipelined() {
+    void testPipelined() {
         List<String> keys = Lists.list("test_hash", "test_hash2");
         List<Object> objects = strRedisTemplate.executePipelined(new RedisCallback<Object>() {
             final RedisSerializer<String> serializer = strRedisTemplate.getStringSerializer();
@@ -194,7 +212,7 @@ public class HashOpsTest {
     }
 
     @Test
-    public void testMap() {
+    void testMap() {
 
         //创建一个pojo对象
         UserEntity user = new UserEntity();
