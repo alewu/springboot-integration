@@ -1,18 +1,19 @@
-package com.ale.async;
+package com.ale.config;
 
+
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.AsyncTaskExecutor;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
-import java.util.concurrent.RejectedExecutionHandler;
-import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.*;
+
 /**
-  *
-  * @author alewu
-  * @date 2020/6/21
-  */
+ * @author alewu
+ * @date 2020/6/21
+ */
 @Configuration
 @EnableAsync
 public class ThreadPoolConfig {
@@ -56,5 +57,20 @@ public class ThreadPoolConfig {
 
         return executor;
     }
+
+
+    @Bean("delayedMsgExecutorPool")
+    public ThreadPoolExecutor delayedMsgExecutorPool() {
+        ThreadFactory threadFactory = new ThreadFactoryBuilder()
+                .setNameFormat("delayed-msg-thread" + "-%d")
+                .setDaemon(true).build();
+        int i = Runtime.getRuntime().availableProcessors();
+
+        return new ThreadPoolExecutor(i, i + 10,
+                                      0L, TimeUnit.MILLISECONDS,
+                                      new ArrayBlockingQueue<>(10000), threadFactory,
+                                      new ThreadPoolExecutor.CallerRunsPolicy());
+    }
+
 
 }
