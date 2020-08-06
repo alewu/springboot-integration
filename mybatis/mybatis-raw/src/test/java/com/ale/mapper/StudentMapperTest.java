@@ -1,6 +1,6 @@
 package com.ale.mapper;
 
-import com.ale.entity.Student;
+import com.ale.cache.entity.Student;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

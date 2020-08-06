@@ -1,6 +1,6 @@
 package com.ale.mapper;
 
-import com.ale.entity.Student;
+import com.ale.cache.entity.Student;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

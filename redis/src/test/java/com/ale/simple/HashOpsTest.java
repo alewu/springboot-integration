@@ -1,6 +1,6 @@
 package com.ale.simple;
 
-import com.ale.entity.UserEntity;
+import com.ale.cache.entity.UserEntity;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;

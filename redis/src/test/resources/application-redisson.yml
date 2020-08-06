@@ -1,0 +1,5 @@
+# common spring boot settings
+spring:
+  redis:
+    redisson:
+      config: classpath:redisson.yml
