@@ -1,6 +1,6 @@
 package com.ale.swagger;
 
-import com.ale.entity.User;
+import com.ale.cache.entity.User;
 import com.baomidou.mybatisplus.extension.api.R;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
