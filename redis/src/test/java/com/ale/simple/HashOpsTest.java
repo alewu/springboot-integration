@@ -1,4 +1,4 @@
-package com.ale.base;
+package com.ale.simple;
 
 import com.ale.entity.UserEntity;
 import org.assertj.core.util.Lists;

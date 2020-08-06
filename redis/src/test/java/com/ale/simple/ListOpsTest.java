@@ -1,4 +1,4 @@
-package com.ale.base;
+package com.ale.simple;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

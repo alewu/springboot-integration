@@ -1,4 +1,4 @@
-package com.ale.base;
+package com.ale.simple;
 
 import com.ale.entity.UserEntity;
 import org.assertj.core.util.Lists;
@@ -14,7 +14,6 @@ import org.springframework.data.redis.serializer.RedisSerializer;
 import java.util.BitSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 @SpringBootTest
@@ -35,16 +34,6 @@ public class MySpringBootRedisApplicationTest {
         serializableRedisTemplate.opsForValue().set("user", user);
         UserEntity user2 = (UserEntity) serializableRedisTemplate.opsForValue().get("user");
         System.out.println("user:" + user2.getId() + "," + user2.getUserName() + "," + user2.getUserSex());
-    }
-
-
-    @Test
-    public void testDel() {
-        String key = "qr_code*";
-        Set<String> keys = strRedisTemplate.keys(key);
-        if (keys != null) {
-            strRedisTemplate.delete(keys);
-        }
     }
 
 
