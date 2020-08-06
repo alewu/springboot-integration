@@ -7,7 +7,7 @@
 
 spring:
   redis:
-    host: 134.175.245.21
+    host: online
     port: 6379
     timeout: 100
     password: BPepAFYfoUhTgTVh

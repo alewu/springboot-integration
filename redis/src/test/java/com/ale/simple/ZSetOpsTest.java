@@ -1,4 +1,4 @@
-package com.ale.base;
+package com.ale.simple;
 
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.util.Lists;

@@ -1,11 +1,11 @@
-package com.ale.base;
+package com.ale.simple;
 
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.util.StopWatch;
 
 import java.util.Collection;
@@ -13,21 +13,20 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-@SpringBootTest
-public class CommonOpsTest {
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
+class CommonOpsTest {
     @Autowired
-    private RedisTemplate<String, String> strRedisTemplate;
-    @Autowired
-    private RedisTemplate<String, Object> serializableRedisTemplate;
+    private StringRedisTemplate strRedisTemplate;
+
 
     @Test
-    public void testDel() {
+    void testDel() {
         String key = "z_set";
         strRedisTemplate.delete(key);
     }
 
     @Test
-    public void testBatchDel() {
+    void testBatchDel() {
         Collection<String> keys = Lists.list("test_hash", "test_hash2");
         strRedisTemplate.delete(keys);
     }
@@ -36,14 +35,14 @@ public class CommonOpsTest {
      * key是否存在
      */
     @Test
-    public void testExists() {
+    void testExists() {
         boolean isExists = Optional.ofNullable(strRedisTemplate.hasKey("test_hash")).orElse(false);
         Assertions.assertFalse(isExists);
 
     }
 
     @Test
-    public void testExpire() {
+    void testExpire() {
         strRedisTemplate.expire("", 1, TimeUnit.SECONDS);
     }
 
@@ -51,7 +50,7 @@ public class CommonOpsTest {
      * pattern是个类似正则表达式的查询规则 *匹配任意数量的符号，？匹配一个任意符号，[]匹配一个指定符号
      */
     @Test
-    public void testKeys() {
+    void testKeys() {
         // 查询所有
         Set<String> allKeys = strRedisTemplate.keys("*");
         System.out.println(allKeys);
@@ -70,7 +69,7 @@ public class CommonOpsTest {
     }
 
     @Test
-    public void testRename() {
+    void testRename() {
         StopWatch sw = new StopWatch("CommonOpsTest.testRename");
         // 如果new key已经存在，则直接覆盖已存在的key
         sw.start("xx");

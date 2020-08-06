@@ -7,9 +7,9 @@ management:
 
 spring:
   redis:
-    host: 127.0.0.1
-    port: 6379
-    database: 0
+    host: 106.54.243.76
+    port: 6479
+    password: abc123
     timeout: 1000
     lettuce:
       pool:
