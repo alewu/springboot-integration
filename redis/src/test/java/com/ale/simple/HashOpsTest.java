@@ -1,6 +1,7 @@
 package com.ale.simple;
 
 import com.ale.cache.entity.UserEntity;
+import com.ale.config.ThreadPoolConfig;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -8,7 +9,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.data.redis.DataRedisTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.BoundHashOperations;
@@ -29,12 +31,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @author alewu
  * @date 2020/6/8
  */
-@SpringBootTest
+@DataRedisTest
+@Import(ThreadPoolConfig.class)
 class HashOpsTest {
     @Autowired
     private RedisTemplate<String, String> strRedisTemplate;
-    @Autowired
-    private RedisTemplate<String, Object> serializableRedisTemplate;
+    //    @Autowired
+    //    private RedisTemplate<String, Object> serializableRedisTemplate;
 
     static BoundHashOperations<String, String, Object> hashOperations = null;
     static String key = "";
@@ -223,6 +226,6 @@ class HashOpsTest {
         //将pojo对象存入map中，这里需要将pojo对象序列化一下
         map.put("key1", user);
         //这里将Map写入redis数据库
-        serializableRedisTemplate.opsForHash().putAll("map1", map);
+        //        serializableRedisTemplate.opsForHash().putAll("map1", map);
     }
 }

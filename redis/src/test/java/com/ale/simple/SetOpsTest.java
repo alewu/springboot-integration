@@ -2,7 +2,7 @@ package com.ale.simple;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.data.redis.DataRedisTest;
 import org.springframework.data.redis.core.RedisTemplate;
 
 import java.util.Set;
@@ -11,14 +11,14 @@ import java.util.Set;
  * @author alewu
  * @date 2020/6/8
  */
-@SpringBootTest
-public class SetOpsTest {
+@DataRedisTest
+class SetOpsTest {
     @Autowired
     private RedisTemplate<String, String> strRedisTemplate;
 
 
     @Test
-    public void testSet() {
+    void testSet() {
         String key = "link_relation_id:1:user_switch_list";
         System.out.println(strRedisTemplate.opsForSet().members(key));
         System.out.println(strRedisTemplate.getExpire(key));
@@ -26,7 +26,7 @@ public class SetOpsTest {
     }
 
     @Test
-    public void testSetOperate() {
+    void testSetOperate() {
         String keyView = "keyView";
         String keyPass = "keyPass";
         strRedisTemplate.opsForSet().add(keyView, "1", "2", "3");
