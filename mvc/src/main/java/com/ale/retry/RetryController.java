@@ -1,7 +1,6 @@
 package com.ale.retry;
 
 import com.github.rholder.retry.RetryException;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,10 +16,7 @@ import java.util.concurrent.ExecutionException;
 @RestController
 @RequestMapping("/retry")
 @Slf4j
-@AllArgsConstructor
 public class RetryController {
-    private final CustomRetryerBuilder customRetryerBuilder;
-    private final CustomCallable customCallable;
 
     /**
      * @author alewu
@@ -28,6 +24,8 @@ public class RetryController {
      */
     @GetMapping("")
     public ResponseEntity<String> retry() {
+        CustomRetryerBuilder customRetryerBuilder = new CustomRetryerBuilder();
+        CustomCallable customCallable = new CustomCallable();
         try {
             customRetryerBuilder.<Boolean>build().call(customCallable);
         } catch (

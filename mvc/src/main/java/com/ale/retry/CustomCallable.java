@@ -16,14 +16,14 @@ public class CustomCallable implements Callable<Boolean> {
 
     @Override
     public Boolean call() throws Exception {
-        times++;
-        if (times == 2) {
+        this.times++;
+        if (times == 1) {
             throw new NullPointerException();
-        } else if (times == 3) {
+        } else if (times == 2) {
             throw new RuntimeException();
-        } else if (times == 4) {
+        } else if (times == 3) {
             throw new Exception();
-        } else if (times == 5) {
+        } else if (times == 4) {
             return false;
         } else {
             return true;
