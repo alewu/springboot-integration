@@ -3,7 +3,7 @@ package com.ale.simple;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.data.redis.DataRedisTest;
 import org.springframework.data.redis.core.BoundListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 
@@ -14,21 +14,21 @@ import java.util.concurrent.TimeUnit;
  * @author alewu
  * @date 2020/6/8
  */
-@SpringBootTest
-public class ListOpsTest {
+@DataRedisTest
+class ListOpsTest {
     @Autowired
     private RedisTemplate<String, String> strRedisTemplate;
-    public static BoundListOperations<String, String> listOperations = null;
-    public static String key = "";
+    static BoundListOperations<String, String> listOperations = null;
+    static String key = "";
 
     @BeforeEach
-    public void init() {
+    void init() {
         key = "test_list";
         listOperations = strRedisTemplate.boundListOps(key);
     }
 
     @Test
-    public void testListRightPush() {
+    void testListRightPush() {
         listOperations.rightPush("a");
         listOperations.rightPush("b");
         listOperations.rightPush("c");
@@ -38,13 +38,13 @@ public class ListOpsTest {
     }
 
     @Test
-    public void testSetObject() {
+    void testSetObject() {
         //        listOperations.rightPush();
 
     }
 
     @Test
-    public void testbLPop() {
+    void testbLPop() {
         while (true) {
             Long size = Optional.ofNullable(listOperations.size()).orElse(0L);
             if (size > 0) {
