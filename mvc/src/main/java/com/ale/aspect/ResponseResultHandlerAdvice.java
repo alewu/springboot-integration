@@ -13,6 +13,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 /**
  * The type Response result handler advice.
+ *
  * @author alewu
  */
 @ControllerAdvice(annotations = BaseResponse.class)
@@ -21,25 +22,27 @@ public class ResponseResultHandlerAdvice implements ResponseBodyAdvice {
 
     /**
      * 如果接口返回的类型本身就是统一响应体的格式，那就没有必要进行额外的操作，返回true
-     * @param returnType returnType
+     *
+     * @param returnType    returnType
      * @param converterType converterType
      * @return boolean
      */
     @Override
     public boolean supports(MethodParameter returnType, Class converterType) {
-        log.info("returnType:"+returnType);
-        log.info("converterType:"+converterType);
+        log.info("returnType:" + returnType);
+        log.info("converterType:" + converterType);
         return true;
     }
 
     @Override
-    public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
-        if(MediaType.APPLICATION_JSON.equals(selectedContentType)){
+    public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType,
+                                  Class selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
+        if (MediaType.APPLICATION_JSON.equals(selectedContentType)) {
             // 判断响应的Content-Type为JSON格式的body
-            if(body instanceof ResponseResult){
+            if (body instanceof ResponseResult) {
                 // 如果响应返回的对象为统一响应体，则直接返回body
                 return body;
-            }else{
+            } else {
                 // 只有正常返回的结果才会进入这个判断流程，返回正常成功的状态码+信息+数据。
                 return new ResponseResult(ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getMsg(), body);
             }
