@@ -6,6 +6,31 @@
 - 分页接口统一
 - 统一文件上传
 
+
+---
+####统一异常处理
+@RestControllerAdvice 实现统一处理异常
+
+@ExceptionHandler 处理具体异常
+
+常见异常
+
+- ConstraintViolationException
+- MethodArgumentNotValidException
+- MissingServletRequestParameterException
+- HttpRequestMethodNotSupportedException
+
+@ResponseStatus
+
+---
+
+---
+####Async
+启用 @EnableAsync 寻找标注 @Async 的方法
+注意事项：
+@Async 失效
+
+
 ---
 ####spring boot event
 - 定义事件
