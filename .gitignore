@@ -1,3 +1,15 @@
 # Project exclude paths
 /**/target/
 
+.idea/
+cache/cache.iml
+cxf/cxf.iml
+mq/rabbitmq/rabbitmq.iml
+mvc/mvc.iml
+mybatis/mybatis-plus/mybatis-plus.iml
+
+mybatis/mybatis-raw/mybatis-raw.iml
+
+redis/redis.iml
+springboot-integration.iml
+mq/rabbitmq/src/main/resources/application.yml
