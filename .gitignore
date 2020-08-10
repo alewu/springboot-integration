@@ -12,4 +12,3 @@ mybatis/mybatis-raw/mybatis-raw.iml
 
 redis/redis.iml
 springboot-integration.iml
-mq/rabbitmq/src/main/resources/application.yml

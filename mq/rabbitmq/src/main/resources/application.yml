@@ -1,0 +1,23 @@
+spring:
+    rabbitmq:
+        host: txc
+        password: guest
+        username: guest
+        virtual-host: /
+        publisher-confirm-type: simple
+        publisher-returns: true
+        template:
+            mandatory: true
+        listener:
+            simple:
+                concurrency: 1
+                default-requeue-rejected: false
+                acknowledge-mode: manual
+
+
+
+logging:
+    pattern:
+        level: debug
+
+
