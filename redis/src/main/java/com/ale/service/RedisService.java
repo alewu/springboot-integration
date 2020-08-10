@@ -9,6 +9,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * The type Redis service.
+ */
 @Service
 public class RedisService {
     @Autowired
@@ -22,7 +25,7 @@ public class RedisService {
      *
      * @param key  键
      * @param time 时间(秒)
-     * @return
+     * @return boolean
      */
     public boolean expire(String key, long time) {
         try {
@@ -67,7 +70,7 @@ public class RedisService {
      * @param lockKey    锁
      * @param requestId  请求标识
      * @param expireTime 超期时间
-     * @return 是否获取成功
+     * @return 是否获取成功 boolean
      */
     public Boolean tryGetDistributedLock(String lockKey, String requestId, int expireTime) {
         return redisTemplate.opsForValue().setIfAbsent(lockKey, requestId, expireTime, TimeUnit.MICROSECONDS);
@@ -79,7 +82,7 @@ public class RedisService {
      *
      * @param lockKey   锁
      * @param requestId 请求标识
-     * @return 是否释放成功
+     * @return 是否释放成功 boolean
      */
     public boolean releaseDistributedLock(String lockKey, String requestId) {
         Map<String, Object> map = new HashMap<>();

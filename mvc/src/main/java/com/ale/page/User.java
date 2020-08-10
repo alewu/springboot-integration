@@ -1,5 +1,7 @@
-package com.ale.cache.entity;
+package com.ale.page;
 
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -11,10 +13,12 @@ import javax.validation.constraints.NotNull;
 
 @ApiModel("")
 @Data
+@TableName("t_user")
 public class User {
 
     @ApiModelProperty(value = "主键ID")
     @NotNull(message = " cannot be null!")
+    @TableId
     private Long userId;
 
     @ApiModelProperty(value = "姓名")

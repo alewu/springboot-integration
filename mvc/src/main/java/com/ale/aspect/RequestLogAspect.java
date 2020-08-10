@@ -1,7 +1,6 @@
 package com.ale.aspect;
 
 
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import lombok.extern.slf4j.Slf4j;
@@ -10,6 +9,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -43,7 +43,7 @@ public class RequestLogAspect {
         RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
         String queryStr = request.getQueryString();
-        if (StringUtils.isBlank(queryStr)) {
+        if (StringUtils.isEmpty(queryStr)) {
             log.info("request uri: [{}] {}", request.getMethod(), request.getRequestURI());
         } else {
             log.info("request uri: [{}] {}?{} ", request.getMethod(), request.getRequestURI(), queryStr);
