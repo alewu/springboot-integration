@@ -1,0 +1,19 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*" # 暴露所有端口
+    enabled-by-default: true # 启用所有端口
+
+spring:
+  redis:
+    host: txc
+    port: 6479
+    password: abc123
+    timeout: 1000
+    lettuce:
+      pool:
+        max-idle: 200
+        min-idle: 0
+        max-active: 200
+        max-wait: 1000
