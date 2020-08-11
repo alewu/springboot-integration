@@ -1,4 +1,4 @@
-package com.ale.rabbitmq.delayqueue;
+package com.ale.rabbitmq.delayqueue.config;
 
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;

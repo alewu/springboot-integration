@@ -1,5 +1,6 @@
 package com.ale.rabbitmq.delayqueue;
 
+import com.ale.rabbitmq.delayqueue.config.XdelayConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.support.AmqpHeaders;
