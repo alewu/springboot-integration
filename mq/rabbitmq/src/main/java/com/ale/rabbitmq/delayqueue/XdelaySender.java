@@ -21,10 +21,9 @@ public class XdelaySender {
     public void send(Booking booking, int delayTime) {
         //这里的消息可以是任意对象，无需额外配置，直接传即可
         log.info("===============延时队列生产消息====================");
-        log.info("发送时间:{},发送内容:{}", LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
-                 booking.getBookingName());
         String id = UUID.randomUUID().toString();
-        log.info("消息id：{}", id);
+        log.info("消息id：{}, 发送时间:{},发送内容:{}", id, LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
+                 booking.getBookingName());
         CorrelationData correlationData = new CorrelationData(id);
         rabbitTemplate.convertAndSend(
                 XdelayConfig.DELAY_EXCHANGE,
@@ -34,7 +33,7 @@ public class XdelaySender {
                     //注意这里时间可以使long，而且是设置header
                     MessageProperties messageProperties = message.getMessageProperties();
                     messageProperties.setMessageId(id);
-                    messageProperties.setAppId("123");
+                    messageProperties.setAppId("book");
                     messageProperties.setDelay(delayTime * 1000);
                     // messageProperties.setHeader("x-delay", delayTime * 60000);
                     return message;
@@ -46,9 +45,10 @@ public class XdelaySender {
     public void sendOrder(Order order, int delayTime) {
         //这里的消息可以是任意对象，无需额外配置，直接传即可
         log.info("===============延时队列生产消息====================");
-        log.info("发送时间:{},发送内容:第{}个订单", LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
+        String id = UUID.randomUUID().toString();
+        log.info("发送时间:{},发送内容: 第{}个订单", LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
                  order.getId());
-        CorrelationData correlationData = new CorrelationData(UUID.randomUUID().toString());
+        CorrelationData correlationData = new CorrelationData(id);
         rabbitTemplate.convertAndSend(
                 XdelayConfig.DELAY_EXCHANGE,
                 XdelayConfig.DELAY_QUEUE_TWO,
@@ -57,7 +57,7 @@ public class XdelaySender {
                     //注意这里时间可以使long，而且是设置header
                     MessageProperties messageProperties = message.getMessageProperties();
                     messageProperties.setCorrelationId("correlationId-2");
-                    messageProperties.setAppId("456");
+                    messageProperties.setAppId("order");
                     // 单位: ms
                     messageProperties.setDelay(delayTime * 1000);
                     return message;

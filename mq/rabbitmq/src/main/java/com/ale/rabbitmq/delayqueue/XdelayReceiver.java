@@ -22,7 +22,7 @@ public class XdelayReceiver {
         Booking booking = message.getPayload();
         String appId = String.valueOf(message.getHeaders().get("amqp_appId"));
         String msgId = String.valueOf(message.getHeaders().get("amqp_messageId"));
-        log.info("===============接收队列接收消息====================");
+        log.info("===============接收队列接收书本消息====================");
         log.info("msgId:{}", msgId);
         log.info("发送人：{},接收时间:{},接受内容:{}", appId, LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), booking.getBookingName());
     }
@@ -30,7 +30,7 @@ public class XdelayReceiver {
     @RabbitListener(queues = XdelayConfig.DELAY_QUEUE_TWO)
     public void userReceiveDelay(@Payload Order order, @Header(AmqpHeaders.CORRELATION_ID) String correlationId,
                                  @Header(AmqpHeaders.APP_ID) String appId) {
-        log.info("===============接收队列接收消息====================");
+        log.info("===============接收队列接收订单消息====================");
         log.info("@Header correlationId:{}", correlationId);
         log.info("发送人：{},接收时间:{},接受内容: 第{}个订单", appId, LocalDateTime.now().format(DateTimeFormatter.ofPattern(
                 "yyyy-MM-dd HH:mm:ss")), order.getId());

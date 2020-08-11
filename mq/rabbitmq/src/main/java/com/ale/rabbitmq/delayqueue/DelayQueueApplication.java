@@ -23,21 +23,19 @@ public class DelayQueueApplication {
     public ApplicationRunner runner(XdelaySender xdelaySender) {
         return args -> {
             Booking booking1 = new Booking();
-            booking1.setBookingContent("hhaha");
             booking1.setBookingName("第一本书");
             booking1.setBookingTime(LocalDateTime.now());
-            booking1.setOperatorName("hellen");
+            booking1.setAuthor("jack");
             Booking booking2 = new Booking();
-            booking2.setBookingContent("hhaha");
             booking2.setBookingName("第二本书");
             booking2.setBookingTime(LocalDateTime.now());
-            booking2.setOperatorName("hellen");
+            booking2.setAuthor("rose");
             Booking booking3 = new Booking();
-            booking3.setBookingContent("hhehe");
             booking3.setBookingName("第三本书");
             booking3.setBookingTime(LocalDateTime.now());
-            booking3.setOperatorName("hellen");
+            booking3.setAuthor("bob");
             xdelaySender.send(booking1, 10);
+            TimeUnit.SECONDS.sleep(10);
             xdelaySender.send(booking2, 20);
             TimeUnit.SECONDS.sleep(10);
             xdelaySender.send(booking3, 10);

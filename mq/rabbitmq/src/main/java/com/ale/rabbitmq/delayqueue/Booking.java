@@ -15,6 +15,5 @@ public class Booking implements Serializable {
 
     private String bookingName;
     private LocalDateTime bookingTime;
-    private String bookingContent;
-    private String operatorName;
+    private String author;
 }
