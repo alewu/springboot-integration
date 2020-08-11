@@ -1,4 +1,4 @@
-package com.ale.rabbitmq.delayqueue;
+package com.ale.rabbitmq.delayqueue.plugin;
 
 import lombok.Data;
 

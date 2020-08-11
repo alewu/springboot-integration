@@ -1,4 +1,4 @@
-package com.ale.rabbitmq.delayqueue.config;
+package com.ale.rabbitmq.delayqueue.plugin.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;

@@ -1,4 +1,4 @@
-package com.ale.rabbitmq.delayqueue;
+package com.ale.rabbitmq.delayqueue.plugin;
 
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.CommandLineRunner;
