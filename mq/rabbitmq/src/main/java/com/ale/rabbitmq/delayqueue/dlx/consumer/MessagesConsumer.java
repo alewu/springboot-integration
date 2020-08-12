@@ -15,7 +15,7 @@ public class MessagesConsumer {
     }
 
     @Bean
-    @ConditionalOnProperty(value = "amqp.configuration.current", havingValue = "simple-dlq")
+    @ConditionalOnProperty(value = "amqp.configuration.current", havingValue = "delay-dlq")
     public DLQAmqpContainer simpleAmqpContainer() {
         return new DLQAmqpContainer(rabbitTemplate);
     }

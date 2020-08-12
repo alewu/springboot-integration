@@ -2,6 +2,7 @@ package com.ale.rabbitmq.delayqueue.dlx.config;
 
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -11,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @EnableRabbit
+@ConditionalOnProperty(value = "amqp.configuration.current", havingValue = "delay-dlq")
 public class DLQConfig {
     /**
      * The constant DEAD_LETTER_QUEUE.
@@ -34,7 +36,7 @@ public class DLQConfig {
     @Bean
     public Declarables directBindings() {
         Queue messageQueue = QueueBuilder.durable(MESSAGE_QUEUE)
-                                         .ttl(1000)
+                                         .ttl(10000)
                                          .withArgument("x-dead-letter-exchange", DLX_EXCHANGE)
                                          //                                          .withArgument
                                          //                                          ("x-dead-letter-routing-key",
