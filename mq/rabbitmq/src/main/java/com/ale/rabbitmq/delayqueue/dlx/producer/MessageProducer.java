@@ -5,8 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 
+import static com.ale.rabbitmq.delayqueue.dlx.config.DLQConfig.MESSAGE_QUEUE;
 import static com.ale.rabbitmq.delayqueue.dlx.config.DLQConfig.NORMAL_EXCHANGE;
-import static com.ale.rabbitmq.delayqueue.dlx.config.DLQConfig.REDIRECT_QUEUE;
 
 /**
  * @author alewu
@@ -25,7 +25,6 @@ public class MessageProducer {
 
     public void sendMessage() {
         log.info("Sending message...");
-        rabbitTemplate.convertAndSend(NORMAL_EXCHANGE, REDIRECT_QUEUE,
-                                      "Some message id:" + messageNumber++);
+        rabbitTemplate.convertAndSend(NORMAL_EXCHANGE, MESSAGE_QUEUE, "Some message id:" + messageNumber++);
     }
 }

@@ -28,29 +28,32 @@ public class DLQConfig {
     /**
      * The constant REDIRECT_QUEUE.
      */
-    public static final String REDIRECT_QUEUE = "redirect-queue";
+    public static final String MESSAGE_QUEUE = "message-queue";
 
 
     @Bean
-    public Declarables delayBindings() {
+    public Declarables directBindings() {
+        Queue messageQueue = QueueBuilder.durable(MESSAGE_QUEUE)
+                                         .ttl(1000)
+                                         .withArgument("x-dead-letter-exchange", DLX_EXCHANGE)
+                                         //                                          .withArgument
+                                         //                                          ("x-dead-letter-routing-key",
+                                         //                                          "KEY_R")
+                                         .build();
         DirectExchange normalExchange = ExchangeBuilder.directExchange(NORMAL_EXCHANGE).durable(true).build();
-        DirectExchange deadLetterExchange = ExchangeBuilder.directExchange(DLX_EXCHANGE).durable(true).build();
-        // 声明一个死信队列. x-dead-letter-exchange 对应 死信交换机 x-dead-letter-routing-key 对应
-        Queue deadLetterQueue = QueueBuilder.durable(DEAD_LETTER_QUEUE)
-                                            .withArgument("x-dead-letter-exchange", DLX_EXCHANGE)
-                                            //                                          .withArgument
-                                            //                                          ("x-dead-letter-routing-key",
-                                            //                                          "KEY_R")
-                                            .build();
-        Queue redirectQueue = QueueBuilder.durable(REDIRECT_QUEUE).build();
-
         return new Declarables(
-                deadLetterQueue,
-                redirectQueue,
+                messageQueue,
                 normalExchange,
-                deadLetterExchange,
-                BindingBuilder.bind(redirectQueue).to(normalExchange).with(DEAD_LETTER_QUEUE),
-                BindingBuilder.bind(deadLetterQueue).to(deadLetterExchange).withQueueName());
+                BindingBuilder.bind(messageQueue).to(normalExchange).withQueueName());
     }
 
+    @Bean
+    public Declarables deadLetterBindings() {
+        Queue deadLetterQueue = QueueBuilder.durable(DEAD_LETTER_QUEUE).build();
+        FanoutExchange deadLetterExchange = ExchangeBuilder.fanoutExchange(DLX_EXCHANGE).durable(true).build();
+        return new Declarables(
+                deadLetterQueue,
+                deadLetterExchange,
+                BindingBuilder.bind(deadLetterQueue).to(deadLetterExchange));
+    }
 }
