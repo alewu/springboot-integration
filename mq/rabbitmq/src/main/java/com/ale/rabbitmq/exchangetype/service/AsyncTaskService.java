@@ -1,4 +1,4 @@
-package com.ale.rabbitmq.service;
+package com.ale.rabbitmq.exchangetype.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;

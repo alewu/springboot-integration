@@ -1,4 +1,4 @@
-package com.ale.rabbitmq.model;
+package com.ale.rabbitmq.exchangetype.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

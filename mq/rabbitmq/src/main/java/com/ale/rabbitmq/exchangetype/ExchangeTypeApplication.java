@@ -1,6 +1,8 @@
 package com.ale.rabbitmq.exchangetype;
 
 import com.ale.rabbitmq.exchangetype.producer.DirectQueueProducer;
+import com.ale.rabbitmq.exchangetype.producer.MessageProducer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,6 +16,9 @@ import org.springframework.core.annotation.Order;
 @SpringBootApplication
 public class ExchangeTypeApplication {
 
+    @Autowired
+    private MessageProducer messageProducer;
+
     public static void main(String[] args) {
         SpringApplication.run(ExchangeTypeApplication.class, args);
     }
@@ -21,7 +26,11 @@ public class ExchangeTypeApplication {
     @Bean
     @Order(1)
     public ApplicationRunner runner(DirectQueueProducer directQueueProducer) {
-        return args -> directQueueProducer.sendMsg();
+        return args -> {
+            directQueueProducer.sendMsg();
+            messageProducer.sendFanoutMsg();
+            messageProducer.sendTopicMsg();
+        };
     }
 
 }

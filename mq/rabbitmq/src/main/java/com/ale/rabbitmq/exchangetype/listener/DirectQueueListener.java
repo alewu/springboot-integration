@@ -1,7 +1,7 @@
 package com.ale.rabbitmq.exchangetype.listener;
 
-import com.ale.rabbitmq.model.User;
-import com.ale.rabbitmq.service.AsyncTaskService;
+import com.ale.rabbitmq.exchangetype.model.User;
+import com.ale.rabbitmq.exchangetype.service.AsyncTaskService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 
 import static com.ale.rabbitmq.constants.RabbitConstants.HIGH_QUEUE;
 import static com.ale.rabbitmq.constants.RabbitConstants.MIDDLE_QUEUE;
-import static com.ale.rabbitmq.constants.RabbitConstants.MY_QUEUE;
 import static com.ale.rabbitmq.constants.RabbitConstants.SLOW_QUEUE;
 
 /**
@@ -23,10 +22,10 @@ public class DirectQueueListener {
     @Autowired
     private AsyncTaskService asyncTaskService;
 
-    @RabbitListener(queues = {MY_QUEUE})
-    public void receiveMessageFromDirect(@Payload User user) {
-        //        asyncTaskService.sendMsgAsync(user.toString());
-    }
+    //    @RabbitListener(queues = {MY_QUEUE})
+    //    public void receiveMessageFromDirect(@Payload User user) {
+    //        //        asyncTaskService.sendMsgAsync(user.toString());
+    //    }
 
     @RabbitListener(queues = {SLOW_QUEUE})
     public void receiveMessageFromSlowDirect(@Payload User user) {

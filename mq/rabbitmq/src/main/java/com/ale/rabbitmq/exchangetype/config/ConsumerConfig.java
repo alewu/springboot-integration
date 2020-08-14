@@ -1,4 +1,4 @@
-package com.ale.rabbitmq.config;
+package com.ale.rabbitmq.exchangetype.config;
 
 import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;

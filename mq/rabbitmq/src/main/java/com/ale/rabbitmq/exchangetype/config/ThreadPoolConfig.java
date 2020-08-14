@@ -1,4 +1,4 @@
-package com.ale.rabbitmq.config;
+package com.ale.rabbitmq.exchangetype.config;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import org.springframework.context.annotation.Bean;

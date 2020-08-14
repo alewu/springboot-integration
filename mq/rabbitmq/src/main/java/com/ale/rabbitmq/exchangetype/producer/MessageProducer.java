@@ -1,6 +1,6 @@
 package com.ale.rabbitmq.exchangetype.producer;
 
-import com.ale.rabbitmq.model.User;
+import com.ale.rabbitmq.exchangetype.model.User;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
