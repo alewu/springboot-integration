@@ -1,4 +1,4 @@
-package com.ale.client;
+package com.ale.redisson;
 
 
 /**

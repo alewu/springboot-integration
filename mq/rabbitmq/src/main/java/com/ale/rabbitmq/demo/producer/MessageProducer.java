@@ -20,7 +20,7 @@ public class MessageProducer {
 
     public void sendMsg() {
         long start = Instant.now().toEpochMilli();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 100000; i++) {
             User user = new User();
             user.setUserId(i);
             user.setUserName("jack");

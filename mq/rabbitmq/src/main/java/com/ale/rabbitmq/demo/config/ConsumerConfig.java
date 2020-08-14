@@ -32,7 +32,7 @@ public class ConsumerConfig {
         SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
         factory.setConnectionFactory(connectionFactory);
         factory.setConsumerTagStrategy(queue -> "msg" + (count.incrementAndGet()));
-        factory.setConcurrentConsumers(2);
+        factory.setConcurrentConsumers(1);
         factory.setPrefetchCount(100);
         return factory;
     }
