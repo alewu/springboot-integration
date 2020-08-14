@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.concurrent.TimeUnit;
 
 @Component
 @Configuration
@@ -25,6 +26,11 @@ public class XdelayReceiver {
         String msgId = String.valueOf(message.getHeaders().get("amqp_messageId"));
         log.info("===============接收队列接收书本消息====================");
         log.info("msgId:{}", msgId);
+        try {
+            TimeUnit.SECONDS.sleep(booking.getBookingTime().getSecond() - LocalDateTime.now().getSecond());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         log.info("发送人：{},接收时间:{},接受内容:{}", appId, LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), booking.getBookingName());
     }
 

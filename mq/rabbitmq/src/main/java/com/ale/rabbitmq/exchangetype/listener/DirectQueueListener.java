@@ -1,4 +1,4 @@
-package com.ale.rabbitmq.other.listener;
+package com.ale.rabbitmq.exchangetype.listener;
 
 import com.ale.rabbitmq.model.User;
 import com.ale.rabbitmq.service.AsyncTaskService;

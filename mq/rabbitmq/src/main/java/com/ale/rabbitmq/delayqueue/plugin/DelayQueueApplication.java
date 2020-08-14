@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import java.time.LocalDateTime;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author alewu
@@ -24,20 +23,20 @@ public class DelayQueueApplication {
         return args -> {
             Booking booking1 = new Booking();
             booking1.setBookingName("第一本书");
-            booking1.setBookingTime(LocalDateTime.now());
+            booking1.setBookingTime(LocalDateTime.now().plusSeconds(20));
             booking1.setAuthor("jack");
             Booking booking2 = new Booking();
             booking2.setBookingName("第二本书");
-            booking2.setBookingTime(LocalDateTime.now());
+            booking2.setBookingTime(LocalDateTime.now().plusSeconds(50));
             booking2.setAuthor("rose");
             Booking booking3 = new Booking();
             booking3.setBookingName("第三本书");
             booking3.setBookingTime(LocalDateTime.now());
             booking3.setAuthor("bob");
             xdelaySender.send(booking1, 10);
-            TimeUnit.SECONDS.sleep(10);
-            xdelaySender.send(booking2, 20);
-            TimeUnit.SECONDS.sleep(10);
+            //            TimeUnit.SECONDS.sleep(10);
+            xdelaySender.send(booking2, 10);
+            //            TimeUnit.SECONDS.sleep(10);
             xdelaySender.send(booking3, 10);
         };
     }

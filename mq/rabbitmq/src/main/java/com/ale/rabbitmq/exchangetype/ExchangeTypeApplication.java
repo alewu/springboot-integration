@@ -1,4 +1,4 @@
-package com.ale.rabbitmq;
+package com.ale.rabbitmq.exchangetype;
 
 import com.ale.rabbitmq.exchangetype.producer.DirectQueueProducer;
 import org.springframework.boot.ApplicationRunner;
@@ -8,15 +8,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.core.annotation.Order;
 
 /**
-  *
-  * @author alewu
-  * @date 2020/5/20
-  */
+ * @author alewu
+ * @date 2020/5/20
+ */
 @SpringBootApplication
-public class RabbitmqApplication {
+public class ExchangeTypeApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(RabbitmqApplication.class, args);
+        SpringApplication.run(ExchangeTypeApplication.class, args);
     }
 
     @Bean

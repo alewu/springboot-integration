@@ -1,4 +1,4 @@
-package com.ale.rabbitmq.other.producer;
+package com.ale.rabbitmq.exchangetype.producer;
 
 import com.ale.rabbitmq.model.User;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
