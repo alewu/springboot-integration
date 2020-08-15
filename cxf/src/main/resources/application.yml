@@ -7,7 +7,7 @@ management:
 
 spring:
   redis:
-    host: 106.54.243.76
+    host: txc
     port: 6479
     password: abc123
     timeout: 1000

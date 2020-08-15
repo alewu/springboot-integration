@@ -1,6 +1,7 @@
 package com.ale.rabbitmq.errorhandling.config;
 
 import org.springframework.amqp.core.*;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -9,10 +10,11 @@ import org.springframework.context.annotation.Configuration;
  * @date 2020/7/7
  */
 @Configuration
+@ConditionalOnProperty(value = "amqp.configuration.current", havingValue = "simple-dlq")
 public class SimpleDLQAmqpConfig {
-    public static final String QUEUE_MESSAGES = "baeldung-messages-queue";
+    public static final String QUEUE_MESSAGES = "failed-messages-queue";
     public static final String QUEUE_MESSAGES_DLQ = QUEUE_MESSAGES + ".dlq";
-    public static final String EXCHANGE_MESSAGES = "baeldung-messages-exchange";
+    public static final String EXCHANGE_MESSAGES = "failed-messages-exchange";
     public static final String DLX_EXCHANGE_MESSAGES = QUEUE_MESSAGES + ".dlx";
 
     @Bean

@@ -1,6 +1,6 @@
 spring:
     rabbitmq:
-        host: 106.54.243.76
+        host: txc
         password: guest
         username: guest
         virtual-host: /
@@ -12,6 +12,7 @@ spring:
             simple:
                 concurrency: 1
                 default-requeue-rejected: false
+                acknowledge-mode: manual
 
 
 

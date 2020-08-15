@@ -1,7 +1,7 @@
 package com.ale.simple;
 
 import com.ale.cache.entity.UserEntity;
-import com.ale.config.ThreadPoolConfig;
+import com.ale.redisson.ThreadPoolConfig;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;

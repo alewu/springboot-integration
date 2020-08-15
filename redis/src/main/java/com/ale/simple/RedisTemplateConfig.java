@@ -20,8 +20,6 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
  * @author alewu
  */
 @Configuration
-//@EnableCaching
-//@AutoConfigureBefore(RedisAutoConfiguration.class)
 @Slf4j
 public class RedisTemplateConfig {
 
