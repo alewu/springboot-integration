@@ -1,4 +1,4 @@
-package com.ale.service;
+package com.ale.lua.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -15,7 +15,7 @@ import java.util.Map;
  * The type Lua script service.
  */
 @Service
-public class LuaScriptServiceImpl implements LuaScriptService {
+public class LuaScriptService {
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
 
@@ -31,7 +31,6 @@ public class LuaScriptServiceImpl implements LuaScriptService {
         defaultRedisScript.setScriptSource(new ResourceScriptSource(new ClassPathResource("lua/DelKey.lua")));
     }
 
-    @Override
     public Boolean redisAddScriptExec(List<String> keyList, Map<String, Object> argvMap) {
         // 调用脚本并执行
         return redisTemplate.execute(defaultRedisScript, keyList, argvMap);
