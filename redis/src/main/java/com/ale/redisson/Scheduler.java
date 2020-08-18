@@ -15,12 +15,15 @@ public class Scheduler {
     @Autowired
     private MsgProducer msgProducer;
 
-    @Scheduled(fixedDelay = 30000)
+    @Scheduled(fixedDelay = 300000)
     public void task() {
         long start = Instant.now().toEpochMilli();
         for (int i = 0; i < 1000; i++) {
             log.info("send msg: {}", i);
-            msgProducer.sendAsync("" + i);
+            DelayedJob delayedJob = new DelayedJob();
+            delayedJob.setId(i);
+            delayedJob.setName("rose");
+            msgProducer.sendAsync(delayedJob);
         }
         log.info("takes {} ms", Instant.now().toEpochMilli() - start);
     }

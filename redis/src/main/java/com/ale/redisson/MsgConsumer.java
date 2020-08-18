@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 @Component
 @Slf4j
@@ -21,11 +23,14 @@ public class MsgConsumer {
 
     @PostConstruct
     public void recv() {
-        RBlockingDeque<Object> test = redissonClient.getBlockingDeque("test");
+        RBlockingDeque<DelayedJob> blockingDeque = redissonClient.getBlockingDeque("delay-queue");
+
+        blockingDeque.add(new DelayedJob());
         poolExecutor.execute(() -> {
             while (true) {
                 try {
-                    Object take = test.take();
+                    Object take = blockingDeque.take();
+                    TimeUnit.SECONDS.sleep(ThreadLocalRandom.current().nextInt(10));
                     log.info("get from delay queue, {}", take);
                 } catch (InterruptedException e) {
                     log.error("aaaa", e);
@@ -33,4 +38,6 @@ public class MsgConsumer {
             }
         });
     }
+
+
 }

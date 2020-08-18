@@ -1,8 +1,12 @@
 package com.ale.redisson;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+
+import java.time.Instant;
 
 /**
  * @author alewu
@@ -15,15 +19,27 @@ public class RedisClientApplication {
         SpringApplication.run(RedisClientApplication.class, args);
     }
 
+    @Bean
+    public ApplicationRunner send(MsgProducer msgProducer) {
+        return args -> {
+            long start = Instant.now().toEpochMilli();
+            for (int i = 0; i < 100; i++) {
+                log.info("send msg: {}", i);
+                DelayedJob delayedJob = new DelayedJob();
+                delayedJob.setId(i);
+                delayedJob.setName("jack");
+                msgProducer.send(delayedJob);
+            }
+            log.info("takes {} ms", Instant.now().toEpochMilli() - start);
+        };
+    }
+
     //    @Bean
-    //    public ApplicationRunner send(MsgProducer msgProducer) {
-    //        return args -> {
-    //            long start = Instant.now().toEpochMilli();
-    //            for (int i = 0; i < 1000; i++) {
-    //                log.info("send msg: {}", i);
-    //               msgProducer.send("" + i);
-    //            }
-    //            log.info("takes {} ms", Instant.now().toEpochMilli() - start);
-    //        };
-    //    }
+    public ApplicationRunner send1(MsgConsumer msgConsumer) {
+        return args -> {
+            long start = Instant.now().toEpochMilli();
+            msgConsumer.recv();
+            log.info("takes {} ms", Instant.now().toEpochMilli() - start);
+        };
+    }
 }
