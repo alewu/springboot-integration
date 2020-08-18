@@ -20,7 +20,7 @@ public class MsgProducer {
 
     public void send(DelayedJob delayedJob) {
         log.info("send msg to delay queue, {}", delayedJob);
-        RBlockingDeque<DelayedJob> blockingDeque = redissonClient.getBlockingDeque("delay-queue");
+        RBlockingDeque<DelayedJob> blockingDeque = redissonClient.getBlockingDeque("ready-queue");
         RDelayedQueue<DelayedJob> delayedQueue = redissonClient.getDelayedQueue(blockingDeque);
         delayedQueue.offer(delayedJob, ThreadLocalRandom.current().nextInt(100), TimeUnit.SECONDS);
     }
@@ -28,7 +28,7 @@ public class MsgProducer {
     @Async("customExecutorPool")
     public void sendAsync(DelayedJob msg) {
         log.info("send msg to delay queue, {}", msg);
-        RBlockingDeque<Object> blockingDeque = redissonClient.getBlockingDeque("delay-queue");
+        RBlockingDeque<Object> blockingDeque = redissonClient.getBlockingDeque("ready-queue");
         RDelayedQueue<Object> delayedQueue = redissonClient.getDelayedQueue(blockingDeque);
         delayedQueue.offer(msg, ThreadLocalRandom.current().nextInt(100), TimeUnit.SECONDS);
     }

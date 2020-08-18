@@ -23,7 +23,7 @@ public class MsgConsumer {
 
     @PostConstruct
     public void recv() {
-        RBlockingDeque<DelayedJob> blockingDeque = redissonClient.getBlockingDeque("delay-queue");
+        RBlockingDeque<DelayedJob> blockingDeque = redissonClient.getBlockingDeque("ready-queue");
 
         blockingDeque.add(new DelayedJob());
         poolExecutor.execute(() -> {
