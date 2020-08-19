@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 
 @Component
 @Slf4j
@@ -18,25 +16,31 @@ public class MsgConsumer {
     @Autowired
     private RedissonClient redissonClient;
     @Autowired
-    @Qualifier("customExecutorPool")
+    @Qualifier("takeExecutorPool")
     private ThreadPoolExecutor poolExecutor;
+    @Autowired
+    @Qualifier("msgExecutorPool")
+    private ThreadPoolExecutor msgPoolExecutor;
+    @Autowired
+    private MsgHandler msgHandler;
 
     @PostConstruct
     public void recv() {
         RBlockingDeque<DelayedJob> blockingDeque = redissonClient.getBlockingDeque("ready-queue");
-
-        blockingDeque.add(new DelayedJob());
-        poolExecutor.execute(() -> {
-            while (true) {
-                try {
-                    Object take = blockingDeque.take();
-                    TimeUnit.SECONDS.sleep(ThreadLocalRandom.current().nextInt(10));
-                    log.info("get from delay queue, {}", take);
-                } catch (InterruptedException e) {
-                    log.error("aaaa", e);
+        for (int i = 0; i < 2; i++) {
+            poolExecutor.execute(() -> {
+                while (!Thread.interrupted()) {
+                    try {
+                        Object take = blockingDeque.take();
+                        msgPoolExecutor.execute(() -> msgHandler.handle(take.toString()));
+                    } catch (InterruptedException e) {
+                        log.error("take failed", e);
+                        Thread.currentThread().interrupt();
+                    }
                 }
-            }
-        });
+            });
+        }
+
     }
 
 

@@ -23,7 +23,7 @@ public class RedisClientApplication {
     public ApplicationRunner send(MsgProducer msgProducer) {
         return args -> {
             long start = Instant.now().toEpochMilli();
-            for (int i = 0; i < 100; i++) {
+            for (int i = 0; i < 1000; i++) {
                 log.info("send msg: {}", i);
                 DelayedJob delayedJob = new DelayedJob();
                 delayedJob.setId(i);

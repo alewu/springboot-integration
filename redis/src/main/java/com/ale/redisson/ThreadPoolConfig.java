@@ -16,10 +16,36 @@ import java.util.concurrent.TimeUnit;
 @Configuration
 public class ThreadPoolConfig {
 
-    @Bean("customExecutorPool")
+    @Bean("msgExecutorPool")
     public ThreadPoolExecutor customExecutorPool() {
         ThreadFactory threadFactory = new ThreadFactoryBuilder()
-                .setNameFormat("custom-task" + "-%d")
+                .setNameFormat("msg-recv-task" + "-%d")
+                .setDaemon(true).build();
+
+        int corePoolSize = 2 * Runtime.getRuntime().availableProcessors();
+        return new ThreadPoolExecutor(corePoolSize, 200,
+                                      1000L, TimeUnit.MILLISECONDS,
+                                      new ArrayBlockingQueue<>(10000), threadFactory,
+                                      new ThreadPoolExecutor.CallerRunsPolicy());
+    }
+
+    @Bean("msgSendExecutorPool")
+    public ThreadPoolExecutor msgSendExecutorPool() {
+        ThreadFactory threadFactory = new ThreadFactoryBuilder()
+                .setNameFormat("msg-send-task" + "-%d")
+                .setDaemon(true).build();
+
+        int corePoolSize = 2 * Runtime.getRuntime().availableProcessors();
+        return new ThreadPoolExecutor(corePoolSize, 200,
+                                      1000L, TimeUnit.MILLISECONDS,
+                                      new ArrayBlockingQueue<>(10000), threadFactory,
+                                      new ThreadPoolExecutor.CallerRunsPolicy());
+    }
+
+    @Bean("takeExecutorPool")
+    public ThreadPoolExecutor takeExecutorPool() {
+        ThreadFactory threadFactory = new ThreadFactoryBuilder()
+                .setNameFormat("take-task" + "-%d")
                 .setDaemon(true).build();
 
         int corePoolSize = 2 * Runtime.getRuntime().availableProcessors();

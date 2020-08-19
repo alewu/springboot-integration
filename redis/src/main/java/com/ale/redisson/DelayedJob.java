@@ -9,5 +9,6 @@ import java.io.Serializable;
 @ToString
 public class DelayedJob implements Serializable {
     private Integer id;
+    private Integer delayTime;
     private String name;
 }

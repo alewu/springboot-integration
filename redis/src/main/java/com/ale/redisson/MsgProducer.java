@@ -20,16 +20,20 @@ public class MsgProducer {
 
     public void send(DelayedJob delayedJob) {
         log.info("send msg to delay queue, {}", delayedJob);
-        RBlockingDeque<DelayedJob> blockingDeque = redissonClient.getBlockingDeque("ready-queue");
-        RDelayedQueue<DelayedJob> delayedQueue = redissonClient.getDelayedQueue(blockingDeque);
-        delayedQueue.offer(delayedJob, ThreadLocalRandom.current().nextInt(100), TimeUnit.SECONDS);
+        RBlockingDeque<String> blockingDeque = redissonClient.getBlockingDeque("ready-queue");
+        RDelayedQueue<String> delayedQueue = redissonClient.getDelayedQueue(blockingDeque);
+        int delay = 10;
+        delayedJob.setDelayTime(delay);
+        delayedQueue.offer(delayedJob.toString(), delay, TimeUnit.SECONDS);
     }
 
-    @Async("customExecutorPool")
-    public void sendAsync(DelayedJob msg) {
-        log.info("send msg to delay queue, {}", msg);
-        RBlockingDeque<Object> blockingDeque = redissonClient.getBlockingDeque("ready-queue");
-        RDelayedQueue<Object> delayedQueue = redissonClient.getDelayedQueue(blockingDeque);
-        delayedQueue.offer(msg, ThreadLocalRandom.current().nextInt(100), TimeUnit.SECONDS);
+    @Async("msgSendExecutorPool")
+    public void sendAsync(DelayedJob delayedJob) {
+        log.info("send msg to delay queue, {}", delayedJob);
+        RBlockingDeque<String> blockingDeque = redissonClient.getBlockingDeque("ready-queue");
+        RDelayedQueue<String> delayedQueue = redissonClient.getDelayedQueue(blockingDeque);
+        int delay = ThreadLocalRandom.current().nextInt(100);
+        delayedJob.setDelayTime(delay);
+        delayedQueue.offer(delayedJob.toString(), delay, TimeUnit.SECONDS);
     }
 }
