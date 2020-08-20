@@ -1,15 +1,20 @@
 package com.ale.client;
 
 import lombok.extern.slf4j.Slf4j;
+import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.redisson.api.*;
+import org.redisson.api.RBlockingQueue;
+import org.redisson.api.RDelayedQueue;
+import org.redisson.api.RFuture;
+import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
@@ -33,18 +38,25 @@ class RedissonClientApplicationTest {
     }
 
     @Test
+    void testOffer() {
+        RBlockingQueue<String> blockingQueue = redissonClient.getBlockingQueue("RDelayedQueue");
+        RDelayedQueue<String> delayedQueue = redissonClient.getDelayedQueue(blockingQueue);
+        delayedQueue.offer("11", 10, TimeUnit.SECONDS);
+        delayedQueue.offer("22", 20, TimeUnit.SECONDS);
+        delayedQueue.offer("33", 300, TimeUnit.SECONDS);
+        delayedQueue.offer("100", 300, TimeUnit.SECONDS);
+        delayedQueue.offer("101", 300, TimeUnit.SECONDS);
+        delayedQueue.offer("102", 300, TimeUnit.SECONDS);
+    }
+
+    @Test
     void testDelay() throws InterruptedException, ExecutionException {
         RBlockingQueue<String> blockingQueue = redissonClient.getBlockingQueue("RDelayedQueue");
         RDelayedQueue<String> delayedQueue = redissonClient.getDelayedQueue(blockingQueue);
-        //        delayedQueue.offer("11", 10, TimeUnit.SECONDS);
-        //        delayedQueue.offer("22", 20, TimeUnit.SECONDS);
-        //        delayedQueue.offer("33", 30, TimeUnit.SECONDS);
-        //        delayedQueue.offer("100", 300, TimeUnit.SECONDS);
-        //        TimeUnit.SECONDS.sleep(30);
-        RBlockingDeque<Object> rDelayedQueue = redissonClient.getBlockingDeque("RDelayedQueue");
+        TimeUnit.SECONDS.sleep(10);
         List<RFuture<Boolean>> list = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            RFuture<Boolean> booleanRFuture = rDelayedQueue.removeAsync("100");
+        for (int i = 100; i < 103; i++) {
+            RFuture<Boolean> booleanRFuture = delayedQueue.removeAsync("" + i);
             list.add(booleanRFuture);
         }
         List<Boolean> collect = list.stream().map(booleanRFuture -> {
@@ -60,6 +72,21 @@ class RedissonClientApplicationTest {
         for (Boolean aBoolean : collect) {
             log.info("remove result:{}", aBoolean);
         }
+        TimeUnit.SECONDS.sleep(300);
+    }
 
+    @Test
+    void testRemove() throws InterruptedException, ExecutionException {
+        RBlockingQueue<String> blockingQueue = redissonClient.getBlockingQueue("RDelayedQueue");
+        RDelayedQueue<String> delayedQueue = redissonClient.getDelayedQueue(blockingQueue);
+        List<String> list = Lists.newArrayList();
+        for (int i = 100; i < 103; i++) {
+            list.add("" + i);
+        }
+        RFuture<Boolean> booleanRFuture = delayedQueue.removeAllAsync(list);
+
+        System.out.println(booleanRFuture.get());
+
+        TimeUnit.SECONDS.sleep(50);
     }
 }
