@@ -2,13 +2,8 @@ server:
   port: 11111
 # DataSource Config
 spring:
-  datasource:
-    driver-class-name: org.h2.Driver
-    schema: classpath:db/schema-h2.sql
-    data: classpath:db/data-h2.sql
-    url: jdbc:h2:mem:testdb
-    username: sa
-    password:
+  profiles:
+    active: mysql
   servlet:
     multipart:
       max-file-size: 10MB
@@ -21,3 +16,24 @@ logging:
 
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**/*.xml
+
+
+---
+spring:
+  profiles: mem
+  datasource:
+    driver-class-name: org.h2.Driver
+    schema: classpath:db/schema-h2.sql
+    data: classpath:db/data-h2.sql
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password:
+
+---
+spring:
+  profiles: mysql
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://txc:3306/mybatis
+    username: root
+    password:

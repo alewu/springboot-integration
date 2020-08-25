@@ -19,6 +19,6 @@ public class EventDemoController {
     @PostMapping()
     public String createOrder(@RequestBody Order order) {
         orderService.placeOrder(order);
-        return "ok";
+        return "jack";
     }
 }

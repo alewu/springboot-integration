@@ -2,6 +2,7 @@ package com.ale.swagger;
 
 import com.baomidou.mybatisplus.extension.api.R;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,9 +23,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     @PostMapping("/add")
-    @ApiOperation(value = "添加用户",notes = "")
+    @ApiOperation(value = "添加用户", notes = "")
+    @ApiImplicitParam(name = "user", value = "对象参数", required = true, dataType = "User", dataTypeClass = User.class)
     public R add(@RequestBody User user) {
 
-        return null;
+        return R.ok(user);
     }
 }

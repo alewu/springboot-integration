@@ -1,9 +1,12 @@
 spring:
+
   redis:
+    redisson:
+      config: classpath:redisson.yml
     host: txc
     port: 6479
     timeout: 100
-    password: abc123
+    password: abc123.
     lettuce:
       pool:
         max-active: 2
