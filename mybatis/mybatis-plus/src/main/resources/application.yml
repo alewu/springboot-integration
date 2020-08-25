@@ -3,7 +3,7 @@ server:
 # DataSource Config
 spring:
   profiles:
-    active: mysql
+    active: mem
 
 # Logger Config
 logging:
