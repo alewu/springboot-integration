@@ -13,6 +13,7 @@ spring:
 logging:
   level:
     com.ale: debug
+    org.springframework.transaction: trace
 
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**/*.xml
@@ -34,6 +35,6 @@ spring:
   profiles: mysql
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://txc:3306/mybatis
+    url: jdbc:mysql://txc:3306/mvc
     username: root
     password:
