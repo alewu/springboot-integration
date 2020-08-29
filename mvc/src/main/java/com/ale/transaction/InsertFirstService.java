@@ -21,7 +21,11 @@ public class InsertFirstService {
         bankAccount.setFullName("jack");
         bankAccount.setBalance(new BigDecimal("3.25"));
         transactionMapper.insert(bankAccount);
+        try {
+            insertSecondService.saveSecondBankAccount();
+        } catch (RuntimeException e) {
+            log.error(e.getMessage(), e);
+        }
 
-        insertSecondService.saveSecondBankAccount();
     }
 }

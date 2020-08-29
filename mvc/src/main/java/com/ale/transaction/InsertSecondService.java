@@ -7,7 +7,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.Random;
 
 @Service
 @Slf4j
@@ -17,12 +16,13 @@ public class InsertSecondService {
 
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public void saveSecondBankAccount() {
+        transactionMapper.deleteById(19);
         BankAccount bankAccount = new BankAccount();
-        bankAccount.setFullName("rose");
-        bankAccount.setBalance(new BigDecimal("3.25"));
+        bankAccount.setFullName("Tom");
+        bankAccount.setBalance(new BigDecimal("700"));
         transactionMapper.insert(bankAccount);
-        if (new Random().nextBoolean()) {
-            throw new RuntimeException("DummyException: this should cause rollback of both inserts!");
-        }
+        //        if (new Random().nextBoolean()) {
+        //            throw new RuntimeException("DummyException: this should cause rollback of both inserts!");
+        //        }
     }
 }

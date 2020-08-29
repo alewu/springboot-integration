@@ -9,10 +9,9 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import javax.annotation.Resource;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -45,11 +44,20 @@ public class QueryWrapperTest {
         //    LambdaQueryWrapper<User> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         LambdaQueryWrapper<User> lambdaQuery = Wrappers.lambdaQuery();
         lambdaQuery.eq(true, User::getName, "it");
-//        com.ale.mybatis.mapper.selectPage(page, lambdaQuery);
+        //        com.ale.mybatis.mapper.selectPage(page, lambdaQuery);
         IPage<User> userList = userMapper.selectPage(page, lambdaQuery);
-//        userList.getRecords().forEach(System.out::println);
+        //        userList.getRecords().forEach(System.out::println);
         System.out.println(userList);
 
+    }
+
+    @Test
+    void testSelectList() {
+        // 查询全部
+        List<User> users = userMapper.selectList(null);
+        for (User user : users) {
+            System.out.println(user.getName());
+        }
     }
 
 

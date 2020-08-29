@@ -28,4 +28,6 @@ public class User {
 
     @ApiModelProperty(value = "邮箱")
     private String email;
+
+    private Integer status;
 }

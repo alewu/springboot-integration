@@ -1,6 +1,8 @@
 package com.ale.retry;
 
+import com.ale.cache.entity.User;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.context.annotation.Import;
@@ -27,5 +29,16 @@ class RetryControllerTest {
                    .getResponse();
 
         // then
+    }
+
+    @Test
+    void test() {
+        User user = new User();
+        user.setAge(1);
+        user.setUserName("jack");
+        user.setStatus(1);
+        User user1 = new User();
+        BeanUtils.copyProperties(user, user1);
+        System.out.println(user1);
     }
 }
