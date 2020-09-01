@@ -32,16 +32,8 @@ public class CustomMetaObjectHandler implements MetaObjectHandler {
         }
         boolean gmtModified = metaObject.hasSetter(GMT_MODIFIED);
         if (gmtModified) {
-            setUpdateFieldValByName(GMT_MODIFIED, LocalDateTime.now(), metaObject);
+            strictInsertFill(metaObject, GMT_MODIFIED, LocalDateTime.class, LocalDateTime.now());
         }
-//        boolean createdBy = metaObject.hasSetter(CREATED_BY);
-//        if (createdBy && Objects.nonNull(null)) {
-//            setInsertFieldValByName(CREATED_BY, null, metaObject);
-//        }
-//        boolean modifiedBy = metaObject.hasSetter(MODIFIED_BY);
-//        if (modifiedBy && Objects.nonNull(null) {
-//            setInsertFieldValByName(MODIFIED_BY, null, metaObject);
-//        }
     }
     /**
      * update操作时要填充的字段
@@ -51,12 +43,8 @@ public class CustomMetaObjectHandler implements MetaObjectHandler {
     public void updateFill(MetaObject metaObject) {
         boolean gmtModified = metaObject.hasSetter(GMT_MODIFIED);
         if (gmtModified) {
-            setUpdateFieldValByName(GMT_MODIFIED, LocalDateTime.now(), metaObject);
+            strictUpdateFill(metaObject, GMT_MODIFIED, LocalDateTime.class, LocalDateTime.now());
         }
-//        boolean modifiedBy = metaObject.hasSetter(MODIFIED_BY);
-//        if (modifiedBy && Objects.nonNull(null)) {
-//            setUpdateFieldValByName(MODIFIED_BY, null, metaObject);
-//        }
 
     }
 }
