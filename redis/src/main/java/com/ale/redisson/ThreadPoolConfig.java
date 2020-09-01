@@ -48,8 +48,7 @@ public class ThreadPoolConfig {
                 .setNameFormat("take-task" + "-%d")
                 .setDaemon(true).build();
 
-        int corePoolSize = 2 * Runtime.getRuntime().availableProcessors();
-        return new ThreadPoolExecutor(corePoolSize, 200,
+        return new ThreadPoolExecutor(2, 2,
                                       1000L, TimeUnit.MILLISECONDS,
                                       new ArrayBlockingQueue<>(10000), threadFactory,
                                       new ThreadPoolExecutor.CallerRunsPolicy());

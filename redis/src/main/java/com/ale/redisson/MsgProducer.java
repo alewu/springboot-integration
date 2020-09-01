@@ -23,7 +23,7 @@ public class MsgProducer {
         RBlockingDeque<String> blockingDeque = redissonClient.getBlockingDeque("ready-queue");
         RDelayedQueue<String> delayedQueue = redissonClient.getDelayedQueue(blockingDeque);
         int delay = 10;
-        delayedJob.setDelayTime(delay);
+        delayedJob.setDelayTime(ThreadLocalRandom.current().nextInt(10, 20));
         delayedQueue.offer(delayedJob.toString(), delay, TimeUnit.SECONDS);
     }
 

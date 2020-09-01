@@ -32,6 +32,7 @@ public class MsgConsumer {
                 while (!Thread.interrupted()) {
                     try {
                         Object take = blockingDeque.take();
+                        log.info("take from queue {}", take);
                         msgPoolExecutor.execute(() -> msgHandler.handle(take.toString()));
                     } catch (InterruptedException e) {
                         log.error("take failed", e);

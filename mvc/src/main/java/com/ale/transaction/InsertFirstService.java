@@ -21,11 +21,27 @@ public class InsertFirstService {
         bankAccount.setFullName("jack");
         bankAccount.setBalance(new BigDecimal("3.25"));
         transactionMapper.insert(bankAccount);
+        //        insert();
+        update();
+    }
+
+    private void update() {
+        BankAccount bankAccount = new BankAccount();
+        bankAccount.setId(2);
+        bankAccount.setBalance(new BigDecimal("70"));
+        transactionMapper.updateById(bankAccount);
+        insertSecondService.update();
+        //        if (new Random().nextBoolean()) {
+        //            throw new RuntimeException("DummyException: this should cause rollback of both update!");
+        //        }
+
+    }
+
+    private void insert() {
         try {
             insertSecondService.saveSecondBankAccount();
         } catch (RuntimeException e) {
             log.error(e.getMessage(), e);
         }
-
     }
 }
