@@ -24,10 +24,32 @@ public class MsgConsumer {
     @Autowired
     private MsgHandler msgHandler;
 
+    public static final String QUEUE_NAME = "ready-queue-";
+
     @PostConstruct
     public void recv() {
-        RBlockingDeque<DelayedJob> blockingDeque = redissonClient.getBlockingDeque("ready-queue");
+        RBlockingDeque<DelayedJob> blockingDeque = redissonClient.getBlockingDeque(QUEUE_NAME);
         for (int i = 0; i < 2; i++) {
+            poolExecutor.execute(() -> {
+                while (!Thread.interrupted()) {
+                    try {
+                        Object take = blockingDeque.take();
+                        log.info("take from queue {}", take);
+                        msgPoolExecutor.execute(() -> msgHandler.handle(take.toString()));
+                    } catch (InterruptedException e) {
+                        log.error("take failed", e);
+                        Thread.currentThread().interrupt();
+                    }
+                }
+            });
+        }
+
+    }
+
+    @PostConstruct
+    public void recv2() {
+        for (int i = 0; i < 2; i++) {
+            RBlockingDeque<DelayedJob> blockingDeque = redissonClient.getBlockingDeque(QUEUE_NAME + i);
             poolExecutor.execute(() -> {
                 while (!Thread.interrupted()) {
                     try {

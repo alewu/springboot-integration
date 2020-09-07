@@ -20,7 +20,7 @@ public class MsgProducer {
 
     public void send(DelayedJob delayedJob) {
         log.info("send msg to delay queue, {}", delayedJob);
-        RBlockingDeque<String> blockingDeque = redissonClient.getBlockingDeque("ready-queue");
+        RBlockingDeque<String> blockingDeque = redissonClient.getBlockingDeque("ready-queue-");
         RDelayedQueue<String> delayedQueue = redissonClient.getDelayedQueue(blockingDeque);
         int delay = 10;
         delayedJob.setDelayTime(ThreadLocalRandom.current().nextInt(10, 20));
