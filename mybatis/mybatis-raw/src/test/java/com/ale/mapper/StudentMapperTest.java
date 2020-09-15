@@ -17,7 +17,7 @@ class StudentMapperTest {
     public void testSelect() {
         List<Student> students = Lists.newArrayList();
         Student student = new Student();
-        student.setName("java1");
+        student.setName("java");
         student.setAge(12);
         student.setSex(11);
         Student student1 = new Student();
@@ -27,7 +27,7 @@ class StudentMapperTest {
         Student student2 = new Student();
         student2.setName("c");
         student2.setAge(12);
-        student2.setSex(1);
+        student2.setSex(2);
         students.add(student);
         students.add(student1);
         students.add(student2);

@@ -1,32 +1,24 @@
 package com.ale.simple;
 
 import com.ale.cache.entity.UserEntity;
-import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.dao.DataAccessException;
-import org.springframework.data.redis.connection.RedisConnection;
-import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.serializer.RedisSerializer;
 
 import java.util.BitSet;
-import java.util.List;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 @SpringBootTest
-public class MySpringBootRedisApplicationTest {
+class MySpringBootRedisApplicationTest {
     @Autowired
     private RedisTemplate<String, String> strRedisTemplate;
     @Autowired
     private RedisTemplate<String, Object> serializableRedisTemplate;
 
 
-
     @Test
-    public void testSerializable() {
+    void testSerializable() {
         UserEntity user = new UserEntity();
         user.setId(1L);
         user.setUserName("jack");
@@ -38,24 +30,7 @@ public class MySpringBootRedisApplicationTest {
 
 
     @Test
-    public void testPipelined() {
-        List<String> keys = Lists.list("test_hash", "test_hash2");
-        strRedisTemplate.executePipelined(new RedisCallback<Object>() {
-            RedisSerializer<String> serializer = strRedisTemplate.getStringSerializer();
-
-            @Override
-            public Object doInRedis(RedisConnection connection) throws DataAccessException {
-                for (String key : keys) {
-                    Map<byte[], byte[]> map = connection.hashCommands().hGetAll(serializer.serialize(key));
-                }
-                return null;
-            }
-        });
-
-    }
-
-    @Test
-    public void testBitSet() {
+    void testBitSet() {
         // Redis Setbit 命令用于对 key 所储存的字符串值，设置或清除指定偏移量上的位(bit)。
         String key = "test_bit_set";
         strRedisTemplate.expire(key, 1000, TimeUnit.SECONDS);
@@ -69,13 +44,13 @@ public class MySpringBootRedisApplicationTest {
     }
 
     @Test
-    public void testBitCount() {
+    void testBitCount() {
         String key = "test_bit_set";
 
     }
 
     @Test
-    public void testBitSetGetBytes() {
+    void testBitSetGetBytes() {
         String key = "test_bit_set";
         byte[] bytes = strRedisTemplate.opsForValue().get(key).getBytes();
         BitSet bitSet = fromByteArrayReverse(bytes);
@@ -106,7 +81,7 @@ public class MySpringBootRedisApplicationTest {
     }
 
     @Test
-    public void testHyperLogLog() {
+    void testHyperLogLog() {
 
     }
 
