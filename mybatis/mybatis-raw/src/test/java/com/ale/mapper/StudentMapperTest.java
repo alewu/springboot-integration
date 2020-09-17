@@ -13,6 +13,7 @@ class StudentMapperTest {
     @Autowired
     private StudentMapper studentMapper;
 
+
     @Test
     public void testSelect() {
         List<Student> students = Lists.newArrayList();

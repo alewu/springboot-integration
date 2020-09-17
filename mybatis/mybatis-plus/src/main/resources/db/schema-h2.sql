@@ -12,7 +12,8 @@ CREATE TABLE user
 DROP TABLE IF EXISTS dept;
 CREATE TABLE dept
 (
-    id BIGINT(20) NOT NULL COMMENT '主键ID',
+    id        BIGINT(20)  NOT NULL auto_increment COMMENT '主键ID',
     dept_name VARCHAR(30) NULL DEFAULT NULL COMMENT '部门名称',
+    deleted   VARCHAR(30) NULL DEFAULT 0 COMMENT '是否删除',
     PRIMARY KEY (id)
 );

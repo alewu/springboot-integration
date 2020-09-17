@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.autoconfigure.data.redis.DataRedisTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.dao.DataAccessException;
@@ -22,7 +21,6 @@ import org.springframework.data.redis.serializer.RedisSerializer;
 import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -41,9 +39,9 @@ class HashOpsTest {
 
     static BoundHashOperations<String, String, Object> hashOperations = null;
     static String key = "";
-    @Autowired
-    @Qualifier("customExecutorPool")
-    private ThreadPoolExecutor customExecutorPool;
+    //    @Autowired
+    //    @Qualifier("customExecutorPool")
+    //    private ThreadPoolExecutor customExecutorPool;
 
     long start = 0;
     long end = 0;
@@ -107,8 +105,7 @@ class HashOpsTest {
         assertEquals(ok, 0L);
         ArrayList<CompletableFuture<Long>> futures = Lists.newArrayList();
         for (int i = 0; i < 100000; i++) {
-            CompletableFuture<Long> future = CompletableFuture.supplyAsync(() -> hashOperations.increment("id", 1),
-                                                                           customExecutorPool);
+            CompletableFuture<Long> future = CompletableFuture.supplyAsync(() -> hashOperations.increment("id", 1));
             futures.add(future);
         }
 

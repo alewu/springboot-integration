@@ -10,8 +10,8 @@ import lombok.Data;
  * @date 2020/7/13
  */
 @Data
-public class Dept extends BaseEntity {
-    @TableId(type = IdType.AUTO)
+public class Dept {
+    @TableId(type = IdType.INPUT)
     private Integer id;
 
     private String deptName;

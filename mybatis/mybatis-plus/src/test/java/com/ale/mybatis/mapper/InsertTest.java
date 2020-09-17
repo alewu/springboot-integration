@@ -1,6 +1,7 @@
 package com.ale.mybatis.mapper;
 
 
+import com.ale.mybatis.entity.Dept;
 import com.ale.mybatis.entity.User;
 import com.ale.mybatis.service.UserService;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -22,6 +23,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class InsertTest {
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private DeptMapper deptMapper;
     @Autowired
     private UserService userService;
     long start = 0l;
@@ -47,6 +50,16 @@ class InsertTest {
             user.setName("test");
             userMapper.insert(user);
         }
+
+        //        assertEquals(55, user.getId());
+    }
+
+    @Test
+    void testInsert1() {
+        Dept dept = new Dept();
+        dept.setId(45);
+        dept.setDeptName("IT");
+        deptMapper.insert(dept);
 
         //        assertEquals(55, user.getId());
     }
