@@ -6,7 +6,7 @@
 
     <insert id="addOrUpdateBatch" parameterType="com.ale.cache.entity.Student">
         insert into student
-        (id, name, sex)
+        (id, student_name, gender)
         values
         <foreach collection="list" item="item" index="index" separator=",">
             (
@@ -16,7 +16,7 @@
             )
         </foreach>
         on duplicate key update
-        name=values(name),sex=values(sex)
+        student_name=values(student_name),gender=values(gender)
     </insert>
 
 </mapper>

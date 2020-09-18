@@ -1,7 +1,7 @@
 DELETE
-FROM user;
+FROM student;
 
-INSERT INTO user (id, name, age, email)
+INSERT INTO student (id, student_name, gender, email)
 VALUES (1, 'Jack', 18, 'jack@ityouknow.com'),
        (2, 'Rose', 36, 'rose@ityouknow.com'),
        (3, 'Bob', 28, 'bob@ityouknow.com'),
