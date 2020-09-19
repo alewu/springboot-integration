@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ale.mapper.StudentMapper">
 
-    <insert id="addOrUpdateBatch" parameterType="com.ale.cache.entity.Student">
+    <insert id="addOrUpdateBatch" parameterType="com.ale.entity.Student">
         insert into student
         (id, student_name, gender)
         values
@@ -18,5 +18,15 @@
         on duplicate key update
         student_name=values(student_name),gender=values(gender)
     </insert>
+
+    <cache>
+
+    </cache>
+
+    <select id="getOne" resultType="com.ale.entity.Student">
+        SELECT *
+        FROM student
+        WHERE id = #{studentId}
+    </select>
 
 </mapper>

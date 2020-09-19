@@ -1,6 +1,6 @@
 package com.ale.mapper;
 
-import com.ale.cache.entity.Student;
+import com.ale.entity.Student;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -8,10 +8,11 @@ import java.util.List;
 
 /**
  * The interface Student mapper.
+ *
  * @author alewu
  */
 @Repository
-public interface StudentMapper  {
+public interface StudentMapper {
 
     /**
      * Add or update batch.
@@ -19,4 +20,12 @@ public interface StudentMapper  {
      * @param students the students
      */
     void addOrUpdateBatch(@Param("list") List<Student> students);
+
+    /**
+     * Gets one.
+     *
+     * @param studentId the student id
+     * @return the one
+     */
+    Student getOne(@Param("studentId") Integer studentId);
 }

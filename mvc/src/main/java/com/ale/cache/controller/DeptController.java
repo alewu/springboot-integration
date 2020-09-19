@@ -1,7 +1,7 @@
 package com.ale.cache.controller;
 
-import com.ale.cache.entity.Dept;
 import com.ale.common.BaseResponse;
+import com.ale.entity.Dept;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,4 +1,4 @@
-package com.ale.cache.entity;
+package com.ale.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;

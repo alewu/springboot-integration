@@ -1,6 +1,6 @@
 package com.ale.retry;
 
-import com.ale.cache.entity.User;
+import com.ale.entity.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
