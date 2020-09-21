@@ -6,19 +6,16 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 /**
- * @author alewu
- * @date 2020/7/13
+ * @author ale
  */
 @Data
-public class Dept {
-    @TableId(type = IdType.INPUT)
+@TableName("employee")
+public class Employee {
+    @TableId(type = IdType.AUTO)
     private Integer id;
-
-    private String deptName;
-
-    @TableLogic
-    private Integer deleted;
-
+    private String name;
+    private Integer age;
+    private String email;
     @TableField(value = "gmt_create", fill = FieldFill.INSERT)
     private LocalDateTime gmtCreate;
 }

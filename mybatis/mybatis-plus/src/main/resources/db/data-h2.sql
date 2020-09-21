@@ -1,18 +1,20 @@
-DELETE FROM user;
+DELETE
+FROM employee;
 
-INSERT INTO user (id, name, age, email) VALUES
-(1, 'Jack', 18, 'jack@ityouknow.com'),
-(2, 'Rose', 36, 'rose@ityouknow.com'),
-(3, 'Bob', 28, 'bob@ityouknow.com'),
-(4, 'Smile', 21, 'smile@ityouknow.com'),
-(5, 'Alice', 24, 'alice@ityouknow.com');
+INSERT INTO employee (id, name, age, email, gmt_create)
+VALUES (1, 'Jack', 18, 'jack@ityouknow.com', '2020-10-10 00:00:00'),
+       (2, 'Rose', 36, 'rose@ityouknow.com', '2020-10-10 00:00:00'),
+       (3, 'Bob', 28, 'bob@ityouknow.com', '2020-10-10 00:00:00'),
+       (4, 'Smile', 21, 'smile@ityouknow.com', '2020-10-10 00:00:00'),
+       (5, 'Alice', 24, 'alice@ityouknow.com', '2020-10-10 00:00:00');
 
-DELETE FROM dept;
+DELETE
+FROM dept;
 
-INSERT INTO dept (id, dept_name) VALUES
-(1, 'marketing'),
-(2, 'sales'),
-(3, 'purchasing'),
-(4, 'it'),
-(5, 'hr'),
-(6, 'engineering');
+INSERT INTO dept (id, dept_name, gmt_create)
+VALUES (1, 'marketing', '2020-10-10 00:00:00'),
+       (2, 'sales', '2020-10-10 00:00:00'),
+       (3, 'purchasing', '2020-10-10 00:00:00'),
+       (4, 'it', '2020-10-10 00:00:00'),
+       (5, 'hr', '2020-10-10 00:00:00'),
+       (6, 'engineering', '2020-10-10 00:00:00');

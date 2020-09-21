@@ -1,6 +1,6 @@
 package com.ale.mybatis.mapper;
 
-import com.ale.mybatis.entity.User;
+import com.ale.mybatis.entity.Employee;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -17,7 +17,7 @@ import java.util.Map;
 @SpringBootTest
 class DeleteTest {
     @Autowired
-    private UserMapper userMapper;
+    private EmployeeMapper userMapper;
 
     @Test
     void testDeleteByMap() {
@@ -29,7 +29,7 @@ class DeleteTest {
 
     @Test
     void testDeleteBy() {
-        int i = userMapper.delete(Wrappers.<User>lambdaQuery().ge(User::getAge, 10));
+        int i = userMapper.delete(Wrappers.<Employee>lambdaQuery().ge(Employee::getAge, 10));
         Assertions.assertTrue(i > 0);
     }
 }

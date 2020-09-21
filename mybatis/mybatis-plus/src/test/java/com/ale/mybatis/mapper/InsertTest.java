@@ -2,8 +2,8 @@ package com.ale.mybatis.mapper;
 
 
 import com.ale.mybatis.entity.Dept;
-import com.ale.mybatis.entity.User;
-import com.ale.mybatis.service.UserService;
+import com.ale.mybatis.entity.Employee;
+import com.ale.mybatis.service.EmployeeService;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.util.Lists;
@@ -22,11 +22,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @Slf4j
 class InsertTest {
     @Autowired
-    private UserMapper userMapper;
+    private EmployeeMapper userMapper;
     @Autowired
     private DeptMapper deptMapper;
     @Autowired
-    private UserService userService;
+    private EmployeeService userService;
     long start = 0l;
 
     @BeforeEach
@@ -43,7 +43,7 @@ class InsertTest {
     @Test
     void testInsert() {
         for (int i = 0; i < 100; i++) {
-            User user = new User();
+            Employee user = new Employee();
             user.setId(55);
             user.setAge(12);
             user.setEmail("123@gmail");
@@ -66,9 +66,9 @@ class InsertTest {
 
     @Test
     void testBatchInsert() {
-        List<User> users = Lists.newArrayList();
+        List<Employee> users = Lists.newArrayList();
         for (int i = 0; i < 100; i++) {
-            User user = new User();
+            Employee user = new Employee();
             user.setAge(12 + i);
             user.setEmail("123@gmail");
             user.setName("test");
@@ -79,12 +79,13 @@ class InsertTest {
 
     @Test
     void testSaveOrInsert() {
-        User user = new User();
+        Employee user = new Employee();
         user.setId(6);
         user.setAge(12);
         user.setEmail("123@gmail");
         user.setName("Jack");
-        boolean saveOrUpdate = userService.saveOrUpdate(user, Wrappers.<User>lambdaUpdate().eq(User::getName, "Jack1"));
+        boolean saveOrUpdate = userService.saveOrUpdate(user, Wrappers.<Employee>lambdaUpdate().eq(Employee::getName,
+                                                                                                   "Jack1"));
         assertTrue(saveOrUpdate);
 
     }

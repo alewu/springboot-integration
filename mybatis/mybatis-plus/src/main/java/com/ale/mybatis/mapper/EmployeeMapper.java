@@ -1,7 +1,7 @@
 package com.ale.mybatis.mapper;
 
 
-import com.ale.mybatis.entity.User;
+import com.ale.mybatis.entity.Employee;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springframework.stereotype.Repository;
 
@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
  * @author ale
  */
 @Repository
-public interface UserMapper extends BaseMapper<User> {
+public interface EmployeeMapper extends BaseMapper<Employee> {
 }

@@ -1,6 +1,6 @@
 package com.ale.mybatis.mapper;
 
-import com.ale.mybatis.entity.User;
+import com.ale.mybatis.entity.Employee;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,12 +11,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest
 class TransactionTest {
     @Autowired
-    private UserMapper userMapper;
+    private EmployeeMapper userMapper;
 
     @Test
     @Transactional(rollbackFor = Exception.class)
     void testInsert() {
-        User user = new User();
+        Employee user = new Employee();
         user.setAge(12);
         user.setEmail("123@gmail");
         user.setName("test");
