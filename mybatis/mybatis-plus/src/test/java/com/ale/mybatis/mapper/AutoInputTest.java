@@ -6,8 +6,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.Collections;
-
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
@@ -22,14 +20,6 @@ class AutoInputTest {
         employee.setEmail("jack@gmail.com");
         employeeService.save(employee);
         assertNotNull(employee.getGmtCreate());
-    }
-
-    @Test
-    void testBatchInsert() {
-        Employee employee = new Employee();
-        employee.setName("jack");
-        employee.setEmail("jack@gmail.com");
-        employeeService.saveEmployeeBatch(Collections.singletonList(employee));
     }
 
 }
