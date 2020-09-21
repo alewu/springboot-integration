@@ -8,8 +8,8 @@ CREATE TABLE employee
     email        VARCHAR(50) NULL     DEFAULT NULL COMMENT '邮箱',
     gmt_create   datetime    not null DEFAULT CURRENT_TIMESTAMP,
     gmt_modified datetime    not null DEFAULT CURRENT_TIMESTAMP,
-    created_by   int         not null,
-    modified_by  int         not null,
+    created_by   int         not null DEFAULT 0,
+    modified_by  int         not null DEFAULT 0,
     PRIMARY KEY (id)
 );
 

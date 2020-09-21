@@ -38,9 +38,10 @@ public class CustomMetaObjectHandler implements MetaObjectHandler {
             strictInsertFill(metaObject, GMT_MODIFIED, LocalDateTime.class, LocalDateTime.now());
         }
         boolean createdBy = metaObject.hasSetter(CREATED_BY);
+
         // 获取用户id
         Integer userId = getUserId();
-        if (createdBy) {
+        if (createdBy && Objects.nonNull(userId)) {
             this.strictInsertFill(metaObject, CREATED_BY, Integer.class, userId);
         }
         boolean modifiedBy = metaObject.hasSetter(MODIFIED_BY);
@@ -51,7 +52,7 @@ public class CustomMetaObjectHandler implements MetaObjectHandler {
 
     private Integer getUserId() {
         // todo 获取用户id逻辑
-        return null;
+        return 1;
     }
 
     /**
