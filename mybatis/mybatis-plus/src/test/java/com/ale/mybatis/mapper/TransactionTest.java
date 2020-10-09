@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest
 class TransactionTest {
     @Autowired
-    private EmployeeMapper userMapper;
+    private EmployeeMapper employeeMapper;
 
     @Test
     @Transactional(rollbackFor = Exception.class)
@@ -20,7 +20,7 @@ class TransactionTest {
         user.setAge(12);
         user.setEmail("123@gmail");
         user.setName("test");
-        userMapper.insert(user);
+        employeeMapper.insert(user);
         Integer id = user.getId();
         int a = id / 0;
         assertEquals(155, id);

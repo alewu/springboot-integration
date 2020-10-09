@@ -19,14 +19,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest
 class QueryWrapperTest {
     @Autowired
-    private EmployeeMapper userMapper;
+    private EmployeeMapper employeeMapper;
 
 
     @Test
     void selectOne() {
         QueryWrapper<Employee> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("name", "Jack");
-        Employee user = userMapper.selectOne(queryWrapper);
+        Employee user = employeeMapper.selectOne(queryWrapper);
         assertEquals("Jack", user.getName());
     }
 
@@ -45,7 +45,7 @@ class QueryWrapperTest {
         LambdaQueryWrapper<Employee> lambdaQuery = Wrappers.lambdaQuery();
         lambdaQuery.eq(true, Employee::getName, "it");
         //        com.ale.mybatis.mapper.selectPage(page, lambdaQuery);
-        IPage<Employee> userList = userMapper.selectPage(page, lambdaQuery);
+        IPage<Employee> userList = employeeMapper.selectPage(page, lambdaQuery);
         //        userList.getRecords().forEach(System.out::println);
         System.out.println(userList);
 
@@ -54,7 +54,7 @@ class QueryWrapperTest {
     @Test
     void testSelectList() {
         // 查询全部
-        List<Employee> users = userMapper.selectList(null);
+        List<Employee> users = employeeMapper.selectList(null);
         for (Employee user : users) {
             System.out.println(user.getName());
         }
@@ -71,7 +71,7 @@ class QueryWrapperTest {
         Page<Employee> page = new Page<>(1, 5);
         QueryWrapper<Employee> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("name", "java");
-        IPage<Employee> userIPage = userMapper.selectPage(page, queryWrapper);
+        IPage<Employee> userIPage = employeeMapper.selectPage(page, queryWrapper);
         System.out.println(userIPage);
     }
 
