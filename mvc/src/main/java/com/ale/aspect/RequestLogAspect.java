@@ -16,6 +16,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 
 /**
@@ -67,6 +68,9 @@ public class RequestLogAspect {
         mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
         for (Object arg : reqArgs) {
             if (arg instanceof MultipartFile) {
+                return;
+            }
+            if (arg instanceof HttpServletResponse) {
                 return;
             }
             try {
