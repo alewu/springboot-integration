@@ -4,6 +4,7 @@ import com.ale.bean.User;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.redisson.api.RBloomFilter;
 import org.redisson.api.RBucket;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,5 +63,14 @@ class RedisClientApplicationTest {
         user.setBirthday(LocalDateTime.now());
         boolean b = string.trySet(user);
         log.info("{}", b);
+    }
+
+    @Test
+    void testBloomFilter(){
+        RBloomFilter<String> bloomFilter = redissonClient.getBloomFilter("phoneList");
+        bloomFilter.tryInit(10000000L, 0.03);
+        bloomFilter.add("10010");
+        Assertions.assertFalse(bloomFilter.contains("12306"));
+        Assertions.assertTrue(bloomFilter.contains("10010"));
     }
 }

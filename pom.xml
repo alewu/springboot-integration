@@ -20,6 +20,8 @@
         <module>mybatis</module>
         <module>mq</module>
         <module>cache</module>
+        <module>aop</module>
+        <module>event</module>
     </modules>
     <packaging>pom</packaging>
 

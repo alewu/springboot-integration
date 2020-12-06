@@ -2,6 +2,8 @@ server:
   port: 11111
 # DataSource Config
 spring:
+  aop:
+    proxy-target-class: false
   profiles:
     active: mysql
   servlet:
@@ -35,6 +37,6 @@ spring:
   profiles: mysql
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://txc:3306/mvc
+    url: jdbc:mysql://txc:4417/mvc
     username: root
-    password:
+    password: Root@123456

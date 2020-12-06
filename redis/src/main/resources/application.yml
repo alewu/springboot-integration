@@ -3,7 +3,7 @@ spring:
   redis:
     redisson:
       config: classpath:redisson.yml
-    host: txc
+    host: 106.54.243.76
     port: 6479
     timeout: 100
     password: abc123.
