@@ -1,5 +1,6 @@
-package com.ale.websocket;
+package com.ale.websocket.service;
 
+import com.ale.websocket.endpoint.WsServerEndpoint;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;

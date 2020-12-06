@@ -1,4 +1,4 @@
-package com.ale.websocket;
+package com.ale.websocket.endpoint;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;

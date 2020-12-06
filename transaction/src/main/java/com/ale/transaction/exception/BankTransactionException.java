@@ -1,4 +1,4 @@
-package com.ale.transaction;
+package com.ale.transaction.exception;
 
 /**
  * @author alewu

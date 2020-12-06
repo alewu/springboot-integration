@@ -1,5 +1,6 @@
-package com.ale.transaction;
+package com.ale.transaction.mapper;
 
+import com.ale.transaction.entity.BankAccount;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

@@ -1,4 +1,4 @@
-package com.ale.cache.controller;
+package com.ale.other;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StopWatch;

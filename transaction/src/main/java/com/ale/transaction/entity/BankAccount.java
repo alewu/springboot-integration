@@ -1,4 +1,5 @@
-package com.ale.transaction;
+package com.ale.transaction.entity;
+
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
