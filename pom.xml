@@ -24,6 +24,7 @@
         <module>event</module>
         <module>websocket</module>
         <module>transaction</module>
+        <module>api-docs</module>
     </modules>
     <packaging>pom</packaging>
 

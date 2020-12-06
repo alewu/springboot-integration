@@ -1,4 +1,4 @@
-package com.ale.swagger;
+package com.ale.apidocs.swagger.entity;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
