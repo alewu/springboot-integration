@@ -1,4 +1,4 @@
-package com.ale.config;
+package com.ale.apidocs.swagger.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
