@@ -1,4 +1,4 @@
-package com.ale.cache.service;
+package com.ale.service;
 
 import com.ale.model.Customer;
 import org.slf4j.Logger;

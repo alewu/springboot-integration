@@ -1,15 +1,12 @@
 package com.ale.common;
 
 import com.ale.exception.ValidateCodeException;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.Serializable;
 import java.util.Optional;
 
 
-@ApiModel("不带分页信息的请求入参")
 @Slf4j
 public class RequestData<T> implements Serializable {
 
@@ -21,7 +18,6 @@ public class RequestData<T> implements Serializable {
     /**
      * 封装请求的入参
      */
-    @ApiModelProperty("请求入参")
     private T params;
 
 

@@ -1,12 +1,9 @@
 package com.ale.common;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
 
-@ApiModel("分页信息")
 @Data
 public class PageInfo implements Serializable {
     /**
@@ -23,29 +20,24 @@ public class PageInfo implements Serializable {
     /**
      * 总记录数
      */
-    @ApiModelProperty(value = "总记录数", hidden = true)
     private Long total;
     /**
      * 分页大小
      */
-    @ApiModelProperty(value = "分页大小", example = "10")
     private Integer pageSize;
     /**
      * 当前页
      */
-    @ApiModelProperty(value = "当前页", example = "1")
     private Integer currentPage;
     /**
      * 排序字段
      */
     @Deprecated
-    @ApiModelProperty(value = "排序字段", example = "created_time")
     private String orderBy;
 
     /**
      * 排序顺序
      */
-    @ApiModelProperty("升降序")
     private Boolean asc;
 
     public PageInfo() {

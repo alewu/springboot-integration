@@ -1,7 +1,6 @@
 package com.ale.common;
 
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -18,18 +17,15 @@ public class Page<E> implements Serializable {
     /**
      * 总数
      */
-    @ApiModelProperty(value = "总记录数", hidden = true)
     private long total;
     /**
      * 每页显示条数，默认 10
      */
-    @ApiModelProperty(value = "分页大小", example = "10")
     private long size = 10;
 
     /**
      * 当前页
      */
-    @ApiModelProperty(value = "当前页", example = "1")
     private long current = 1;
 
     /**

@@ -1,4 +1,4 @@
-package com.oal.microservice.util;
+package com.ale.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
