@@ -26,3 +26,13 @@ create table course
 
 )
     comment '课程表';
+
+DROP TABLE IF EXISTS score;
+create table score
+(
+    id int auto_increment primary key,
+    course_id   int not null comment '课程id',
+    student_id  int not null comment '学生id',
+    score_value int not null comment '分数值'
+)
+    comment '分数表';
