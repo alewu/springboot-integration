@@ -1,5 +1,6 @@
 package com.ale.mapper;
 
+import com.ale.entity.StudentQuery;
 import com.ale.entity.Student;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -28,4 +29,6 @@ public interface StudentMapper {
      * @return the one
      */
     Student getOne(@Param("studentId") Integer studentId);
+
+    List<Student> listStudent(StudentQuery query);
 }

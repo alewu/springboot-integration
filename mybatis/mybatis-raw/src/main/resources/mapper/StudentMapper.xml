@@ -29,4 +29,18 @@
         WHERE id = #{studentId}
     </select>
 
+    <select id="listStudent" resultType="com.ale.entity.Student">
+        select id, class_id, student_name as sname, gender, birthday from student where gender = 1
+        <if test="name != null">
+            and student_name = #{name}
+        </if>
+        <if test="ids != null and  ids.size > 0">
+            and id in
+            <foreach collection="ids" open="(" close=")" index="index" item="item" separator=",">
+                #{item}
+            </foreach>
+        </if>
+
+    </select>
+
 </mapper>
