@@ -5,7 +5,7 @@ spring:
   aop:
     proxy-target-class: false
   profiles:
-    active: mysql
+    active: mem
   servlet:
     multipart:
       max-file-size: 10MB

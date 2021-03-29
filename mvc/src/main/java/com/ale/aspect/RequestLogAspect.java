@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Objects;
 
 
 /**
@@ -67,10 +68,13 @@ public class RequestLogAspect {
         // 对文件上传做处理
         mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
         for (Object arg : reqArgs) {
+            if (Objects.isNull(arg)) {
+                return;
+            }
             if (arg instanceof MultipartFile) {
                 return;
             }
-            if (arg instanceof HttpServletResponse) {
+            if (arg instanceof HttpServletRequest) {
                 return;
             }
             try {
