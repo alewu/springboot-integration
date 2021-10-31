@@ -6,9 +6,16 @@ management:
     enabled-by-default: true # 启用所有端口
 cxf:
   jaxrs:
+    classes-scan: true
+    classes-scan-packages: com.ale
+    server:
+#      path: / # customize a JAX-RS server endpoint address (default is "/").
+#      address: http://localhost:9090/
     client:
       address: http://localhost:11111/
       classes-scan-packages: com.ale.rest.client
+#  path: /services # customize a CXFServlet URL pattern.
+
 spring:
   redis:
     host: localhost

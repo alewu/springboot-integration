@@ -1,13 +1,10 @@
 package com.ale.config;
 
-import com.ale.common.GlobalResponse;
+import org.apache.cxf.annotations.Provider;
 import org.apache.cxf.interceptor.Fault;
 import org.apache.cxf.message.Message;
-import org.apache.cxf.message.MessageContentsList;
 import org.apache.cxf.phase.AbstractPhaseInterceptor;
 import org.apache.cxf.phase.Phase;
-
-import java.util.List;
 
 /**
  * 统一响应类

@@ -56,18 +56,18 @@ public class RestServiceConfig {
     private ResponseOutInterceptor globalResponseOutInterceptor;
 
 
-    @Bean
-    public Server server() {
-        JAXRSServerFactoryBean jaxrsServerFactoryBean = new JAXRSServerFactoryBean();
-        jaxrsServerFactoryBean.setAddress("/testService");
-        jaxrsServerFactoryBean.setServiceBeans(ImmutableList.of(studentService));
-        jaxrsServerFactoryBean.setBus(bus);
-
-        jaxrsServerFactoryBean.setOutInterceptors(Collections.singletonList(globalResponseOutInterceptor));
-        jaxrsServerFactoryBean.setFeatures(ImmutableList.of(beanValidationFeature, swagger2Feature, loggingFeature));
-        jaxrsServerFactoryBean.setProviders(ImmutableList.of(jsonProvider, validationExceptionMapper, originFilter));
-
-        return jaxrsServerFactoryBean.create();
-    }
+//    @Bean
+//    public Server server() {
+//        JAXRSServerFactoryBean jaxrsServerFactoryBean = new JAXRSServerFactoryBean();
+//        jaxrsServerFactoryBean.setAddress("/testService");
+////        jaxrsServerFactoryBean.setServiceBeans(ImmutableList.of(studentService));
+//        jaxrsServerFactoryBean.setBus(bus);
+//
+//        jaxrsServerFactoryBean.setOutInterceptors(Collections.singletonList(globalResponseOutInterceptor));
+//        jaxrsServerFactoryBean.setFeatures(ImmutableList.of(beanValidationFeature, swagger2Feature, loggingFeature));
+//        jaxrsServerFactoryBean.setProviders(ImmutableList.of(jsonProvider, validationExceptionMapper, originFilter));
+//
+//        return jaxrsServerFactoryBean.create();
+//    }
 
 }
