@@ -1,7 +1,6 @@
 package com.ale.config;
 
-import com.ale.rest.service.validation.StudentService;
-import com.ale.rest.service.cache.RedisDemoService;
+import com.ale.rest.service.StudentService;
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import com.google.common.collect.ImmutableList;
 import org.apache.cxf.Bus;
@@ -28,9 +27,6 @@ public class RestServiceConfig {
 
     @Resource
     private StudentService studentService;
-
-    @Resource
-    private RedisDemoService redisDemoService;
 
     @Resource
     private Bus bus;
@@ -64,7 +60,7 @@ public class RestServiceConfig {
     public Server server() {
         JAXRSServerFactoryBean jaxrsServerFactoryBean = new JAXRSServerFactoryBean();
         jaxrsServerFactoryBean.setAddress("/testService");
-        jaxrsServerFactoryBean.setServiceBeans(ImmutableList.of(studentService, redisDemoService));
+        jaxrsServerFactoryBean.setServiceBeans(ImmutableList.of(studentService));
         jaxrsServerFactoryBean.setBus(bus);
 
         jaxrsServerFactoryBean.setOutInterceptors(Collections.singletonList(globalResponseOutInterceptor));

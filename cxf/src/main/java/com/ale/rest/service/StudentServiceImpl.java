@@ -1,4 +1,4 @@
-package com.ale.rest.service.validation;
+package com.ale.rest.service;
 
 import com.ale.domain.Student;
 import lombok.extern.slf4j.Slf4j;

@@ -8,13 +8,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 class RedisDemoServiceImplTest {
-    @Autowired
-    RedisDemoService redisDemoService = new RedisDemoServiceImpl();
 
     @Test
     void testTestCache() {
-        Student result = redisDemoService.testCache("name");
-        Assertions.assertEquals(new Student(), result);
+
     }
 }
 

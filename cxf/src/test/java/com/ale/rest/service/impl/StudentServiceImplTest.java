@@ -1,12 +1,12 @@
 package com.ale.rest.service.impl;
 
-import com.ale.MySpringBootApplication;
+import com.ale.CXFSpringBootApplication;
 import org.apache.cxf.jaxrs.client.WebClient;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 
-@SpringBootTest(classes = MySpringBootApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(classes = CXFSpringBootApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class StudentServiceImplTest {
 
     @LocalServerPort

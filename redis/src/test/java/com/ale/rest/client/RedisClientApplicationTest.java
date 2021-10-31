@@ -1,4 +1,4 @@
-package com.ale.client;
+package com.ale.rest.client;
 
 import com.ale.bean.User;
 import lombok.extern.slf4j.Slf4j;
