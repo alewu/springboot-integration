@@ -51,3 +51,24 @@ SpringBoot 2.x主要提供了两种方式来支持Cors，如下：
 
 ---
 ####common file 
+
+接入各种云存储，阿里云，腾讯云，。。。
+
+云存储属性配置
+xxxProperties
+
+云存储自动配置，客户端等
+xxxAutoConfiguration
+
+统一的存储服务接口
+FileStorageService
+
+配置`file-storage.oss=aliyun,ucloud`启用不同的云服务
+
+后续接入更多
+
+
+MultipartFile -> 转换
+
+文件上传前预处理
+

@@ -2,6 +2,7 @@ package com.ale.file.upload;
 
 import com.ale.common.BusinessException;
 import com.ale.common.BusinessExceptionEnum;
+import com.ale.file.service.FileUploadService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.CollectionUtils;

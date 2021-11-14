@@ -1,11 +1,16 @@
-package com.ale.file.upload;
+package com.ale.file.service;
 
 import com.ale.file.upload.entity.FileInfo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,6 +24,35 @@ import java.util.Map;
  */
 @Service
 public class FileUploadService {
+
+    @Resource
+    @Qualifier("uCloudStorageService")
+    private FileStorageService fileStorageService;
+
+    /**
+     * Upload map.
+     *
+     * @param multipartFile the multipart files
+     * @return the map
+     */
+    public List<FileInfo> upload(MultipartFile multipartFile) {
+        List<FileInfo> fileInfos = new ArrayList<>();
+        // 文件存放路径
+        String filePath = genStorageFilePath();
+        // 文件名称
+        String originFileName = multipartFile.getOriginalFilename();
+        // 保存文件到磁盘
+        try {
+            InputStream inputStream = multipartFile.getInputStream();
+            fileStorageService.upload(inputStream, filePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return fileInfos;
+    }
 
     /**
      * Upload map.

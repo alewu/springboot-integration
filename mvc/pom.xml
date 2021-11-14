@@ -158,6 +158,17 @@
             <scope>compile</scope>
         </dependency>
 
+        <dependency>
+            <groupId>cn.ucloud.ufile</groupId>
+            <artifactId>ufile-client-java</artifactId>
+            <version>2.6.5</version>
+        </dependency>
+        <dependency>
+            <groupId>com.aliyun.oss</groupId>
+            <artifactId>aliyun-sdk-oss</artifactId>
+            <version>3.10.2</version>
+        </dependency>
+
     </dependencies>
 
     <build>
