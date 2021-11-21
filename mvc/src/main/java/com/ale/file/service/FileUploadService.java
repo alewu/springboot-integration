@@ -26,7 +26,7 @@ import java.util.Map;
 public class FileUploadService {
 
     @Resource
-    @Qualifier("uCloudStorageService")
+//    @Qualifier("uCloudStorageService")
     private FileStorageService fileStorageService;
 
     /**

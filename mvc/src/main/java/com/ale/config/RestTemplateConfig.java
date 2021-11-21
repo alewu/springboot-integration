@@ -1,6 +1,6 @@
 package com.ale.config;
 
-import com.ale.interceptor.CookieClientHttpRequestInterceptor;
+import com.ale.interceptor.HeaderClientHttpRequestInterceptor;
 import com.ale.interceptor.LoggingClientHttpRequestInterceptor;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
@@ -23,12 +23,12 @@ import java.util.List;
 public class RestTemplateConfig {
 
     @Bean("restTemplate")
-    public RestTemplate restTemplate(RestTemplateBuilder builder, CookieClientHttpRequestInterceptor cookieClientHttpRequestInterceptor ) {
+    public RestTemplate restTemplate(RestTemplateBuilder builder, HeaderClientHttpRequestInterceptor headerClientHttpRequestInterceptor) {
         RestTemplate restTemplate = builder
                 .requestFactory(() -> new BufferingClientHttpRequestFactory(new HttpComponentsClientHttpRequestFactory()))
                 .setConnectTimeout(Duration.ofSeconds(30))
                 .setReadTimeout(Duration.ofSeconds(30))
-                .interceptors(cookieClientHttpRequestInterceptor, new LoggingClientHttpRequestInterceptor())
+                .interceptors(headerClientHttpRequestInterceptor, new LoggingClientHttpRequestInterceptor())
                 .build();
 
         //换上fastjson

@@ -1,6 +1,9 @@
 package com.ale.file.service.impl;
 
 import com.ale.file.service.FileStorageService;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -11,23 +14,25 @@ import java.util.List;
 import java.util.Map;
 
 @Service
+@ConditionalOnExpression("'${file-storage.oss}'.contains('local')")
 public class LocalFileStorageService implements FileStorageService {
 
 
 
     @Override
     public String upload(byte[] data, String path) throws Exception {
+        return "";
 
     }
 
     @Override
     public String upload(InputStream inputStream, String path) throws Exception {
-
+        return "";
     }
 
     @Override
     public String upload(File file, String path) throws Exception {
-
+        return "";
     }
 
     @Override
