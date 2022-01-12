@@ -15,7 +15,6 @@
 
     <modules>
         <module>cxf</module>
-        <module>mvc</module>
         <module>redis</module>
         <module>mybatis</module>
         <module>mq</module>
