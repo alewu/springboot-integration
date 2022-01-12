@@ -1,6 +1,5 @@
 package com.ale.excel;
 
-import com.alibaba.excel.metadata.CellData;
 import com.alibaba.excel.metadata.Head;
 import com.alibaba.excel.write.handler.CellWriteHandler;
 import com.alibaba.excel.write.metadata.holder.WriteSheetHolder;
@@ -44,26 +43,24 @@ public class ExcelFillCellMergeStrategy implements CellWriteHandler {
 
     }
 
-    @Override
-    public void afterCellDataConverted(WriteSheetHolder writeSheetHolder, WriteTableHolder writeTableHolder,
-                                       CellData cellData, Cell cell, Head head, Integer integer, Boolean aBoolean) {
+//    @Override
+//    public void afterCellDataConverted(WriteSheetHolder writeSheetHolder, WriteTableHolder writeTableHolder,
+//                                       CellData cellData, Cell cell, Head head, Integer integer, Boolean aBoolean) {
 
-    }
-
-    @Override
-    public void afterCellDispose(WriteSheetHolder writeSheetHolder, WriteTableHolder writeTableHolder,
-                                 List<CellData> list, Cell cell, Head head, Integer integer, Boolean aBoolean) {
-        int curRowIndex = cell.getRowIndex();
-        int curColIndex = cell.getColumnIndex();
-        if (curRowIndex > mergeRowIndex) {
-            for (int columnIndex : mergeColumnIndex) {
-                if (curColIndex == columnIndex) {
-                    mergeWithPrevRow(writeSheetHolder, cell, curRowIndex, curColIndex);
-                    break;
-                }
-            }
-        }
-    }
+//    @Override
+//    public void afterCellDispose(WriteSheetHolder writeSheetHolder, WriteTableHolder writeTableHolder,
+//                                 List<CellData> list, Cell cell, Head head, Integer integer, Boolean aBoolean) {
+//        int curRowIndex = cell.getRowIndex();
+//        int curColIndex = cell.getColumnIndex();
+//        if (curRowIndex > mergeRowIndex) {
+//            for (int columnIndex : mergeColumnIndex) {
+//                if (curColIndex == columnIndex) {
+//                    mergeWithPrevRow(writeSheetHolder, cell, curRowIndex, curColIndex);
+//                    break;
+//                }
+//            }
+//        }
+//    }
 
     /**
      * 当前单元格向上合并
