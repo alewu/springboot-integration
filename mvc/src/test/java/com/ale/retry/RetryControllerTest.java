@@ -11,6 +11,12 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+/**
+ * Testing MVC Web Controllers with Spring Boot and @WebMvcTest
+ * https://reflectoring.io/spring-boot-web-controller-test
+ * <p>
+ * Verifying Controller Responsibilities with @WebMvcTest
+ */
 // @ExtendWith(SpringExtension.class) included in @WebMvcTest
 @WebMvcTest(RetryController.class)
 @Import({CustomRetryerBuilder.class, CustomCallable.class})
@@ -25,8 +31,8 @@ class RetryControllerTest {
         // when
         MockHttpServletResponse response =
                 mvc.perform(MockMvcRequestBuilders.get("/retry").accept(MediaType.APPLICATION_JSON))
-                   .andReturn()
-                   .getResponse();
+                        .andReturn()
+                        .getResponse();
 
         // then
     }

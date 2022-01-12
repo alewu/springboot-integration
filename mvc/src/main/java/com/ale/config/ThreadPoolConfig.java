@@ -35,6 +35,8 @@ public class ThreadPoolConfig {
         });
         // 使用预定义的异常处理类
         // executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
+        // 链路追踪
+        executor.setTaskDecorator(new MDCTaskDecorator());
 
         return executor;
     }

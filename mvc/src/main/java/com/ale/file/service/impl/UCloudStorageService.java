@@ -5,13 +5,12 @@ import cn.ucloud.ufile.bean.PutObjectResultBean;
 import cn.ucloud.ufile.exception.UfileClientException;
 import cn.ucloud.ufile.exception.UfileServerException;
 import cn.ucloud.ufile.http.OnProgressListener;
-import com.ale.file.config.AliyunAutoConfiguration;
 import com.ale.file.config.UCloudAutoConfiguration;
 import com.ale.file.config.UCloudProperties;
 import com.ale.file.service.FileStorageService;
 import com.alibaba.fastjson.JSONObject;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.stereotype.Service;
 
@@ -23,12 +22,12 @@ import java.io.InputStream;
 @Slf4j
 @Service
 @ConditionalOnBean(UCloudAutoConfiguration.class)
+@AllArgsConstructor
 public class UCloudStorageService implements FileStorageService {
 
-    @Autowired
-    private ObjectApiBuilder builder;
-    @Autowired
-    private UCloudProperties properties;
+    private final ObjectApiBuilder builder;
+
+    private final UCloudProperties properties;
 
     @Override
     public String upload(byte[] data, String path) throws Exception {
