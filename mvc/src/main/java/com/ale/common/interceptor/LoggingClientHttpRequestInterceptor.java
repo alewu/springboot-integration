@@ -1,4 +1,4 @@
-package com.ale.interceptor;
+package com.ale.common.interceptor;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpRequest;

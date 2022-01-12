@@ -1,4 +1,4 @@
-package com.ale.filter;
+package com.ale.common.filter;
 
 import com.ale.common.ResponseResult;
 import com.alibaba.fastjson.JSON;

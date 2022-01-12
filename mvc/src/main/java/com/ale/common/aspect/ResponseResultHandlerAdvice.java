@@ -1,4 +1,4 @@
-package com.ale.aspect;
+package com.ale.common.aspect;
 
 import com.ale.common.BaseResponse;
 import com.ale.common.ResponseResult;

@@ -1,7 +1,7 @@
 package com.ale.config;
 
-import com.ale.interceptor.HeaderClientHttpRequestInterceptor;
-import com.ale.interceptor.LoggingClientHttpRequestInterceptor;
+import com.ale.common.interceptor.HeaderClientHttpRequestInterceptor;
+import com.ale.common.interceptor.LoggingClientHttpRequestInterceptor;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;

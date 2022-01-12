@@ -1,11 +1,10 @@
-package com.ale.interceptor;
+package com.ale.common.interceptor;
 
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Optional;
 
 public class PermissionInterceptor implements HandlerInterceptor {
     @Override

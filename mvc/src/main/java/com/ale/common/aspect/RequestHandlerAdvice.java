@@ -1,4 +1,4 @@
-//package com.ale.aspect;
+//package com.ale.common.aspect;
 //
 //import com.baomidou.mybatisplus.core.toolkit.IOUtils;
 //import com.baomidou.mybatisplus.core.toolkit.StringUtils;
