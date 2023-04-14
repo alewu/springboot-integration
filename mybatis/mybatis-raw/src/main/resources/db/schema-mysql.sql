@@ -6,7 +6,8 @@ create table student
     class_id     int         not null default 0 comment '班级id',
     student_name varchar(30) null     default '' comment '姓名',
     gender       int         null     default 0 comment '性别',
-    birthday     date        null comment '出生日期'
+    birthday     date        null comment '出生日期',
+    create_time  date        null comment '创建时间'
 );
 
 
@@ -36,3 +37,20 @@ create table score
     score_value int not null comment '分数值'
 )
     comment '分数表';
+
+DROP TABLE IF EXISTS t_sys_user;
+CREATE TABLE t_sys_user
+(
+    `ID`              int                                                    NOT NULL,
+    `USER_NAME`       varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+    `USER_CODE`       varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+    `USER_PASSWORD`   varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+    `VALID`           tinyint                                                NOT NULL,
+    `LAST_LOGIN_IP`   varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '最后登录ip',
+    `LAST_LOGIN_TIME` datetime                                                DEFAULT NULL COMMENT '最后登录时间',
+    `LOGIN_COUNT`     smallint                                                DEFAULT NULL COMMENT '登录次数',
+    `CREATE_TIME`     datetime                                                DEFAULT NULL,
+    `UPDATE_TIME`     datetime                                                DEFAULT NULL,
+    PRIMARY KEY (`ID`) USING BTREE,
+    KEY               `I_SYS_USER_CLUSTER` (`USER_CODE`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
