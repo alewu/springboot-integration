@@ -1,8 +1,0 @@
-spring:
-  cache:
-    cache-names: customer
-    caffeine:
-      spec: maximumSize=500,expireAfterAccess=600s
-logging:
-  pattern:
-    level: debug
