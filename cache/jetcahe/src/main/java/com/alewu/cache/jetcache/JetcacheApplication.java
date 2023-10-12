@@ -9,7 +9,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
  *
  * @author wywuj
  */
-@EnableMethodCache(basePackages = "com.xxx.mp")
+@EnableMethodCache(basePackages = "com.alewu.cache")
 @EnableConfigurationProperties
 @SpringBootApplication
 public class JetcacheApplication {

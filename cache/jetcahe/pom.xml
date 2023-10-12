@@ -20,10 +20,21 @@
         <jetcache.version>2.7.4</jetcache.version>
         <spring-boot.version>2.7.14</spring-boot.version>
         <jedis.version>4.4.3</jedis.version>
-        <fastjosn2.verion>2.0.37</fastjosn2.verion>
+        <fastjosn2.verion>2.0.40</fastjosn2.verion>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>${spring-boot.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>slf4j-api</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-cache</artifactId>
@@ -35,6 +46,24 @@
             <groupId>com.alicp.jetcache</groupId>
             <artifactId>jetcache-starter-redis</artifactId>
             <version>${jetcache.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>slf4j-api</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-boot-starter</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-context</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 <!--        <dependency>-->
 <!--            <groupId>redis.clients</groupId>-->
@@ -46,6 +75,7 @@
             <artifactId>fastjson2</artifactId>
             <version>${fastjosn2.verion}</version>
         </dependency>
+
     </dependencies>
 
     <build>
