@@ -1,0 +1,61 @@
+# 服务器配置
+server:
+  port: 7073 #端口
+  servlet:
+    context-path: /api #接口前缀
+  tomcat:
+    uri-encoding: UTF-8 #编码格式
+    basedir: ./tmp #设置tomcat目录防止linux清除默认tomcat缓存
+
+spring:
+  # 数据库配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ********
+    username: ********
+    password: ********
+
+  # redis配置
+  redis:
+    host: ********
+    port: 6379
+    password: ********
+    timeout: 5000
+    jedis:
+      pool:
+        max-active: 10
+        min-idle: 0
+        max-wait: 100
+        max-idle: 10
+
+# jetcahe配置
+jetcache:
+  statIntervalMinutes: 15
+  areaInCacheName: false
+  local:
+    default:
+      type: caffeine #other choose：caffeine/linkedhashmap
+      keyConvertor: fastjson2 #other choose：fastjson/jackson
+      limit: 100
+  remote:
+    default:
+      type: redis
+      keyConvertor: fastjson2 #other choose：fastjson/jackson
+      broadcastChannel: projectA
+      valueEncoder: java
+      valueDecoder: java
+      poolConfig:
+        minIdle: 5
+        maxIdle: 20
+        maxTotal: 50
+      host: ${spring.redis.host}
+      port: ${spring.redis.port}
+      password: ${spring.redis.password}
+
+# 日志打印配置
+logging:
+  pattern:
+    console: '%d{HH:mm:ss.SSS} [%thread] %-5level %logger{35} - %msg %n'
+  level:
+    com.xxx.mp.mapper: trace
+    com.xxx.mp: debug
