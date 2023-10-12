@@ -3,7 +3,7 @@ server:
 # DataSource Config
 spring:
   profiles:
-    active: mem
+    active: mysql
 
 # Logger Config
 logging:
@@ -26,6 +26,6 @@ spring:
   profiles: mysql
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://txc:3306/mybatis
+    url: jdbc:mysql://localhost:3306/mybatis?serverTimezone=Asia/Shanghai
     username: root
     password: root

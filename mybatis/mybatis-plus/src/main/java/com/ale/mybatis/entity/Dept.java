@@ -16,8 +16,8 @@ public class Dept {
 
     private String deptName;
 
-    @TableLogic
-    private Integer deleted;
+//    @TableLogic
+//    private Integer deleted;
 
     @TableField(value = "gmt_create", fill = FieldFill.INSERT)
     private LocalDateTime gmtCreate;

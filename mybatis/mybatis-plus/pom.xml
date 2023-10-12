@@ -32,6 +32,12 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-extension</artifactId>
+            <version>3.3.2</version>
+            <scope>compile</scope>
+        </dependency>
         <!-- mybatis-plus end -->
     </dependencies>
 
