@@ -1,4 +1,4 @@
-package com.ale.config;
+package com.ale.cahce.redis.config;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import org.springframework.context.annotation.Bean;
