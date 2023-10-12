@@ -1,6 +1,6 @@
 package com.ale.simple;
 
-import com.ale.entity.UserEntity;
+import com.ale.redis.entity.UserEntity;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

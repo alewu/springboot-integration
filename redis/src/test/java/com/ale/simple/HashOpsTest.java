@@ -1,7 +1,7 @@
 package com.ale.simple;
 
-import com.ale.entity.UserEntity;
-import com.ale.redisson.ThreadPoolConfig;
+import com.ale.redis.entity.UserEntity;
+import com.ale.redis.client.redisson.ThreadPoolConfig;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;

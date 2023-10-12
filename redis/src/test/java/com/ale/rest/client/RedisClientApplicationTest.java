@@ -1,6 +1,6 @@
 package com.ale.rest.client;
 
-import com.ale.bean.User;
+import com.ale.redis.entity.User;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
