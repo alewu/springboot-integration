@@ -3,6 +3,7 @@ package com.ale.cahce.redis.service;
 import com.ale.cahce.redis.aspect.RedisCache;
 import com.ale.cahce.redis.model.Product;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.TreeMap;
@@ -10,8 +11,6 @@ import java.util.TreeMap;
 @Service("productService")
 @Slf4j
 public class DefaultProductServiceImpl implements ProductService {
-
-
 
     @Override
     public Product getProductByCode(String code) {
@@ -24,8 +23,8 @@ public class DefaultProductServiceImpl implements ProductService {
         return product;
     }
 
-    @RedisCache(key="aa")
     @Override
+    @Cacheable(cacheNames = "product#123")
     public TreeMap<String, String> getProduct(String code) {
         log.info("Get product by code {} ", code);
         Product product = new Product();

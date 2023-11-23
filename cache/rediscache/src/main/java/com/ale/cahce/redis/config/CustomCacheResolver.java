@@ -1,4 +1,4 @@
-package com.ale.cahce.redis;
+package com.ale.cahce.redis.config;
 
 import com.ale.cahce.redis.service.DefaultCustomerServiceImpl;
 import com.ale.cahce.redis.service.DefaultProductServiceImpl;
@@ -15,7 +15,7 @@ import java.util.Collections;
 /**
  * @author wywuj
  */
-@Component
+//@Component
 public class CustomCacheResolver implements CacheResolver {
     private final CacheManager cacheManager;
     private final CacheManager alternateCacheManager;

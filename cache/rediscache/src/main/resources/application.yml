@@ -3,6 +3,9 @@ spring:
     cache-names: customer
     caffeine:
       spec: maximumSize=500,expireAfterAccess=600s
+  redis:
+    host: localhost
+    password: 123456
 logging:
   pattern:
     level: debug
