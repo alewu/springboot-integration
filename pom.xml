@@ -16,6 +16,7 @@
     <properties>
         <lombok.version>1.18.20</lombok.version>
         <org.mapstruct.version>1.5.1.Final</org.mapstruct.version>
+        <guava.version>32.0.0-jre</guava.version>
     </properties>
 
     <modules>
@@ -50,7 +51,7 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>32.0.0-jre</version>
+            <version>${guava.version}</version>
         </dependency>
     </dependencies>
 
